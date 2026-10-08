@@ -1,57 +1,31 @@
-import { useEffect, useState, useCallback } from "react";
-import Lenis from "lenis";
-import "@/App.css";
-import Navbar from "@/components/Navbar";
-import Hero from "@/components/Hero";
-import StatsBento from "@/components/StatsBento";
-import Marquee from "@/components/Marquee";
-import Vision from "@/components/Vision";
-import History from "@/components/History";
-import Capabilities from "@/components/Capabilities";
-import Integrated from "@/components/Integrated";
-import Tolerance from "@/components/Tolerance";
-import Footer from "@/components/Footer";
-import RFQModal from "@/components/RFQModal";
+import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
+import { AuthProvider } from "@/context/AuthContext";
 import { Toaster } from "@/components/ui/sonner";
+import Home from "@/pages/Home";
+import Dashboard from "@/pages/Dashboard";
+import AuthCallback from "@/pages/AuthCallback";
+import "@/App.css";
 
-function App() {
-  const [rfqOpen, setRfqOpen] = useState(false);
-  const openRfq = useCallback(() => setRfqOpen(true), []);
-
-  useEffect(() => {
-    const lenis = new Lenis({ duration: 1.15, smoothWheel: true });
-    window.__lenis = lenis;
-    let rafId;
-    const raf = (time) => {
-      lenis.raf(time);
-      rafId = requestAnimationFrame(raf);
-    };
-    rafId = requestAnimationFrame(raf);
-    return () => {
-      cancelAnimationFrame(rafId);
-      lenis.destroy();
-      window.__lenis = null;
-    };
-  }, []);
-
+function AppRouter() {
+  const location = useLocation();
+  // Read the fragment from useLocation() (reactive) — not window.location.hash.
+  if (location.hash?.includes("session_id=")) return <AuthCallback />;
   return (
-    <div className="min-h-screen bg-[#0A0A0A] text-zinc-100" data-testid="app-root">
-      <Toaster theme="dark" position="bottom-right" />
-      <Navbar onQuote={openRfq} />
-      <main>
-        <Hero onQuote={openRfq} />
-        <StatsBento />
-        <Marquee />
-        <Vision />
-        <History />
-        <Capabilities />
-        <Integrated />
-        <Tolerance />
-      </main>
-      <Footer onQuote={openRfq} />
-      <RFQModal open={rfqOpen} onOpenChange={setRfqOpen} />
-    </div>
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/dashboard" element={<Dashboard />} />
+      <Route path="*" element={<Home />} />
+    </Routes>
   );
 }
 
-export default App;
+export default function App() {
+  return (
+    <AuthProvider>
+      <BrowserRouter>
+        <Toaster theme="dark" position="bottom-right" />
+        <AppRouter />
+      </BrowserRouter>
+    </AuthProvider>
+  );
+}

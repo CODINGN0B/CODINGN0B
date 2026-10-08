@@ -1,5 +1,4 @@
-@import url('https://api.fontshare.com/v2/css?f[]=clash-display@500,600,700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&family=Noto+Sans+TC:wght@300;400;500;700;900&family=JetBrains+Mono:wght@400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&family=Archivo:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -7,26 +6,32 @@
 
 @layer base {
     :root {
-        --background: 0 0% 4%;
-        --foreground: 0 0% 96%;
-        --card: 0 0% 6%;
-        --card-foreground: 0 0% 96%;
-        --popover: 0 0% 6%;
-        --popover-foreground: 0 0% 96%;
-        --primary: 43 74% 52%;
-        --primary-foreground: 0 0% 4%;
-        --secondary: 0 0% 12%;
-        --secondary-foreground: 0 0% 96%;
-        --muted: 0 0% 12%;
-        --muted-foreground: 0 0% 64%;
-        --accent: 0 0% 14%;
-        --accent-foreground: 0 0% 96%;
-        --destructive: 0 62.8% 30.6%;
-        --destructive-foreground: 0 0% 98%;
-        --border: 0 0% 16%;
-        --input: 0 0% 18%;
-        --ring: 43 74% 52%;
-        --radius: 0.35rem;
+        --background: 210 11% 4%;
+        --foreground: 210 14% 96%;
+        --card: 210 10% 7%;
+        --card-foreground: 210 14% 94%;
+        --popover: 210 10% 7%;
+        --popover-foreground: 210 14% 94%;
+        --primary: 213 62% 58%;
+        --primary-foreground: 210 20% 6%;
+        --secondary: 210 8% 13%;
+        --secondary-foreground: 210 14% 96%;
+        --muted: 210 8% 12%;
+        --muted-foreground: 210 8% 62%;
+        --accent: 213 25% 20%;
+        --accent-foreground: 210 14% 96%;
+        --destructive: 0 72% 51%;
+        --destructive-foreground: 0 0% 100%;
+        --border: 210 8% 16%;
+        --input: 210 8% 18%;
+        --ring: 213 62% 58%;
+        --radius: 0.375rem;
+
+        --steel: #4f8fd9;
+        --steel-soft: rgba(79, 143, 217, 0.14);
+        --ink: #08090a;
+        --surface: #101214;
+        --hairline: rgba(255, 255, 255, 0.07);
     }
 }
 
@@ -34,105 +39,108 @@
     * {
         @apply border-border;
     }
+    html {
+        scroll-behavior: smooth;
+    }
     body {
         @apply bg-background text-foreground;
-        font-family: 'Manrope', 'Noto Sans TC', sans-serif;
+        font-family: 'Archivo', 'Helvetica Neue', Arial, sans-serif;
+        font-weight: 400;
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
-        background-color: #0A0A0A;
+        background-color: var(--ink);
         overflow-x: hidden;
     }
+    h1, h2, h3, h4, h5 {
+        font-family: 'Barlow', 'Helvetica Neue', Arial, sans-serif;
+        font-weight: 600;
+    }
     ::selection {
-        background: #FFB000;
-        color: #0A0A0A;
+        background: var(--steel);
+        color: #06080a;
+    }
+    :focus-visible {
+        outline: 2px solid var(--steel);
+        outline-offset: 2px;
     }
     ::-webkit-scrollbar {
         width: 10px;
     }
     ::-webkit-scrollbar-track {
-        background: #0A0A0A;
+        background: var(--ink);
     }
     ::-webkit-scrollbar-thumb {
-        background: #2a2a2e;
-        border: 2px solid #0A0A0A;
+        background: #272b2f;
+        border: 2px solid var(--ink);
         border-radius: 8px;
     }
     ::-webkit-scrollbar-thumb:hover {
-        background: #D4AF37;
+        background: #3a4046;
     }
 }
 
 @layer utilities {
     .font-display {
-        font-family: 'Clash Display', 'Noto Sans TC', sans-serif;
+        font-family: 'Barlow', 'Helvetica Neue', Arial, sans-serif;
     }
     .font-tech {
-        font-family: 'JetBrains Mono', monospace;
+        font-family: 'JetBrains Mono', ui-monospace, monospace;
+    }
+    .label-tech {
+        font-family: 'JetBrains Mono', ui-monospace, monospace;
+        font-size: 10px;
+        letter-spacing: 0.24em;
+        text-transform: uppercase;
+        color: #8a939c;
     }
     .glass {
-        background: rgba(16, 16, 18, 0.55);
-        backdrop-filter: blur(24px);
-        -webkit-backdrop-filter: blur(24px);
-        border: 1px solid rgba(255, 255, 255, 0.08);
+        background: rgba(14, 16, 19, 0.55);
+        backdrop-filter: blur(16px) saturate(140%);
+        -webkit-backdrop-filter: blur(16px) saturate(140%);
+        border: 1px solid var(--hairline);
     }
-    .glass-deep {
-        background: rgba(10, 10, 10, 0.78);
-        backdrop-filter: blur(32px);
-        -webkit-backdrop-filter: blur(32px);
-        border: 1px solid rgba(255, 255, 255, 0.1);
+    .glass-solid {
+        background: rgba(8, 9, 10, 0.86);
+        backdrop-filter: blur(22px) saturate(140%);
+        -webkit-backdrop-filter: blur(22px) saturate(140%);
+        border: 1px solid rgba(255, 255, 255, 0.09);
     }
-    .metallic-edge {
-        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.09), 0 8px 32px rgba(0, 0, 0, 0.45);
+    .hairline-t {
+        border-top: 1px solid var(--hairline);
     }
-    .gold-glow:hover {
-        box-shadow: 0 0 0 1px rgba(212, 175, 55, 0.55), 0 0 32px rgba(212, 175, 55, 0.22);
+    .tech-grid {
+        background-image:
+            repeating-linear-gradient(to right, rgba(255, 255, 255, 0.035) 0 1px, transparent 1px 96px),
+            repeating-linear-gradient(to bottom, rgba(255, 255, 255, 0.035) 0 1px, transparent 1px 96px);
     }
-    .cyan-glow:hover {
-        box-shadow: 0 0 0 1px rgba(0, 243, 255, 0.5), 0 0 32px rgba(0, 243, 255, 0.18);
+    .tech-grid-fine {
+        background-image:
+            repeating-linear-gradient(to right, rgba(255, 255, 255, 0.04) 0 1px, transparent 1px 24px),
+            repeating-linear-gradient(to bottom, rgba(255, 255, 255, 0.04) 0 1px, transparent 1px 24px);
     }
-    .text-outline {
-        -webkit-text-stroke: 1px rgba(255, 255, 255, 0.16);
-        color: transparent;
+    .rule-ticks {
+        background-image: repeating-linear-gradient(to right, rgba(255, 255, 255, 0.22) 0 1px, transparent 1px 12px);
     }
-    .clip-frame {
-        clip-path: polygon(0 0, 100% 0, 100% calc(100% - 2rem), calc(100% - 2rem) 100%, 0 100%);
+    .steel-ring:hover {
+        box-shadow: 0 0 0 1px rgba(79, 143, 217, 0.4);
     }
-}
-
-body::after {
-    content: "";
-    position: fixed;
-    inset: 0;
-    z-index: 200;
-    pointer-events: none;
-    opacity: 0.05;
-    mix-blend-mode: overlay;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.6'/%3E%3C/svg%3E");
-}
-
-@keyframes marquee {
-    from { transform: translateX(0); }
-    to { transform: translateX(-50%); }
-}
-.animate-marquee {
-    animation: marquee 48s linear infinite;
-}
-
-@keyframes scanline {
-    0% { transform: translateY(-100%); }
-    100% { transform: translateY(100%); }
-}
-.animate-scanline {
-    animation: scanline 3.2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
-}
-
-@keyframes pulse-dot {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.25; }
-}
-.animate-pulse-dot {
-    animation: pulse-dot 1.6s ease-in-out infinite;
+    .surface-card {
+        background: linear-gradient(180deg, rgba(255, 255, 255, 0.025), rgba(255, 255, 255, 0)) var(--surface);
+        border: 1px solid var(--hairline);
+    }
+    .shadow-soft {
+        box-shadow: 0 18px 50px -24px rgba(0, 0, 0, 0.9);
+    }
 }
 
 html.lenis, html.lenis body { height: auto; }
 .lenis.lenis-smooth { scroll-behavior: auto !important; }
+
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.001ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.001ms !important;
+        scroll-behavior: auto !important;
+    }
+}

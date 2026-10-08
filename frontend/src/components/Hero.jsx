@@ -1,131 +1,121 @@
-import { useState } from "react";
-import { motion } from "framer-motion";
-import CarShowcase, { ModelLoadingOverlay } from "./CarShowcase";
-import { scrollTo } from "./Navbar";
+import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
+import { ArrowRight, ArrowDown } from "lucide-react";
+import { COMPANY, IMAGES, scrollToId } from "@/lib/site";
 
-const MODES = [
-  { id: "default", en: "Default", tc: "標準" },
-  { id: "exploded", en: "Exploded", tc: "分解" },
-  { id: "xray", en: "X-Ray", tc: "透視" },
-  { id: "wireframe", en: "Wireframe", tc: "線框" },
-];
-
-const MaskedLine = ({ children, delay }) => (
-  <span className="block overflow-hidden pb-1">
-    <motion.span
-      className="block"
-      initial={{ y: "115%" }}
-      animate={{ y: "0%" }}
-      transition={{ duration: 1.1, delay, ease: [0.22, 1, 0.36, 1] }}
-    >
-      {children}
-    </motion.span>
-  </span>
+const HeritageBlock = ({ label, value, testid }) => (
+  <div className="border-l border-white/15 pl-4" data-testid={testid}>
+    <p className="label-tech">{label}</p>
+    <p className="mt-1.5 font-display text-sm font-medium uppercase tracking-[0.14em] text-zinc-100">{value}</p>
+  </div>
 );
 
-export default function Hero({ onQuote }) {
-  const [mode, setMode] = useState("default");
+export default function Hero() {
+  const reduce = useReducedMotion();
+  const { scrollY } = useScroll();
+  const gridY = useTransform(scrollY, [0, 800], [0, reduce ? 0 : 120]);
+  const imgY = useTransform(scrollY, [0, 800], [0, reduce ? 0 : 80]);
 
   return (
-    <section id="top" className="relative h-[100svh] min-h-[640px] w-full overflow-hidden" data-testid="hero-section">
-      <div className="absolute inset-0 z-0">
-        <CarShowcase mode={mode} />
+    <section
+      id="top"
+      className="relative isolate flex min-h-[100svh] flex-col justify-end overflow-hidden pb-14 pt-32 sm:pb-20"
+      data-testid="hero-section"
+    >
+      <motion.div className="absolute inset-0 -z-20" style={{ y: imgY }}>
+        <img
+          src={IMAGES.hero}
+          alt="Precision machining of a metal component on a CNC machine"
+          className="h-[115%] w-full object-cover"
+          loading="eager"
+          fetchPriority="high"
+        />
+      </motion.div>
+      <div className="absolute inset-0 -z-10 bg-[linear-gradient(to_right,rgba(6,8,10,0.94),rgba(6,8,10,0.78)_55%,rgba(6,8,10,0.55))]" />
+      <div className="absolute inset-0 -z-10 bg-[linear-gradient(to_top,#08090a_6%,transparent_55%)]" />
+      <motion.div
+        className="tech-grid pointer-events-none absolute inset-0 -z-10 opacity-[0.55]"
+        style={{ y: gridY }}
+        aria-hidden="true"
+      />
+
+      {/* CAD-style measurement markings */}
+      <div className="pointer-events-none absolute inset-0 -z-10 hidden lg:block" aria-hidden="true">
+        <div className="absolute left-0 top-1/2 h-px w-20 bg-white/20" />
+        <div className="absolute right-0 top-[38%] h-px w-20 bg-white/20" />
+        <div className="rule-ticks absolute bottom-0 left-0 h-3 w-full opacity-20" />
+        <span className="absolute left-24 top-[calc(50%-18px)] font-tech text-[9px] tracking-[0.2em] text-white/35">
+          X 0.000
+        </span>
+        <span className="absolute right-24 top-[calc(38%-18px)] font-tech text-[9px] tracking-[0.2em] text-white/35">
+          Y 0.000
+        </span>
       </div>
-      <ModelLoadingOverlay />
 
-      <div className="pointer-events-none absolute inset-0 z-10 bg-[radial-gradient(ellipse_at_center,transparent_35%,rgba(10,10,10,0.85)_100%)]" />
-      <div className="pointer-events-none absolute inset-x-0 bottom-0 z-10 h-40 bg-gradient-to-t from-[#0A0A0A] to-transparent" />
+      <div className="mx-auto w-full max-w-[1400px] px-5 sm:px-8">
+        <motion.p
+          initial={reduce ? false : { opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+          className="label-tech !text-[color:var(--steel)]"
+          data-testid="hero-eyebrow"
+        >
+          Precision Manufacturing
+        </motion.p>
 
-      <div className="pointer-events-none relative z-20 mx-auto flex h-full max-w-[1600px] flex-col justify-between px-6 pb-8 pt-28 md:px-12 lg:px-24">
-        <div className="max-w-3xl">
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 1, delay: 0.3 }}
-            className="font-tech text-[10px] uppercase tracking-[0.35em] text-[#00F3FF] md:text-xs"
-            data-testid="hero-overline"
-          >
-            裕豐金屬塑料製品有限公司 · Est. 1984 · Hong Kong
-          </motion.p>
-          <h1 className="font-display mt-6 text-5xl font-semibold uppercase leading-[0.95] tracking-tight sm:text-6xl lg:text-8xl" data-testid="hero-headline">
-            <MaskedLine delay={0.45}>Where</MaskedLine>
-            <MaskedLine delay={0.58}>Microns</MaskedLine>
-            <MaskedLine delay={0.71}>
-              Become <span className="text-[#D4AF37]">Millions</span>
-            </MaskedLine>
-          </h1>
-          <motion.p
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.9, delay: 1.1 }}
-            className="mt-6 max-w-md text-sm leading-relaxed text-zinc-400 md:text-base"
-            data-testid="hero-subcopy"
-          >
-            Precision tooling, injection molding and high-tolerance metal stamping for the world's
-            most demanding automotive and electronics programs.
-            <span className="mt-2 block text-[#D4AF37]/80">精密模具 · 注塑成型 · 金屬沖壓</span>
-          </motion.p>
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.9, delay: 1.25 }}
-            className="pointer-events-auto mt-8 flex flex-wrap items-center gap-4"
-          >
-            <button
-              onClick={onQuote}
-              data-testid="hero-request-quote-btn"
-              className="gold-glow rounded-lg border border-[#D4AF37]/50 bg-[#D4AF37] px-7 py-3.5 font-tech text-xs font-bold uppercase tracking-[0.22em] text-black transition-all duration-300 hover:-translate-y-0.5"
-            >
-              Request a Quote 索取報價
-            </button>
-            <button
-              onClick={() => scrollTo("#capabilities")}
-              data-testid="hero-capabilities-btn"
-              className="glass metallic-edge cyan-glow rounded-lg px-7 py-3.5 font-tech text-xs uppercase tracking-[0.22em] text-zinc-200 transition-all duration-300 hover:-translate-y-0.5"
-            >
-              View Capabilities →
-            </button>
-          </motion.div>
-        </div>
+        <motion.h1
+          initial={reduce ? false : { opacity: 0, y: 24 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.08, ease: [0.16, 1, 0.3, 1] }}
+          className="mt-5 max-w-4xl font-display text-5xl font-semibold uppercase leading-[0.92] tracking-tight text-white sm:text-6xl lg:text-7xl"
+          data-testid="hero-heading"
+        >
+          Built to Perform.
+        </motion.h1>
 
-        <div className="flex flex-wrap items-end justify-between gap-6">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.9, delay: 1.4 }}
-            className="pointer-events-auto glass metallic-edge inline-flex flex-wrap rounded-xl p-1.5"
-            data-testid="view-mode-toggles"
-          >
-            {MODES.map((m) => (
-              <button
-                key={m.id}
-                onClick={() => setMode(m.id)}
-                data-testid={`mode-toggle-${m.id}`}
-                className={`rounded-lg px-4 py-2.5 font-tech text-[10px] uppercase tracking-[0.18em] transition-all duration-300 md:text-[11px] ${
-                  mode === m.id
-                    ? "bg-[#00F3FF]/15 text-[#00F3FF] shadow-[inset_0_0_0_1px_rgba(0,243,255,0.4),0_0_18px_rgba(0,243,255,0.15)]"
-                    : "text-zinc-500 hover:text-zinc-200"
-                }`}
-              >
-                {m.en} <span className="ml-1 opacity-70">{m.tc}</span>
-              </button>
-            ))}
-          </motion.div>
+        <motion.p
+          initial={reduce ? false : { opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.16, ease: [0.16, 1, 0.3, 1] }}
+          className="mt-6 max-w-xl text-sm leading-relaxed text-zinc-300 sm:text-base"
+          data-testid="hero-subtext"
+        >
+          Precision-engineered metal and plastic products manufactured to demanding standards.
+        </motion.p>
 
-          <motion.button
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 1, delay: 1.6 }}
-            onClick={() => scrollTo("#stats")}
-            className="pointer-events-auto hidden items-center gap-3 font-tech text-[10px] uppercase tracking-[0.3em] text-zinc-500 transition-colors hover:text-zinc-200 md:flex"
-            data-testid="hero-scroll-cue"
+        <motion.div
+          initial={reduce ? false : { opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.24, ease: [0.16, 1, 0.3, 1] }}
+          className="mt-10 flex flex-col gap-3 sm:flex-row sm:items-center"
+        >
+          <button
+            onClick={() => scrollToId("#quote")}
+            data-testid="hero-request-quote-btn"
+            className="group flex items-center justify-center gap-2.5 rounded-md bg-[color:var(--steel)] px-7 py-4 font-tech text-[11px] uppercase tracking-[0.2em] text-[#06080a] transition-colors duration-300 hover:bg-[#6aa4e6] active:scale-[0.99]"
           >
-            Scroll 滾動
-            <span className="relative h-10 w-px overflow-hidden bg-zinc-700">
-              <span className="animate-scanline absolute inset-x-0 h-1/2 bg-[#D4AF37]" />
-            </span>
-          </motion.button>
-        </div>
+            Request a Quote
+            <ArrowRight size={14} className="transition-transform duration-300 group-hover:translate-x-1" />
+          </button>
+          <button
+            onClick={() => scrollToId("#capabilities")}
+            data-testid="hero-explore-btn"
+            className="group flex items-center justify-center gap-2.5 rounded-md border border-white/15 bg-white/[0.02] px-7 py-4 font-tech text-[11px] uppercase tracking-[0.2em] text-zinc-200 transition-colors duration-300 hover:border-white/30 hover:bg-white/[0.06]"
+          >
+            Explore Capabilities
+            <ArrowDown size={14} className="transition-transform duration-300 group-hover:translate-y-1" />
+          </button>
+        </motion.div>
+
+        <motion.div
+          initial={reduce ? false : { opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.34, ease: [0.16, 1, 0.3, 1] }}
+          className="mt-14 grid max-w-xl grid-cols-2 gap-6 border-t border-white/10 pt-8 sm:mt-20"
+          data-testid="hero-heritage"
+        >
+          <HeritageBlock label={`Est. ${COMPANY.established}`} value="Hong Kong" testid="hero-heritage-est" />
+          <HeritageBlock label="Manufacturing" value="Dongguan, China" testid="hero-heritage-mfg" />
+        </motion.div>
       </div>
     </section>
   );

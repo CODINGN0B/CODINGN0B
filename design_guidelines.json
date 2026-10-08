@@ -1,139 +1,124 @@
 {
-  "project_context": {
-    "client": "Yue Fung Metal & Plastic Products Co. Ltd. (裕豐金屬塑料製品有限公司)",
-    "type": "3D Experience Marketing Site & Industrial Manufacturer Portfolio",
-    "vibe": "Modern industrial vibe, premium industrial luxury, awwwards-level craft",
-    "primary_audience": "B2B Automotive and Electronics Clients seeking advanced precision tooling and manufacturing"
-  },
   "theme": "dark",
-  "colors": {
-    "background": {
-      "primary": "#0A0A0A",
-      "secondary": "#141414",
-      "tertiary": "#1E1E1E"
-    },
-    "text": {
-      "primary": "#F5F5F5",
-      "secondary": "#A1A1AA",
-      "accent": "#D4AF37",
-      "muted": "#52525B"
-    },
-    "accents": {
-      "gold": "#D4AF37",
-      "neon_cyan": "#00F3FF",
-      "amber": "#FFB000",
-      "metallic_border": "rgba(255, 255, 255, 0.1)"
-    },
-    "glass": {
-      "background": "rgba(10, 10, 10, 0.6)",
-      "border": "rgba(255, 255, 255, 0.1)",
-      "blur": "24px"
-    },
-    "rules": [
-      "No generic full-screen gradients. Use solid dark backgrounds paired with frosted glass overlays.",
-      "Use Neon Cyan (#00F3FF) or Amber (#FFB000) exclusively for technical highlights, active states, and 3D mode toggles.",
-      "Never use pure transparent backgrounds for components with text overlays; always use glassmorphism with blur and a minimal opacity solid color to ensure text legibility."
-    ]
-  },
   "typography": {
-    "font_families": {
-      "headings": "'Clash Display', 'Outfit', sans-serif",
-      "body": "'Inter', 'Manrope', sans-serif",
-      "chinese": "'Noto Sans TC', 'PingFang TC', sans-serif",
-      "mono": "'JetBrains Mono', 'Source Code Pro', monospace"
-    },
+    "heading_font": "Barlow",
+    "body_font": "Inter",
+    "mono_font": "JetBrains Mono",
     "scale": {
-      "hero_h1": "text-5xl md:text-6xl+ tracking-tighter uppercase font-black",
-      "section_h2": "text-3xl md:text-4xl tracking-tight uppercase font-bold",
-      "card_h3": "text-xl md:text-2xl tracking-wide",
-      "body": "text-base md:text-lg leading-relaxed text-secondary",
-      "metric_value": "text-4xl md:text-5xl font-mono font-medium text-gold",
-      "labels": "text-xs md:text-sm uppercase tracking-[0.2em] font-mono text-neon_cyan"
-    },
-    "rules": [
-      "Bilingual integration: Subtly pair English headings with smaller Traditional Chinese text (e.g., as an overline or watermark).",
-      "Headings should feature extremely tight tracking and stark font-weight contrasts.",
-      "Never use Inter for headings."
-    ]
+      "h1": "text-5xl md:text-6xl lg:text-7xl font-bold tracking-tighter uppercase",
+      "h2": "text-3xl md:text-4xl lg:text-5xl font-semibold tracking-tight uppercase",
+      "h3": "text-2xl md:text-3xl font-medium tracking-tight",
+      "h4": "text-xl font-medium",
+      "body": "text-base text-neutral-400 leading-relaxed",
+      "metadata": "text-xs font-mono uppercase tracking-[0.2em] text-neutral-500"
+    }
   },
-  "spacing_and_layout": {
-    "philosophy": "Generous Spacing & High Tension. Use 2-3x typical spacing between sections to let the 3D and typography breathe.",
-    "bento_grid": {
-      "mode": "Tetris Mode",
-      "gap": "gap-4 md:gap-6",
-      "rules": "Avoid perfectly symmetrical layouts. Use asymmetric row/col spans (col-span-1, col-span-2) for the metrics counters under the hero."
-    },
-    "padding": {
-      "section": "py-24 md:py-32",
-      "container": "px-6 md:px-12 lg:px-24 max-w-[1600px] mx-auto",
-      "glass_card": "p-8 md:p-12"
+  "colors": {
+    "background": "#0A0A0A",
+    "surface": "#121212",
+    "surface_hover": "#1A1A1A",
+    "border": "#262626",
+    "text_primary": "#FFFFFF",
+    "text_secondary": "#A3A3A3",
+    "accent_blue": "#5C9CE6",
+    "accent_steel": "#64748B",
+    "css_variables": {
+      "--background": "0 0% 4%",
+      "--foreground": "0 0% 100%",
+      "--card": "0 0% 7%",
+      "--card-foreground": "0 0% 90%",
+      "--popover": "0 0% 7%",
+      "--popover-foreground": "0 0% 90%",
+      "--primary": "213 94% 68%",
+      "--primary-foreground": "0 0% 10%",
+      "--secondary": "0 0% 15%",
+      "--secondary-foreground": "0 0% 100%",
+      "--muted": "0 0% 12%",
+      "--muted-foreground": "0 0% 64%",
+      "--accent": "215 25% 27%",
+      "--accent-foreground": "0 0% 100%",
+      "--destructive": "0 84% 60%",
+      "--destructive-foreground": "0 0% 100%",
+      "--border": "0 0% 15%",
+      "--input": "0 0% 15%",
+      "--ring": "213 94% 68%",
+      "--radius": "0.375rem"
     }
   },
   "visual_enhancers": {
-    "glassmorphism": "Use 'backdrop-blur-2xl bg-black/40 border border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.4)]' for cards, headers, and modals.",
-    "borders": "1px metallic/solid inner stroke to ground UI components.",
-    "textures": "Subtle grain texture overlay (mix-blend-overlay with 5-10% opacity) on the main body to remove digital flatness."
+    "glassmorphism": "bg-black/40 backdrop-blur-xl border border-white/10",
+    "shadows": "shadow-[0_8px_32px_rgba(0,0,0,0.5)]",
+    "borders": "border border-border",
+    "border_radius": "rounded-md",
+    "textures": "Subtle CAD-style technical lines, measurement indicators (+ crosshairs at corners of sections), and faint coordinate grids. Use SVG backgrounds or repeating linear gradients for grids (opacity-5)."
   },
-  "motion_and_interactions": {
-    "scrolling": "MUST use '@studio-freight/react-lenis' for smooth, weighted momentum scrolling.",
-    "reveals": "Use framer-motion for large kinetic hero text with signature on-load masked line-by-line reveal.",
-    "micro_interactions": "Hover states on cards should trigger a subtle `-translate-y-1` shift and an inner glow effect (box-shadow or radial gradient).",
-    "parallax": "Apply subtle framer-motion `useScroll` based Y-axis transformations to background elements and manifesto numbers.",
-    "marquee": "One slow, smooth editorial marquee displaying brand name and core values (uppercase, mono/serif mix). Use 'react-fast-marquee'."
+  "layouts": {
+    "container": "max-w-7xl mx-auto px-6 md:px-12 w-full",
+    "section_padding": "py-24 md:py-32",
+    "hero": "min-h-[100svh] flex flex-col justify-center relative overflow-hidden",
+    "bento_grid": "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6",
+    "products_grid": "grid grid-cols-1 md:grid-cols-2 gap-8"
   },
-  "3d_and_interactive": {
-    "library": "@react-three/fiber, @react-three/drei",
-    "hero_scene": "Photorealistic 3D BMW 4 Series Coupé G22 style (logo removed).",
-    "view_modes": [
-      "Default (Photorealistic studio lighting)",
-      "Exploded View (Parts translating outward on Y/Z axes)",
-      "X-Ray Material (Translucent glowing materials)",
-      "Wireframe (Neon cyan/amber line rendering)"
+  "components": {
+    "navbar": "fixed top-4 left-1/2 -translate-x-1/2 w-[calc(100%-2rem)] max-w-7xl z-50 glassmorphism rounded-full px-6 py-4 flex justify-between items-center transition-all duration-300",
+    "button_primary": "bg-primary text-primary-foreground hover:bg-primary/90 px-6 py-3 rounded-md font-medium transition-colors duration-300 flex items-center gap-2 group",
+    "button_secondary": "bg-transparent border border-white/20 text-white hover:bg-white/5 px-6 py-3 rounded-md font-medium transition-colors duration-300 flex items-center gap-2 group",
+    "card_capabilities": "bg-card border border-border p-8 rounded-md relative overflow-hidden group transition-all duration-500 hover:-translate-y-2 hover:border-primary/50 hover:shadow-[0_8px_30px_rgba(92,156,230,0.15)]",
+    "process_timeline": "relative flex flex-col md:flex-row justify-between items-start md:items-center gap-12 md:gap-4 before:absolute before:content-[''] before:bg-border before:w-px md:before:w-full before:h-full md:before:h-px before:left-[15px] md:before:left-0 before:top-0 md:before:top-[15px]",
+    "process_node": "relative z-10 w-8 h-8 rounded-full bg-background border-2 border-primary flex items-center justify-center font-mono text-xs text-primary shadow-[0_0_15px_rgba(92,156,230,0.3)]",
+    "form_input": "flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 transition-colors"
+  },
+  "motion": {
+    "entrance": "initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '-100px' }} transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}",
+    "stagger": "transition={{ staggerChildren: 0.15 }}",
+    "hover_button_arrow": "group-hover:translate-x-1 transition-transform duration-300",
+    "hover_card_image": "group-hover:scale-105 transition-transform duration-700 ease-out"
+  },
+  "images": {
+    "hero_bg": {
+      "url": "https://images.unsplash.com/photo-1740209475472-aa7d280f7452?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjAzMzJ8MHwxfHNlYXJjaHwyfHxtZXRhbCUyMG1hbnVmYWN0dXJpbmclMjBwcmVjaXNpb258ZW58MHx8fHwxNzkxNDYwMDExfDA&ixlib=rb-4.1.0&q=85",
+      "description": "High-quality precision metal cutting machine for hero background"
+    },
+    "products": [
+      {
+        "url": "https://images.unsplash.com/photo-1666634157070-6fd830fb5672?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NTYxOTB8MHwxfHNlYXJjaHwyfHxDTkMlMjBtYWNoaW5pbmd8ZW58MHx8fHwxNzkxNDYwMDEwfDA&ixlib=rb-4.1.0&q=85",
+        "description": "Metal rod being machined in lathe"
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1593106410288-caf65eca7c9d?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjAzMzJ8MHwxfHNlYXJjaHwzfHxtZXRhbCUyMG1hbnVmYWN0dXJpbmclMjBwcmVjaXNpb258ZW58MHx8fHwxNzkxNDYwMDExfDA&ixlib=rb-4.1.0&q=85",
+        "description": "Laser cutting machine with orange sparks"
+      }
     ],
-    "controls": "PresentationControls for smooth user rotation. Use Drei's <Environment preset='city'> or custom HDRI for metallic reflections.",
-    "technical_integration": "Overlay HTML UI (mode toggles) using Drei's <Html> or absolute positioned DOM elements over the canvas. Ensure canvas does not block scroll."
-  },
-  "sections": {
-    "header": "Floating frosted-glass navigation bar. Must be fixed, z-[100], and never fully transparent. Bilingual brand name. 'Request Demo' CTA button.",
-    "hero": "Full viewport height minus header. Massive line-by-line masked reveal typography. The 3D car model takes center stage.",
-    "statistics_bento": "Directly under the hero. Bento layout containing animated metric counters (e.g., '40 YRS', '±0.001mm Tolerance', 'ISO 9001:2015', '10M+ Parts/Yr'). Use Framer Motion 'useInView' to trigger count-up.",
-    "manifesto_vision": "Numbered chapter '01'. Massive typography, high negative space, focusing on vision and identity.",
-    "history": "Numbered chapter '02'. '40 years of Manufacturing Pedigree'. Timeline layout with fading scroll reveals.",
-    "capabilities_tabs": "Numbered chapter '03'. Tabbed interactive section: Precision Mold Making, High-Tolerance Metal Stamping, 2K/Overmolding, Automated Assembly. Use Shadcn Tabs, styled with glassmorphism.",
-    "vertically_integrated": "Numbered chapter '04'. High-contrast layout demonstrating end-to-end power.",
-    "tolerance_nightmare": "Numbered chapter '05'. Problem/Solution feature section emphasizing micron-level precision solving industry 'Tolerance Nightmares'.",
-    "rfq_modal": "Triggered via 'Request Demo'. Shadcn Dialog. Includes Shadcn Form for spec selections (materials, tolerances) and a styled file upload dropzone preview."
-  },
-  "component_guidelines": {
-    "libraries": "Shadcn UI (Dialog, Tabs, Form, Select, Input), Framer Motion, Lenis, React Three Fiber, Lucide React / Phosphor Icons.",
-    "buttons": "Sharp, geometric, or subtle pill-shaped. Dark mode buttons with subtle metallic borders. Primary CTA should have an amber or gold hover glow.",
-    "tabs": "Override standard Shadcn tabs to look like industrial tech selectors (sharp edges, active state has a neon cyan or gold bottom border)."
-  },
-  "image_urls": {
-    "hero_fallback": {
-      "url": "https://images.unsplash.com/photo-1693648793394-0b76b7eb042e",
-      "description": "Abstract dark metallic texture, fallback for 3D loading states."
-    },
-    "manufacturing_detail": {
-      "url": "https://images.pexels.com/photos/28752153/pexels-photo-28752153.jpeg",
-      "description": "Detailed close-up of machined metal components, used in the 'Tolerance Nightmare' or Capabilities sections."
-    },
-    "precision_gears": {
-      "url": "https://images.pexels.com/photos/159275/macro-focus-cogwheel-gear-159275.jpeg",
-      "description": "Macro mechanical gears, ideal for 'Vertically Integrated Power' section."
+    "quality_bg": {
+      "url": "https://images.unsplash.com/photo-1496247749665-49cf5b1022e9?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjAzMjV8MHwxfHNlYXJjaHwxfHxpbmR1c3RyaWFsJTIwZmFjdG9yeSUyMGVuZ2luZWVyaW5nfGVufDB8fHx8MTc5MTQ2MDAxMXww&ixlib=rb-4.1.0&q=85",
+      "description": "Clean interior of a large industrial factory"
     }
   },
-  "instructions_to_main_agent": {
-    "setup": "Install framer-motion, @studio-freight/react-lenis, @react-three/fiber, @react-three/drei, three, and react-fast-marquee.",
-    "3d_implementation": "For the 3D car, if a true G22 3D model isn't available, create an impressive procedural abstract automotive geometry or load a generic sports car GLTF using Drei's useGLTF. Implement the 4 view modes by swapping materials (MeshStandardMaterial, MeshBasicMaterial with wireframe={true}, MeshPhysicalMaterial with transmission for X-Ray).",
-    "styling": "Rely heavily on Tailwind CSS. Customize the Shadcn components to remove the generic 'Vercel' look and adopt the industrial glassmorphism aesthetic.",
-    "testing": "All interactive elements (tabs, modal triggers, 3D toggles, form submissions) MUST include robust `data-testid` attributes (e.g., `data-testid='rfq-modal-trigger'`)."
-  },
+  "instructions_to_main_agent": [
+    "Replace the existing gold/cyan color palette entirely with the dark/steel-blue variables provided in this blueprint.",
+    "Remove the existing 3D car showcase. Do NOT include any 3D rendering libraries like React Three Fiber or Spline.",
+    "Ensure the copy is English-only. Drop any bilingual Traditional Chinese text from the existing site.",
+    "Setup Lenis for smooth scrolling at the root layout level.",
+    "Implement the floating glassmorphic nav bar. It should sit over the hero image, shrink slightly or become more opaque on scroll, and feature a mobile hamburger with an elegant full-screen or dropdown menu.",
+    "HERO SECTION: Use `hero_bg` image with a dark overlay (`bg-black/60` or similar). Include eyebrow text 'PRECISION MANUFACTURING', heading 'Built to Perform.', and heritage blocks ('EST. 1984 / HONG KONG' and 'MANUFACTURING / DONGGUAN, CHINA') using the `metadata` typography scale. Add subtle CAD-style measurement markings (like crosshairs or coordinate labels) with slight parallax.",
+    "CAPABILITIES SECTION: Build a 4-card grid ('Metal Products', 'Plastic Products', 'Custom Manufacturing', 'Quality Assurance'). Use Lucide icons. On hover: card translateY, border brightens, icon scales, and the arrow shifts right.",
+    "PROCESS SECTION: 5 stages (01 Inquiry to 05 Delivery). Layout must be horizontal on desktop (with nodes connected by a line) and vertical on mobile.",
+    "PRODUCTS SECTION: Large image cards, not small grids. On hover: the wrapper scales up the image slightly, overlay darkens.",
+    "QUALITY SECTION: A premium dark section with technical diagrams/lines. Include editable placeholder text for certifications (e.g., 'ISO 9001:2015 [Placeholder]'). Do NOT fabricate fake numbers or awards.",
+    "QUOTE FORM: Use Shadcn UI forms. Include standard fields, a drag-and-drop file upload zone (accepting PDF/DWG/DXF/STEP/STL/ZIP), validation errors, and a success confirmation state.",
+    "ADMIN DASHBOARD: Build a simple protected route (e.g., /admin) that lists submitted quote requests in a Shadcn Table. Include a detail view modal or side panel. Mock the Google Sign-in if necessary.",
+    "FOOTER: Include the brand, slogan 'Precision Engineering Aligned with Excellent Standards', and standard copyright info.",
+    "Add `data-testid` attributes to all buttons, links, and form inputs for testing."
+  ],
   "universal_guidelines": [
-    "You tend to converge toward generic, 'on distribution' outputs. Make this frontend highly creative, distinctive, and industrial.",
-    "Create depth through layered design elements with z-index hierarchy (glass overlays over 3D canvases over dark textures).",
-    "Do NOT center align the entire app container.",
-    "No AI assistant emoji characters for icons. Use Phosphor Icons or Lucide.",
-    "Every interaction needs micro-animations - hover states, transitions, parallax effects. Static = dead."
+    "Create depth through layered design elements with z-index hierarchy, avoiding flat or monotonous looks.",
+    "Use glass-morphism effects with backdrop filters (12-24px blur) for floating elements like nav and modals.",
+    "Do NOT apply universal transitions (e.g., `transition: all`). Target specific properties like `transition-transform` or `transition-colors` to prevent breaking complex animations.",
+    "Avoid centering layouts by default. Left-aligned typography and structured grids feel more professional and readable for B2B technical audiences.",
+    "Incorporate micro-animations on all interactive elements (hover states, focus rings, active clicks).",
+    "Utilize generous whitespace. Use `py-24` or `py-32` spacing between major sections to let the technical elements breathe.",
+    "Never use AI assistant emoji characters. Rely exclusively on clean SVGs (e.g., Lucide React).",
+    "Ensure all text against dark backgrounds meets APCA or WCAG AA contrast standards.",
+    "Make sure form inputs have highly visible focus states with the primary blue ring."
   ]
 }
