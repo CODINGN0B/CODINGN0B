@@ -128,6 +128,7 @@ class Inquiry(BaseModel):
     status: str = "new"
     created_at: str
     email_status: str = "pending"
+    email_error: str = ""
 
 
 @router.post("/inquiries/uploads", response_model=InquiryFile)
@@ -222,13 +223,45 @@ async def create_inquiry(payload: InquiryCreate, request: Request):
         send_email(to=inquiry.email, subject=customer_subject, html=customer_html),
         return_exceptions=True,
     )
-    failures = [r for r in results if isinstance(r, Exception)]
-    inquiry.email_status = "sent" if not failures else "failed"
-    if failures:
-        logger.error(f"Inquiry {inquiry.id}: email notification failed: {failures}")
-    await db.inquiries.update_one({"id": inquiry.id},
-                                 {"$set": {"email_status": inquiry.email_status}})
+    inquiry.email_status, inquiry.email_error = _email_outcome(results, inquiry.id)
+    await db.inquiries.update_one(
+        {"id": inquiry.id},
+        {"$set": {"email_status": inquiry.email_status, "email_error": inquiry.email_error}},
+    )
     return inquiry
+
+
+def _email_outcome(results, inquiry_id: str) -> tuple[str, str]:
+    """Delivery never blocks the saved inquiry — the outcome is recorded instead."""
+    labels = ("company notification", "customer acknowledgement")
+    failures = [f"{labels[i]}: {r}" for i, r in enumerate(results) if isinstance(r, Exception)]
+    if not failures:
+        return "sent", ""
+    logger.error(f"Inquiry {inquiry_id}: email notification failed: {failures}")
+    status = "failed" if len(failures) == len(results) else "partial"
+    return status, " | ".join(failures)[:300]
+
+
+@router.post("/inquiries/{inquiry_id}/resend-notification", response_model=Inquiry)
+async def resend_notification(inquiry_id: str, admin: User = Depends(require_admin)):
+    """Re-send both emails for a stored inquiry (used after fixing the company inbox)."""
+    doc = await db.inquiries.find_one({"id": inquiry_id}, {"_id": 0})
+    if not doc:
+        raise HTTPException(status_code=404, detail="Inquiry not found")
+    internal_subject, internal_html = internal_inquiry_email(doc)
+    customer_subject, customer_html = customer_inquiry_email(doc)
+    results = await asyncio.gather(
+        send_email(to=COMPANY_EMAIL, subject=internal_subject, html=internal_html,
+                   reply_to=doc["email"]),
+        send_email(to=doc["email"], subject=customer_subject, html=customer_html),
+        return_exceptions=True,
+    )
+    status, error = _email_outcome(results, inquiry_id)
+    updated = await db.inquiries.find_one_and_update(
+        {"id": inquiry_id}, {"$set": {"email_status": status, "email_error": error}},
+        projection={"_id": 0}, return_document=True,
+    )
+    return Inquiry(**updated)
 
 
 @router.get("/inquiries", response_model=List[Inquiry])

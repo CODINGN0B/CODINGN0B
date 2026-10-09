@@ -58,6 +58,20 @@ export default function Dashboard() {
     toast.success(`Marked as ${status}`);
   };
 
+  const resend = async (id) => {
+    const res = await fetch(`${API}/inquiries/${id}/resend-notification`, {
+      method: "POST",
+      credentials: "include",
+    });
+    if (!res.ok) return toast.error("Could not resend the notification");
+    const updated = await res.json();
+    setInquiries((prev) => prev.map((q) => (q.id === id ? updated : q)));
+    setSelected(updated);
+    toast[updated.email_status === "sent" ? "success" : "error"](
+      updated.email_status === "sent" ? "Notification sent" : `Delivery ${updated.email_status}`
+    );
+  };
+
   const download = async (file) => {
     try {
       const res = await fetch(`${API}/inquiries/files/${file.file_id}`, { credentials: "include" });
@@ -101,7 +115,7 @@ export default function Dashboard() {
           <button
             onClick={signIn}
             data-testid="dashboard-google-signin-btn"
-            className="mt-9 inline-flex items-center gap-2.5 rounded-sm bg-[color:var(--graphite)] px-7 py-3.5 font-tech text-[11px] uppercase tracking-[0.18em] text-white transition-colors hover:bg-[color:var(--gold-deep)]"
+            className="mt-9 inline-flex items-center gap-2.5 rounded-sm bg-[color:var(--graphite)] px-7 py-3.5 font-tech text-[11px] uppercase tracking-[0.18em] text-[color:var(--porcelain)] transition-colors hover:bg-[color:var(--gold-deep)]"
           >
             <LogIn size={14} /> Continue with Google
           </button>
@@ -162,7 +176,7 @@ export default function Dashboard() {
           No inquiries yet.
         </p>
       ) : (
-        <div className="mt-8 overflow-x-auto border border-[color:var(--hairline)] bg-white" data-testid="inquiries-table">
+        <div className="mt-8 overflow-x-auto border border-[color:var(--hairline)] bg-[color:var(--surface)]" data-testid="inquiries-table">
           <table className="w-full min-w-[860px] text-left text-sm">
             <thead>
               <tr className="border-b border-[color:var(--hairline)] bg-[color:var(--ivory)]">
@@ -205,6 +219,7 @@ export default function Dashboard() {
         onClose={() => setSelected(null)}
         onStatus={setStatus}
         onDownload={download}
+        onResend={resend}
       />
     </Shell>
   );

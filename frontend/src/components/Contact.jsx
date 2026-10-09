@@ -4,8 +4,10 @@ import { ArrowDown, MapPin } from "lucide-react";
 import { Reveal, SectionLabel } from "@/components/Reveal";
 import InquiryForm from "@/components/InquiryForm";
 import { COMPANY } from "@/lib/site";
+import { useT } from "@/context/SettingsContext";
 
 export default function Contact({ prefillService, onPrefillConsumed }) {
+  const t = useT();
   const ref = useRef(null);
   const reduce = useReducedMotion();
   const inView = useInView(ref, { once: true, margin: "-20% 0px -30% 0px" });
@@ -26,22 +28,21 @@ export default function Contact({ prefillService, onPrefillConsumed }) {
         <div className="grid gap-12 lg:grid-cols-[0.85fr_1.15fr] lg:gap-16">
           <div>
             <Reveal>
-              <SectionLabel index="05">Contact</SectionLabel>
+              <SectionLabel index="05">{t.contact.label}</SectionLabel>
             </Reveal>
             <Reveal delay={0.05}>
-              <h2 className="mt-7 max-w-md font-display text-3xl font-light leading-[1.1] tracking-tight text-[color:var(--graphite)] md:text-4xl lg:text-[2.9rem]">
-                Interested? Let&apos;s make it happen.
+              <h2 className="mt-7 max-w-md font-display text-3xl font-light leading-[1.18] tracking-tight text-[color:var(--graphite)] md:text-4xl lg:text-[2.9rem]">
+                {t.contact.h2}
               </h2>
             </Reveal>
             <Reveal delay={0.1}>
               <p className="mt-7 max-w-md text-sm leading-relaxed text-[color:var(--slate)] md:text-base">
-                Send your drawing, specification or requirement. Every inquiry is saved with a
-                reference ID, acknowledged by email and reviewed by our team.
+                {t.contact.p}
               </p>
             </Reveal>
 
             <Reveal delay={0.15}>
-              <div className="mt-11 border border-[color:var(--hairline)] bg-white p-7 shadow-card" data-testid="contact-details">
+              <div className="mt-11 border border-[color:var(--hairline)] bg-[color:var(--surface)] p-7 shadow-card" data-testid="contact-details">
                 <p className="font-display text-base font-normal tracking-tight text-[color:var(--graphite)]">
                   {COMPANY.name}
                 </p>
@@ -54,13 +55,13 @@ export default function Contact({ prefillService, onPrefillConsumed }) {
                   </address>
                 </div>
                 <div className="mt-7 border-t border-[color:var(--hairline)] pt-5">
-                  <p className="label-tech">Established</p>
+                  <p className="label-tech">{t.contact.established}</p>
                   <p className="mt-1.5 text-sm text-[color:var(--graphite-soft)]">
                     {COMPANY.establishedPlace} — {COMPANY.established}
                   </p>
                 </div>
                 <p className="mt-6 text-xs leading-relaxed text-[color:var(--slate)]">
-                  Telephone and general email will be published here once confirmed by the company.
+                  {t.contact.note}
                 </p>
               </div>
             </Reveal>
@@ -85,14 +86,14 @@ export default function Contact({ prefillService, onPrefillConsumed }) {
                   exit={{ opacity: 0 }}
                   transition={{ duration: 0.3 }}
                   data-testid="open-inquiry-form-btn"
-                  className="flex w-full flex-col items-start border border-dashed border-[color:var(--hairline-strong)] bg-white/60 p-10 text-left"
+                  className="btn-press flex w-full flex-col items-start border border-dashed border-[color:var(--hairline-strong)] bg-[color:var(--surface)]/60 p-10 text-left"
                 >
-                  <span className="label-tech">Project inquiry</span>
+                  <span className="label-tech">{t.contact.openLabel}</span>
                   <span className="mt-4 font-display text-xl font-light tracking-tight text-[color:var(--graphite)]">
-                    Open the inquiry form
+                    {t.contact.openTitle}
                   </span>
                   <span className="mt-6 flex items-center gap-2 font-tech text-[10px] uppercase tracking-[0.18em] text-[color:var(--gold-deep)]">
-                    Scroll or select <ArrowDown size={13} />
+                    {t.contact.openHint} <ArrowDown size={13} />
                   </span>
                 </motion.button>
               )}

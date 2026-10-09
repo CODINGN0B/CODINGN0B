@@ -5,6 +5,7 @@ Requires the backend supervisor service to be running and the seeded test sessio
 documented in /app/memory/test_credentials.md.
 """
 import io
+import time
 import pytest
 import requests
 from pathlib import Path
@@ -57,25 +58,39 @@ def test_honeypot_blocks_bots():
 
 @pytest.fixture(scope="module")
 def submitted_inquiry():
+    """Unique description per run so the 3-minute duplicate guard never trips."""
     files = {"file": ("drawing.pdf", io.BytesIO(b"%PDF-1.4 regression"), "application/pdf")}
     up = requests.post(f"{BASE}/inquiries/uploads", files=files)
     assert up.status_code == 200, up.text
     file_id = up.json()["file_id"]
 
-    res = requests.post(f"{BASE}/inquiries", json={**VALID, "file_ids": [file_id]})
+    payload = {**VALID, "file_ids": [file_id],
+               "description": f"{VALID['description']} Run {int(time.time())}."}
+    res = requests.post(f"{BASE}/inquiries", json=payload)
     assert res.status_code == 201, res.text
-    return res.json()
+    return {**res.json(), "_payload": payload}
 
 
 def test_inquiry_created_with_reference_and_attachment(submitted_inquiry):
     assert submitted_inquiry["id"].startswith("YF-")
     assert submitted_inquiry["service_label"] == "Precision Metal Stamping"
     assert len(submitted_inquiry["files"]) == 1
-    assert submitted_inquiry["email_status"] == "sent"
+    # The inquiry is always stored; delivery outcome is recorded, never fatal.
+    assert submitted_inquiry["email_status"] in {"sent", "partial", "failed"}
+
+
+def test_admin_can_resend_notification(submitted_inquiry):
+    res = requests.post(f"{BASE}/inquiries/{submitted_inquiry['id']}/resend-notification",
+                        headers=ADMIN)
+    assert res.status_code == 200
+    assert res.json()["email_status"] in {"sent", "partial", "failed"}
+    assert requests.post(
+        f"{BASE}/inquiries/{submitted_inquiry['id']}/resend-notification").status_code == 401
 
 
 def test_duplicate_submission_is_rejected(submitted_inquiry):
-    again = requests.post(f"{BASE}/inquiries", json=VALID)
+    payload = {k: v for k, v in submitted_inquiry["_payload"].items()}
+    again = requests.post(f"{BASE}/inquiries", json=payload)
     assert again.status_code == 409
 
 

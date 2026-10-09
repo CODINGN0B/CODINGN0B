@@ -1,4 +1,4 @@
-import { Download } from "lucide-react";
+import { Download, Send } from "lucide-react";
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from "@/components/ui/sheet";
 
 const STATUSES = ["new", "reviewing", "quoted", "closed"];
@@ -10,11 +10,11 @@ const Row = ({ label, value }) => (
   </div>
 );
 
-export const InquiryDetail = ({ inquiry, isAdmin, onClose, onStatus, onDownload }) => (
+export const InquiryDetail = ({ inquiry, isAdmin, onClose, onStatus, onDownload, onResend }) => (
   <Sheet open={!!inquiry} onOpenChange={(o) => !o && onClose()}>
     <SheetContent
       side="right"
-      className="w-full overflow-y-auto border-[color:var(--hairline)] bg-white sm:max-w-lg"
+      className="w-full overflow-y-auto border-[color:var(--hairline)] bg-[color:var(--surface)] sm:max-w-lg"
       data-testid="inquiry-detail-panel"
     >
       {inquiry && (
@@ -56,7 +56,18 @@ export const InquiryDetail = ({ inquiry, isAdmin, onClose, onStatus, onDownload 
             <Row label="Consent to processing" value={inquiry.consent ? "Given" : "Not given"} />
             <Row label="Received" value={new Date(inquiry.created_at).toLocaleString()} />
             <Row label="Notification email" value={inquiry.email_status} />
+            {inquiry.email_error && <Row label="Delivery error" value={inquiry.email_error} />}
           </div>
+
+          {isAdmin && (
+            <button
+              onClick={() => onResend(inquiry.id)}
+              data-testid="resend-notification-btn"
+              className="btn-press mt-5 flex items-center gap-2 border border-[color:var(--hairline-strong)] px-4 py-2.5 font-tech text-[10px] uppercase tracking-[0.16em] text-[color:var(--graphite)] hover:border-[color:var(--gold)] hover:text-[color:var(--gold-deep)]"
+            >
+              <Send size={12} /> Resend notification
+            </button>
+          )}
 
           <div className="mt-6">
             <p className="label-tech">Attachments</p>

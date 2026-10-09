@@ -40,8 +40,52 @@
         --gold-soft: rgba(195, 160, 106, 0.12);
         --hairline: #e7e3db;
         --hairline-strong: #d9d3c6;
-        --glass: rgba(255, 255, 255, 0.72);
-        --glass-strong: rgba(255, 255, 255, 0.92);
+        --glass: rgba(255, 255, 255, 0.62);
+        --glass-strong: rgba(255, 255, 255, 0.86);
+        --grid-line: rgba(23, 25, 27, 0.035);
+        --grid-line-fine: rgba(23, 25, 27, 0.04);
+        --tick-line: rgba(23, 25, 27, 0.18);
+        --overlay-ink: 14, 15, 16;
+    }
+
+    [data-theme="dark"] {
+        --background: 200 6% 7%;
+        --foreground: 210 10% 95%;
+        --card: 200 6% 10%;
+        --card-foreground: 210 10% 95%;
+        --popover: 200 6% 10%;
+        --popover-foreground: 210 10% 95%;
+        --primary: 37 42% 64%;
+        --primary-foreground: 200 10% 8%;
+        --secondary: 200 6% 14%;
+        --secondary-foreground: 210 10% 95%;
+        --muted: 200 6% 14%;
+        --muted-foreground: 210 6% 62%;
+        --accent: 37 30% 26%;
+        --accent-foreground: 210 10% 95%;
+        --destructive: 0 70% 62%;
+        --border: 200 6% 18%;
+        --input: 200 6% 22%;
+        --ring: 37 42% 64%;
+
+        --porcelain: #0c0e0f;
+        --ivory: #111315;
+        --pale: #1a1d1f;
+        --surface: #15181a;
+        --graphite: #f1f3f4;
+        --graphite-soft: #c8cdd1;
+        --slate: #969ca2;
+        --gold: #c9a978;
+        --gold-deep: #dcbd8a;
+        --gold-soft: rgba(201, 169, 120, 0.14);
+        --hairline: #24282b;
+        --hairline-strong: #343a3e;
+        --glass: rgba(16, 18, 20, 0.66);
+        --glass-strong: rgba(10, 12, 13, 0.9);
+        --grid-line: rgba(255, 255, 255, 0.04);
+        --grid-line-fine: rgba(255, 255, 255, 0.045);
+        --tick-line: rgba(255, 255, 255, 0.2);
+        --overlay-ink: 6, 7, 8;
     }
 }
 
@@ -51,6 +95,7 @@
     }
     html {
         scroll-behavior: smooth;
+        transition: background-color 0.4s ease;
         -webkit-text-size-adjust: 100%;
     }
     body {
@@ -87,7 +132,7 @@
         background: var(--pale);
     }
     ::-webkit-scrollbar-thumb {
-        background: #d6d1c6;
+        background: var(--hairline-strong);
         border: 3px solid var(--pale);
         border-radius: 8px;
     }
@@ -114,40 +159,40 @@
         background: var(--glass);
         backdrop-filter: blur(18px) saturate(150%);
         -webkit-backdrop-filter: blur(18px) saturate(150%);
-        border: 1px solid rgba(195, 160, 106, 0.18);
+        border: 1px solid rgba(195, 160, 106, 0.22);
     }
     .glass-nav-solid {
         background: var(--glass-strong);
         backdrop-filter: blur(22px) saturate(160%);
         -webkit-backdrop-filter: blur(22px) saturate(160%);
-        border: 1px solid rgba(195, 160, 106, 0.26);
-        box-shadow: 0 10px 40px -24px rgba(23, 25, 27, 0.22);
+        border: 1px solid rgba(195, 160, 106, 0.3);
+        box-shadow: 0 12px 44px -24px rgba(0, 0, 0, 0.3);
     }
     .surface-card {
         background: var(--surface);
         border: 1px solid var(--hairline);
     }
     .shadow-card {
-        box-shadow: 0 2px 10px -4px rgba(23, 25, 27, 0.06);
+        box-shadow: 0 2px 10px -4px rgba(0, 0, 0, 0.08);
     }
     .shadow-card-hover {
-        box-shadow: 0 22px 48px -28px rgba(23, 25, 27, 0.22);
+        box-shadow: 0 22px 48px -28px rgba(0, 0, 0, 0.3);
     }
     .rule-gold {
         background: linear-gradient(to right, var(--gold), rgba(195, 160, 106, 0.1));
     }
     .tech-grid {
         background-image:
-            repeating-linear-gradient(to right, rgba(23, 25, 27, 0.035) 0 1px, transparent 1px 88px),
-            repeating-linear-gradient(to bottom, rgba(23, 25, 27, 0.035) 0 1px, transparent 1px 88px);
+            repeating-linear-gradient(to right, var(--grid-line) 0 1px, transparent 1px 88px),
+            repeating-linear-gradient(to bottom, var(--grid-line) 0 1px, transparent 1px 88px);
     }
     .tech-grid-fine {
         background-image:
-            repeating-linear-gradient(to right, rgba(23, 25, 27, 0.04) 0 1px, transparent 1px 22px),
-            repeating-linear-gradient(to bottom, rgba(23, 25, 27, 0.04) 0 1px, transparent 1px 22px);
+            repeating-linear-gradient(to right, var(--grid-line-fine) 0 1px, transparent 1px 22px),
+            repeating-linear-gradient(to bottom, var(--grid-line-fine) 0 1px, transparent 1px 22px);
     }
     .rule-ticks {
-        background-image: repeating-linear-gradient(to right, rgba(23, 25, 27, 0.18) 0 1px, transparent 1px 11px);
+        background-image: repeating-linear-gradient(to right, var(--tick-line) 0 1px, transparent 1px 11px);
     }
 }
 
@@ -160,5 +205,20 @@ html.lenis, html.lenis body { height: auto; }
         animation-iteration-count: 1 !important;
         transition-duration: 0.001ms !important;
         scroll-behavior: auto !important;
+    }
+}
+
+/* shared helpers for press feedback on touch + pointer devices */
+@layer utilities {
+    .btn-press {
+        transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
+        -webkit-tap-highlight-color: transparent;
+        touch-action: manipulation;
+    }
+    .btn-press:active {
+        transform: scale(0.97);
+    }
+    .image-ink {
+        background: linear-gradient(to top, rgba(var(--overlay-ink), 0.88), rgba(var(--overlay-ink), 0.3) 60%, rgba(var(--overlay-ink), 0.1));
     }
 }

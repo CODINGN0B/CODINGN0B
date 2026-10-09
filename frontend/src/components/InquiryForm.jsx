@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { AlertCircle, ArrowRight, CheckCircle2, FileText, Loader2, Trash2, UploadCloud } from "lucide-react";
 import { API, SERVICES } from "@/lib/site";
+import { useT } from "@/context/SettingsContext";
 
 const ACCEPT = ".pdf,.dwg,.dxf,.step,.stp,.stl,.zip,.igs,.iges,.png,.jpg,.jpeg";
 const ALLOWED = ["pdf", "dwg", "dxf", "step", "stp", "stl", "zip", "igs", "iges", "png", "jpg", "jpeg"];
@@ -13,7 +14,7 @@ const EMPTY = {
 };
 
 const fieldCls =
-  "w-full rounded-sm border border-[color:var(--hairline-strong)] bg-white px-3.5 py-3 text-sm text-[color:var(--graphite)] placeholder:text-[color:var(--slate)]/60 transition-colors duration-200 focus:border-[color:var(--gold)] focus:outline-none focus:ring-1 focus:ring-[color:var(--gold)]";
+  "w-full rounded-sm border border-[color:var(--hairline-strong)] bg-[color:var(--surface)] px-3.5 py-3 text-sm text-[color:var(--graphite)] placeholder:text-[color:var(--slate)]/60 transition-colors duration-200 focus:border-[color:var(--gold)] focus:outline-none focus:ring-1 focus:ring-[color:var(--gold)]";
 
 const Field = ({ id, label, required, error, hint, children }) => (
   <div className="flex flex-col gap-2">
@@ -31,6 +32,7 @@ const Field = ({ id, label, required, error, hint, children }) => (
 );
 
 export default function InquiryForm({ prefillService, onPrefillConsumed }) {
+  const t = useT();
   const [form, setForm] = useState(EMPTY);
   const [errors, setErrors] = useState({});
   const [files, setFiles] = useState([]);
@@ -59,12 +61,12 @@ export default function InquiryForm({ prefillService, onPrefillConsumed }) {
 
   const validate = () => {
     const e = {};
-    if (form.contact_name.trim().length < 2) e.contact_name = "Contact name is required";
-    if (!form.company.trim()) e.company = "Company name is required";
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(form.email.trim())) e.email = "Enter a valid business email address";
-    if (!form.service) e.service = "Select the service you are interested in";
-    if (form.description.trim().length < 10) e.description = "Please describe the project in at least 10 characters";
-    if (!form.consent) e.consent = "Please confirm you consent to your details being processed";
+    if (form.contact_name.trim().length < 2) e.contact_name = t.form.errors.contact_name;
+    if (!form.company.trim()) e.company = t.form.errors.company;
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(form.email.trim())) e.email = t.form.errors.email;
+    if (!form.service) e.service = t.form.errors.service;
+    if (form.description.trim().length < 10) e.description = t.form.errors.description;
+    if (!form.consent) e.consent = t.form.errors.consent;
     setErrors(e);
     return Object.keys(e).length === 0;
   };
@@ -102,11 +104,11 @@ export default function InquiryForm({ prefillService, onPrefillConsumed }) {
     for (const file of Array.from(list)) {
       const ext = file.name.split(".").pop()?.toLowerCase();
       if (!ALLOWED.includes(ext)) {
-        rejected.push({ tempId: `${file.name}-type-${Date.now()}`, filename: file.name, size: file.size, error: "Unsupported file type" });
+        rejected.push({ tempId: `${file.name}-type-${Date.now()}`, filename: file.name, size: file.size, error: t.form.errors.type });
         continue;
       }
       if (file.size > MAX_MB * 1024 * 1024) {
-        rejected.push({ tempId: `${file.name}-size-${Date.now()}`, filename: file.name, size: file.size, error: `Exceeds ${MAX_MB} MB limit` });
+        rejected.push({ tempId: `${file.name}-size-${Date.now()}`, filename: file.name, size: file.size, error: t.form.errors.size });
         continue;
       }
       if (files.length + rejected.length >= MAX_FILES) break;
@@ -122,7 +124,7 @@ export default function InquiryForm({ prefillService, onPrefillConsumed }) {
     if (sending) return; // duplicate submission guard
     if (!validate()) return;
     if (files.some((f) => f.progress !== undefined && !f.file_id && !f.error)) {
-      setErrors({ files: "Please wait until all files have finished uploading" });
+      setErrors({ files: t.form.errors.files });
       return;
     }
     setSending(true);
@@ -142,7 +144,7 @@ export default function InquiryForm({ prefillService, onPrefillConsumed }) {
         throw new Error(
           typeof data.detail === "string"
             ? data.detail
-            : "We could not submit your inquiry. Your details have been kept — please try again."
+            : t.form.errors.generic
         );
       }
       const data = await res.json();
@@ -160,25 +162,24 @@ export default function InquiryForm({ prefillService, onPrefillConsumed }) {
   if (submitted) {
     return (
       <div
-        className="border border-[color:var(--hairline)] bg-white p-9 shadow-card md:p-12"
+        className="border border-[color:var(--hairline)] bg-[color:var(--surface)] p-9 shadow-card md:p-12"
         data-testid="inquiry-success"
       >
         <CheckCircle2 size={32} className="text-[color:var(--gold-deep)]" />
         <h3 className="mt-7 font-display text-2xl font-light tracking-tight text-[color:var(--graphite)]">
-          Inquiry received
+          {t.form.success.title}
         </h3>
         <p className="mt-5 max-w-lg text-sm leading-relaxed text-[color:var(--slate)]">
-          Thank you for contacting Yue Fung Metal Plastic Products Co. Ltd. Your inquiry has been
-          saved and an acknowledgement has been sent to your email address. Our team will review your
-          requirements and contact you shortly.
+          {t.form.success.body}
         </p>
         <div className="mt-8 border border-[color:var(--hairline)] bg-[color:var(--ivory)] p-5">
-          <p className="label-tech">Reference ID</p>
+          <p className="label-tech">{t.form.success.ref}</p>
           <p className="mt-2 font-tech text-lg text-[color:var(--gold-deep)]" data-testid="inquiry-reference-id">
             {submitted.id}
           </p>
           <p className="mt-3 font-tech text-[10px] uppercase tracking-[0.16em] text-[color:var(--slate)]">
-            {submitted.service_label} · submitted {new Date(submitted.created_at).toLocaleString()}
+            {submitted.service_label} · {t.form.success.submitted}{" "}
+            {new Date(submitted.created_at).toLocaleString()}
           </p>
         </div>
         <button
@@ -186,7 +187,7 @@ export default function InquiryForm({ prefillService, onPrefillConsumed }) {
           data-testid="inquiry-new-btn"
           className="mt-8 font-tech text-[10px] uppercase tracking-[0.18em] text-[color:var(--slate)] underline-offset-4 transition-colors hover:text-[color:var(--graphite)] hover:underline"
         >
-          Submit another inquiry
+          {t.form.success.another}
         </button>
       </div>
     );
@@ -197,61 +198,61 @@ export default function InquiryForm({ prefillService, onPrefillConsumed }) {
       id="inquiry-form"
       onSubmit={submit}
       noValidate
-      className="border border-[color:var(--hairline)] bg-white p-7 shadow-card md:p-10"
+      className="border border-[color:var(--hairline)] bg-[color:var(--surface)] p-7 shadow-card md:p-10"
       data-testid="inquiry-form"
     >
       <div className="grid gap-5 sm:grid-cols-2">
-        <Field id="contact_name" label="Contact person" required error={errors.contact_name}>
+        <Field id="contact_name" label={t.form.contact_name} required error={errors.contact_name}>
           <input id="contact_name" name="contact_name" value={form.contact_name} onChange={set("contact_name")}
-            aria-invalid={!!errors.contact_name} autoComplete="name" placeholder="Full name"
+            aria-invalid={!!errors.contact_name} autoComplete="name" placeholder={t.form.namePh}
             data-testid="input-contact-name" className={fieldCls} />
         </Field>
-        <Field id="company" label="Company name" required error={errors.company}>
+        <Field id="company" label={t.form.company} required error={errors.company}>
           <input id="company" name="company" value={form.company} onChange={set("company")}
-            aria-invalid={!!errors.company} autoComplete="organization" placeholder="Company Ltd."
+            aria-invalid={!!errors.company} autoComplete="organization" placeholder={t.form.companyPh}
             data-testid="input-company" className={fieldCls} />
         </Field>
-        <Field id="email" label="Business email" required error={errors.email}>
+        <Field id="email" label={t.form.email} required error={errors.email}>
           <input id="email" name="email" type="email" value={form.email} onChange={set("email")}
-            aria-invalid={!!errors.email} autoComplete="email" placeholder="name@company.com"
+            aria-invalid={!!errors.email} autoComplete="email" placeholder={t.form.emailPh}
             data-testid="input-email" className={fieldCls} />
         </Field>
-        <Field id="phone" label="Phone number">
+        <Field id="phone" label={t.form.phone}>
           <input id="phone" name="phone" value={form.phone} onChange={set("phone")}
-            autoComplete="tel" placeholder="Optional" data-testid="input-phone" className={fieldCls} />
+            autoComplete="tel" placeholder={t.form.optional} data-testid="input-phone" className={fieldCls} />
         </Field>
-        <Field id="service" label="Interested service" required error={errors.service}>
+        <Field id="service" label={t.form.service} required error={errors.service}>
           <select id="service" name="service" ref={serviceRef} value={form.service} onChange={set("service")}
             aria-invalid={!!errors.service} data-testid="select-service" className={fieldCls}>
-            <option value="">Select a service…</option>
-            {SERVICES.map((s) => (
-              <option key={s.key} value={s.key}>{s.name}</option>
+            <option value="">{t.form.selectPlaceholder}</option>
+            {SERVICES.map((s, i) => (
+              <option key={s.key} value={s.key}>{t.service.items[i].name}</option>
             ))}
-            <option value="other">Other / Not sure yet</option>
+            <option value="other">{t.form.other}</option>
           </select>
         </Field>
-        <Field id="quantity" label="Approximate quantity">
+        <Field id="quantity" label={t.form.quantity}>
           <input id="quantity" name="quantity" value={form.quantity} onChange={set("quantity")}
-            placeholder="Optional — e.g. 5,000 pcs" data-testid="input-quantity" className={fieldCls} />
+            placeholder={t.form.quantityPh} data-testid="input-quantity" className={fieldCls} />
         </Field>
         <div className="sm:col-span-2">
-          <Field id="timeline" label="Target timeline">
+          <Field id="timeline" label={t.form.timeline}>
             <input id="timeline" name="timeline" value={form.timeline} onChange={set("timeline")}
-              placeholder="Optional — e.g. samples in 6 weeks" data-testid="input-timeline" className={fieldCls} />
+              placeholder={t.form.timelinePh} data-testid="input-timeline" className={fieldCls} />
           </Field>
         </div>
         <div className="sm:col-span-2">
-          <Field id="description" label="Project description and requirements" required error={errors.description}>
+          <Field id="description" label={t.form.description} required error={errors.description}>
             <textarea id="description" name="description" rows={5} value={form.description} onChange={set("description")}
               aria-invalid={!!errors.description} data-testid="input-description"
               className={`${fieldCls} resize-y`}
-              placeholder="Part function, materials, finishing, tolerances if known, and anything else we should consider." />
+              placeholder={t.form.descriptionPh} />
           </Field>
         </div>
       </div>
 
       <div className="mt-9">
-        <p className="label-tech !text-[color:var(--graphite-soft)]">Technical drawings</p>
+        <p className="label-tech !text-[color:var(--graphite-soft)]">{t.form.drawings}</p>
         <div
           onDragOver={(e) => { e.preventDefault(); setDragging(true); }}
           onDragLeave={() => setDragging(false)}
@@ -265,14 +266,14 @@ export default function InquiryForm({ prefillService, onPrefillConsumed }) {
         >
           <UploadCloud size={21} className="mx-auto text-[color:var(--slate)]" />
           <p className="mt-4 text-sm text-[color:var(--slate)]">
-            Drag &amp; drop drawings here, or{" "}
+            {t.form.dropzone}{" "}
             <button type="button" onClick={() => inputRef.current?.click()} data-testid="file-browse-btn"
               className="text-[color:var(--gold-deep)] underline-offset-4 hover:underline">
-              browse
+              {t.form.browse}
             </button>
           </p>
           <p className="mt-2 font-tech text-[10px] uppercase tracking-[0.16em] text-[color:var(--slate)]/80">
-            PDF · DWG · DXF · STEP · STL · ZIP · PNG/JPG · max {MAX_MB} MB · up to {MAX_FILES} files
+            {t.form.formats}
           </p>
           <input ref={inputRef} type="file" multiple accept={ACCEPT} className="hidden" data-testid="file-input"
             onChange={(e) => { addFiles(e.target.files); e.target.value = ""; }} />
@@ -282,7 +283,7 @@ export default function InquiryForm({ prefillService, onPrefillConsumed }) {
           <ul className="mt-4 space-y-2" data-testid="file-list">
             {files.map((f) => (
               <li key={f.tempId} data-testid="file-item"
-                className="flex items-center gap-3 border border-[color:var(--hairline)] bg-white px-4 py-3">
+                className="flex items-center gap-3 border border-[color:var(--hairline)] bg-[color:var(--surface)] px-4 py-3">
                 <FileText size={14} className={f.error ? "text-[color:var(--destructive)]" : "text-[color:var(--slate)]"} />
                 <span className="min-w-0 flex-1">
                   <span className="block truncate text-xs text-[color:var(--graphite)]">{f.filename}</span>
@@ -290,7 +291,7 @@ export default function InquiryForm({ prefillService, onPrefillConsumed }) {
                     <span className="mt-1 block text-[11px] text-[color:var(--destructive)]">{f.error}</span>
                   ) : f.file_id ? (
                     <span className="mt-1 block font-tech text-[10px] uppercase tracking-[0.14em] text-[color:var(--gold-deep)]">
-                      Uploaded · {Math.max(1, Math.round((f.size || 0) / 1024))} KB
+                      {t.form.uploaded} · {Math.max(1, Math.round((f.size || 0) / 1024))} KB
                     </span>
                   ) : (
                     <span className="mt-1.5 block h-1 w-full overflow-hidden bg-[color:var(--pale)]">
@@ -300,7 +301,7 @@ export default function InquiryForm({ prefillService, onPrefillConsumed }) {
                   )}
                 </span>
                 {!f.file_id && !f.error && <Loader2 size={13} className="animate-spin text-[color:var(--slate)]" />}
-                <button type="button" onClick={() => removeFile(f.tempId)} aria-label={`Remove ${f.filename}`}
+                <button type="button" onClick={() => removeFile(f.tempId)} aria-label={`${t.form.remove} ${f.filename}`}
                   data-testid="file-remove-btn"
                   className="text-[color:var(--slate)] transition-colors hover:text-[color:var(--destructive)]">
                   <Trash2 size={14} />
@@ -322,8 +323,7 @@ export default function InquiryForm({ prefillService, onPrefillConsumed }) {
             aria-invalid={!!errors.consent} data-testid="input-consent"
             className="mt-0.5 h-4 w-4 shrink-0 cursor-pointer accent-[color:var(--gold-deep)]" />
           <span className="text-xs leading-relaxed text-[color:var(--slate)]">
-            I consent to Yue Fung Metal Plastic Products Co. Ltd. storing and processing the details
-            and files submitted in this form in order to respond to my inquiry.{" "}
+            {t.form.consent}{" "}
             <span className="text-[color:var(--gold-deep)]">*</span>
           </span>
         </label>
@@ -342,9 +342,9 @@ export default function InquiryForm({ prefillService, onPrefillConsumed }) {
       )}
 
       <button type="submit" disabled={sending} data-testid="submit-inquiry-btn"
-        className="group mt-8 flex w-full items-center justify-center gap-2.5 rounded-sm bg-[color:var(--graphite)] px-7 py-4 font-tech text-[11px] uppercase tracking-[0.18em] text-white transition-colors duration-300 hover:bg-[color:var(--gold-deep)] disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto">
+        className="btn-press group mt-8 flex w-full items-center justify-center gap-2.5 rounded-sm bg-[color:var(--graphite)] px-7 py-4 font-tech text-[11px] uppercase tracking-[0.18em] text-[color:var(--porcelain)] hover:bg-[color:var(--gold-deep)] disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto">
         {sending && <Loader2 size={14} className="animate-spin" />}
-        {sending ? "Submitting" : "Submit Inquiry"}
+        {sending ? t.form.submitting : t.form.submit}
         {!sending && <ArrowRight size={14} className="transition-transform duration-300 group-hover:translate-x-1" />}
       </button>
     </form>

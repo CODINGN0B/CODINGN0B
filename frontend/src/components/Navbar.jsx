@@ -2,8 +2,11 @@ import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, ArrowRight } from "lucide-react";
 import { COMPANY, NAV_LINKS, scrollToId } from "@/lib/site";
+import { useSettings } from "@/context/SettingsContext";
+import SettingsMenu from "@/components/SettingsMenu";
 
 export default function Navbar() {
+  const { t, theme } = useSettings();
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [active, setActive] = useState("");
@@ -47,26 +50,36 @@ export default function Navbar() {
   return (
     <header className="fixed inset-x-0 top-0 z-[100] px-3 pt-3 sm:px-6 sm:pt-5" data-testid="site-header">
       <div
-        className={`mx-auto flex max-w-[1340px] items-center justify-between rounded-sm px-4 py-3 transition-[background-color,box-shadow,border-color] duration-500 sm:px-6 ${
+        className={`mx-auto flex max-w-[1340px] items-center justify-between gap-4 rounded-xl px-3 py-2.5 transition-[background-color,box-shadow,border-color] duration-500 sm:px-5 sm:py-3 ${
           scrolled ? "glass-nav-solid" : "glass-nav"
         }`}
       >
         <a
           href="#top"
           onClick={(e) => go(e, "#top")}
-          className="group flex flex-col leading-none"
+          className="group flex shrink-0 items-center gap-3"
           data-testid="nav-brand"
-          aria-label={`${COMPANY.name} — back to top`}
+          aria-label={`${COMPANY.name} — top`}
         >
-          <span className="font-display text-[17px] font-medium tracking-[0.26em] text-[color:var(--graphite)] transition-colors duration-300 group-hover:text-[color:var(--gold-deep)]">
-            {COMPANY.short}
-          </span>
-          <span className="mt-1 hidden font-tech text-[8px] uppercase tracking-[0.2em] text-[color:var(--slate)] sm:block">
-            {COMPANY.sub}
+          <img
+            src={theme === "dark" ? "/brand/yuefung-logo-dark.png" : "/brand/yuefung-logo.png"}
+            alt={`${COMPANY.name} logo`}
+            width="321"
+            height="162"
+            className="h-8 w-auto sm:h-9"
+            data-testid="nav-logo"
+          />
+          <span className="flex flex-col leading-none">
+            <span className="font-display text-[15px] font-medium tracking-[0.24em] text-[color:var(--graphite)] transition-colors duration-300 group-hover:text-[color:var(--gold-deep)] sm:text-[17px]">
+              {COMPANY.short}
+            </span>
+            <span className="mt-1 hidden font-tech text-[8px] uppercase tracking-[0.2em] text-[color:var(--slate)] sm:block">
+              {COMPANY.sub}
+            </span>
           </span>
         </a>
 
-        <nav className="hidden items-center gap-9 lg:flex" aria-label="Main navigation" data-testid="nav-links">
+        <nav className="hidden items-center gap-8 lg:flex" aria-label="Main navigation" data-testid="nav-links">
           {NAV_LINKS.map((l) => (
             <a
               key={l.href}
@@ -81,7 +94,7 @@ export default function Navbar() {
                   : "text-[color:var(--slate)] hover:text-[color:var(--graphite)]"
               }`}
             >
-              {l.label}
+              {t.nav[l.id]}
               <span
                 className={`absolute -bottom-1 left-0 h-px bg-[color:var(--gold)] transition-[width] duration-300 ${
                   active === l.id ? "w-full" : "w-0"
@@ -91,24 +104,25 @@ export default function Navbar() {
           ))}
         </nav>
 
-        <div className="flex items-center gap-2">
+        <div className="flex shrink-0 items-center gap-2">
+          <SettingsMenu />
           <a
             href="#contact"
             onClick={(e) => go(e, "#contact")}
             data-testid="nav-inquiry-btn"
-            className="group hidden items-center gap-2.5 rounded-sm bg-[color:var(--graphite)] px-5 py-3 font-tech text-[10px] uppercase tracking-[0.18em] text-white transition-colors duration-300 hover:bg-[color:var(--gold-deep)] sm:flex"
+            className="btn-press group hidden items-center gap-2.5 rounded-sm bg-[color:var(--graphite)] px-5 py-3 font-tech text-[10px] uppercase tracking-[0.18em] text-[color:var(--porcelain)] hover:bg-[color:var(--gold-deep)] md:flex"
           >
-            Make an Inquiry
+            {t.nav.cta}
             <ArrowRight size={13} className="transition-transform duration-300 group-hover:translate-x-1" />
           </a>
           <button
-            className="rounded-sm p-2 text-[color:var(--graphite)] transition-colors hover:text-[color:var(--gold-deep)] lg:hidden"
+            className="btn-press flex h-10 w-10 items-center justify-center rounded-sm border border-[color:var(--hairline-strong)] text-[color:var(--graphite)] hover:border-[color:var(--gold)] hover:text-[color:var(--gold-deep)] lg:hidden"
             onClick={() => setOpen(!open)}
             data-testid="mobile-menu-btn"
-            aria-label={open ? "Close menu" : "Open menu"}
+            aria-label={open ? "Close menu" : t.nav.menu}
             aria-expanded={open}
           >
-            {open ? <X size={20} /> : <Menu size={20} />}
+            {open ? <X size={18} /> : <Menu size={18} />}
           </button>
         </div>
       </div>
@@ -120,7 +134,7 @@ export default function Navbar() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -8 }}
             transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-            className="glass-nav-solid mx-auto mt-2 flex max-w-[1340px] flex-col rounded-sm p-3 lg:hidden"
+            className="glass-nav-solid mx-auto mt-2 flex max-w-[1340px] flex-col rounded-xl p-3 lg:hidden"
             aria-label="Mobile navigation"
             data-testid="mobile-menu"
           >
@@ -134,16 +148,16 @@ export default function Navbar() {
                   active === l.id ? "text-[color:var(--gold-deep)]" : "text-[color:var(--graphite)]"
                 }`}
               >
-                {l.label}
+                {t.nav[l.id]}
               </a>
             ))}
             <a
               href="#contact"
               onClick={(e) => go(e, "#contact")}
               data-testid="mobile-inquiry-btn"
-              className="mt-3 flex items-center justify-center gap-2 rounded-sm bg-[color:var(--graphite)] px-4 py-3.5 font-tech text-[11px] uppercase tracking-[0.18em] text-white"
+              className="btn-press mt-3 flex items-center justify-center gap-2 rounded-sm bg-[color:var(--graphite)] px-4 py-4 font-tech text-[11px] uppercase tracking-[0.18em] text-[color:var(--porcelain)]"
             >
-              Make an Inquiry <ArrowRight size={14} />
+              {t.nav.cta} <ArrowRight size={14} />
             </a>
           </motion.nav>
         )}

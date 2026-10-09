@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import { AuthProvider } from "@/context/AuthContext";
+import { SettingsProvider } from "@/context/SettingsContext";
 import { Toaster } from "@/components/ui/sonner";
 import Home from "@/pages/Home";
 import Dashboard from "@/pages/Dashboard";
@@ -23,11 +24,13 @@ function AppRouter() {
 
 export default function App() {
   return (
-    <AuthProvider>
-      <BrowserRouter>
-        <Toaster theme="light" position="bottom-right" />
-        <AppRouter />
-      </BrowserRouter>
-    </AuthProvider>
+    <SettingsProvider>
+      <AuthProvider>
+        <BrowserRouter>
+          <Toaster position="bottom-right" />
+          <AppRouter />
+        </BrowserRouter>
+      </AuthProvider>
+    </SettingsProvider>
   );
 }

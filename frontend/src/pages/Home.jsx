@@ -3,6 +3,7 @@ import Lenis from "lenis";
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import Company from "@/components/Company";
+import ScrollSequence from "@/components/ScrollSequence";
 import Capabilities from "@/components/Capabilities";
 import Service from "@/components/Service";
 import Standards from "@/components/Standards";
@@ -41,6 +42,7 @@ export default function Home() {
       <main>
         <Hero />
         <Company />
+        <ScrollSequence />
         <Capabilities />
         <Service onInquire={handleInquire} />
         <Standards />

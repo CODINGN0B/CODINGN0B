@@ -53,9 +53,8 @@ export const SERVICES = [
     name: "Plastic Injection Moulding",
     blurb:
       "Moulded plastic components manufactured against approved specifications and agreed production requirements.",
-    image:
-      "https://images.unsplash.com/photo-1764185800646-f75f7e16e465?crop=entropy&cs=srgb&fm=jpg&q=85&w=1200",
-    alt: "Injection moulding machines arranged along a production floor",
+    image: "/photos/injection-moulding.jpg",
+    alt: "Injection moulding machine on the Yue Fung production floor",
   },
 ];
 
@@ -63,9 +62,8 @@ export const IMAGES = {
   hero:
     "https://images.unsplash.com/photo-1769147339214-076740872485?crop=entropy&cs=srgb&fm=jpg&q=85&w=1600",
   heroAlt: "Two precision metal components resting on engineering blueprints",
-  company:
-    "https://images.unsplash.com/photo-1777464375799-768774f30542?crop=entropy&cs=srgb&fm=jpg&q=85&w=1400",
-  companyAlt: "Interior of a manufacturing facility with production equipment",
+  company: "/photos/injection-moulding.jpg",
+  companyAlt: "Injection moulding machine on the Yue Fung production floor",
   capabilities: [
     {
       title: "Manufacturing to Drawing",
