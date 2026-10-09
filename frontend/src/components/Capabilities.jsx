@@ -1,82 +1,60 @@
-import { ArrowUpRight, Cog, Layers, Ruler, Wrench } from "lucide-react";
 import { Reveal, SectionLabel } from "@/components/Reveal";
-import { scrollToId } from "@/lib/site";
-
-const CARDS = [
-  {
-    icon: Cog,
-    title: "Metal Products",
-    body: "Precision metal components manufactured according to customer requirements.",
-  },
-  {
-    icon: Layers,
-    title: "Plastic Products",
-    body: "Custom plastic components and production solutions.",
-  },
-  {
-    icon: Wrench,
-    title: "Custom Manufacturing",
-    body: "Manufacturing based on customer drawings, specifications, materials and requirements.",
-  },
-  {
-    icon: Ruler,
-    title: "Quality Assurance",
-    body: "Consistent production and inspection processes focused on meeting defined requirements.",
-  },
-];
+import { PlaceholderTag } from "@/components/PlaceholderTag";
+import { IMAGES } from "@/lib/site";
 
 export default function Capabilities() {
   return (
     <section
       id="capabilities"
-      className="relative border-t border-white/5 bg-[#0a0c0e] py-24 md:py-32"
+      className="relative border-t border-[color:var(--hairline)] bg-[color:var(--ivory)] py-24 md:py-32"
       data-testid="capabilities-section"
     >
-      <div className="mx-auto max-w-[1400px] px-5 sm:px-8">
+      <div className="mx-auto max-w-[1340px] px-5 sm:px-8">
         <div className="flex flex-col gap-7 lg:flex-row lg:items-end lg:justify-between">
           <div>
             <Reveal>
               <SectionLabel index="02">Capabilities</SectionLabel>
             </Reveal>
             <Reveal delay={0.05}>
-              <h2 className="mt-7 max-w-2xl font-display text-3xl font-semibold uppercase leading-[1.05] tracking-tight text-white md:text-4xl lg:text-5xl">
-                Engineered for Your Application
+              <h2 className="mt-7 max-w-2xl font-display text-3xl font-light leading-[1.1] tracking-tight text-[color:var(--graphite)] md:text-4xl lg:text-[2.9rem]">
+                Can we handle your project?
               </h2>
             </Reveal>
           </div>
           <Reveal delay={0.1}>
-            <p className="max-w-sm text-sm leading-relaxed text-zinc-500">
-              Manufacturing scope is defined by the drawings and specifications supplied with each
-              enquiry.
+            <p className="max-w-sm text-sm leading-relaxed text-[color:var(--slate)]">
+              Send the drawing and we will tell you plainly. Tolerances, materials, capacity and lead
+              times are confirmed per project — we do not publish figures we cannot stand behind.
             </p>
           </Reveal>
         </div>
 
-        <div className="mt-16 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-          {CARDS.map((c, i) => (
-            <Reveal key={c.title} delay={0.06 * i}>
-              <button
-                type="button"
-                onClick={() => scrollToId("#quote")}
+        <div className="mt-14 grid gap-5 lg:grid-cols-12">
+          {IMAGES.capabilities.map((c, i) => (
+            <Reveal key={c.title} delay={0.05 * i} className={c.span}>
+              <article
+                className={`group relative h-full overflow-hidden border border-[color:var(--hairline)] bg-white ${c.height}`}
                 data-testid={`capability-card-${i}`}
-                className="group relative flex h-full w-full flex-col items-start overflow-hidden rounded-lg border border-white/[0.07] bg-[#101214] p-7 text-left transition-[transform,border-color,background-color] duration-500 hover:-translate-y-1.5 hover:border-[color:var(--steel)]/40 hover:bg-[#13171a]"
               >
+                {c.placeholder && <PlaceholderTag label="Figures pending confirmation" />}
+                <img
+                  src={c.image}
+                  alt={c.alt}
+                  loading="lazy"
+                  className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
+                />
                 <div
-                  className="tech-grid-fine pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-30"
+                  className="absolute inset-0 bg-[linear-gradient(to_top,rgba(14,15,16,0.86),rgba(14,15,16,0.25)_60%,rgba(14,15,16,0.08))]"
                   aria-hidden="true"
                 />
-                <span className="relative flex h-11 w-11 items-center justify-center rounded-md border border-white/10 bg-white/[0.03] text-[color:var(--steel)] transition-transform duration-500 group-hover:scale-110">
-                  <c.icon size={19} strokeWidth={1.6} />
-                </span>
-                <h3 className="relative mt-7 font-display text-lg font-medium uppercase tracking-[0.06em] text-white">
-                  {c.title}
-                </h3>
-                <p className="relative mt-3 flex-1 text-sm leading-relaxed text-zinc-500">{c.body}</p>
-                <span className="relative mt-8 flex items-center gap-2 font-tech text-[10px] uppercase tracking-[0.2em] text-zinc-400 transition-colors group-hover:text-[color:var(--steel)]">
-                  Enquire
-                  <ArrowUpRight size={13} className="transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-0.5" />
-                </span>
-              </button>
+                <div className="absolute inset-x-0 bottom-0 p-7">
+                  <span className="block h-px w-10 rule-gold" aria-hidden="true" />
+                  <h3 className="mt-5 font-display text-xl font-light tracking-tight text-white">
+                    {c.title}
+                  </h3>
+                  <p className="mt-2.5 max-w-sm text-sm leading-relaxed text-white/75">{c.body}</p>
+                </div>
+              </article>
             </Reveal>
           ))}
         </div>

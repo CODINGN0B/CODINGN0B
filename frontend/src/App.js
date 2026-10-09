@@ -3,6 +3,7 @@ import { AuthProvider } from "@/context/AuthContext";
 import { Toaster } from "@/components/ui/sonner";
 import Home from "@/pages/Home";
 import Dashboard from "@/pages/Dashboard";
+import Privacy from "@/pages/Privacy";
 import AuthCallback from "@/pages/AuthCallback";
 import "@/App.css";
 
@@ -14,6 +15,7 @@ function AppRouter() {
     <Routes>
       <Route path="/" element={<Home />} />
       <Route path="/dashboard" element={<Dashboard />} />
+      <Route path="/privacy" element={<Privacy />} />
       <Route path="*" element={<Home />} />
     </Routes>
   );
@@ -23,7 +25,7 @@ export default function App() {
   return (
     <AuthProvider>
       <BrowserRouter>
-        <Toaster theme="dark" position="bottom-right" />
+        <Toaster theme="light" position="bottom-right" />
         <AppRouter />
       </BrowserRouter>
     </AuthProvider>

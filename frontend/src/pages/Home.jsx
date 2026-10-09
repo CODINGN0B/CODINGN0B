@@ -1,17 +1,18 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Lenis from "lenis";
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
-import About from "@/components/About";
+import Company from "@/components/Company";
 import Capabilities from "@/components/Capabilities";
-import Process from "@/components/Process";
-import Products from "@/components/Products";
-import Quality from "@/components/Quality";
-import QuoteForm from "@/components/QuoteForm";
+import Service from "@/components/Service";
+import Standards from "@/components/Standards";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
+import { scrollToId } from "@/lib/site";
 
 export default function Home() {
+  const [prefillService, setPrefillService] = useState(null);
+
   useEffect(() => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     const lenis = new Lenis({ duration: 1.05, smoothWheel: true });
@@ -29,18 +30,21 @@ export default function Home() {
     };
   }, []);
 
+  const handleInquire = (serviceKey) => {
+    setPrefillService(serviceKey);
+    scrollToId("#contact");
+  };
+
   return (
-    <div className="min-h-screen bg-background text-zinc-100" data-testid="app-root">
+    <div className="min-h-screen bg-background" data-testid="app-root">
       <Navbar />
       <main>
         <Hero />
-        <About />
+        <Company />
         <Capabilities />
-        <Process />
-        <Products />
-        <Quality />
-        <QuoteForm />
-        <Contact />
+        <Service onInquire={handleInquire} />
+        <Standards />
+        <Contact prefillService={prefillService} onPrefillConsumed={() => setPrefillService(null)} />
       </main>
       <Footer />
     </div>

@@ -19,8 +19,8 @@ export const Reveal = ({ children, delay = 0, y = 28, className = "", as = "div"
 
 export const SectionLabel = ({ index, children, className = "" }) => (
   <div className={`flex items-center gap-4 ${className}`}>
-    {index && <span className="font-tech text-[10px] tracking-[0.3em] text-[color:var(--steel)]">{index}</span>}
-    <span className="h-px w-10 bg-white/15" />
+    {index && <span className="font-tech text-[10px] tracking-[0.3em] text-[color:var(--gold-deep)]">{index}</span>}
+    <span className="h-px w-10 rule-gold" />
     <span className="label-tech">{children}</span>
   </div>
 );

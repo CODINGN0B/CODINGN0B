@@ -26,6 +26,11 @@ export const AuthProvider = ({ children }) => {
       setLoading(false);
       return;
     }
+    // The public site has no sign-in; only the internal dashboard needs a session lookup.
+    if (!window.location.pathname.startsWith("/dashboard")) {
+      setLoading(false);
+      return;
+    }
     checkAuth();
   }, [checkAuth]);
 

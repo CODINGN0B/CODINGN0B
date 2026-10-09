@@ -1,124 +1,108 @@
 {
-  "theme": "dark",
-  "typography": {
-    "heading_font": "Barlow",
-    "body_font": "Inter",
-    "mono_font": "JetBrains Mono",
-    "scale": {
-      "h1": "text-5xl md:text-6xl lg:text-7xl font-bold tracking-tighter uppercase",
-      "h2": "text-3xl md:text-4xl lg:text-5xl font-semibold tracking-tight uppercase",
-      "h3": "text-2xl md:text-3xl font-medium tracking-tight",
-      "h4": "text-xl font-medium",
-      "body": "text-base text-neutral-400 leading-relaxed",
-      "metadata": "text-xs font-mono uppercase tracking-[0.2em] text-neutral-500"
-    }
-  },
-  "colors": {
-    "background": "#0A0A0A",
-    "surface": "#121212",
-    "surface_hover": "#1A1A1A",
-    "border": "#262626",
-    "text_primary": "#FFFFFF",
-    "text_secondary": "#A3A3A3",
-    "accent_blue": "#5C9CE6",
-    "accent_steel": "#64748B",
-    "css_variables": {
-      "--background": "0 0% 4%",
-      "--foreground": "0 0% 100%",
-      "--card": "0 0% 7%",
-      "--card-foreground": "0 0% 90%",
-      "--popover": "0 0% 7%",
-      "--popover-foreground": "0 0% 90%",
-      "--primary": "213 94% 68%",
-      "--primary-foreground": "0 0% 10%",
-      "--secondary": "0 0% 15%",
-      "--secondary-foreground": "0 0% 100%",
-      "--muted": "0 0% 12%",
-      "--muted-foreground": "0 0% 64%",
-      "--accent": "215 25% 27%",
+  "theme": "light",
+  "project_name": "Yue Fung Metal Plastic Products - Phase 1 Refinement",
+  "css_variables": {
+    "light": {
+      "--background": "0 0% 99%",
+      "--foreground": "220 10% 10%",
+      "--muted": "220 14% 96%",
+      "--muted-foreground": "220 9% 46%",
+      "--popover": "0 0% 100%",
+      "--popover-foreground": "220 10% 10%",
+      "--card": "0 0% 100%",
+      "--card-foreground": "220 10% 10%",
+      "--border": "220 13% 91%",
+      "--input": "220 13% 91%",
+      "--primary": "220 10% 10%",
+      "--primary-foreground": "0 0% 100%",
+      "--secondary": "220 14% 96%",
+      "--secondary-foreground": "220 10% 10%",
+      "--accent": "37 42% 64%", 
       "--accent-foreground": "0 0% 100%",
       "--destructive": "0 84% 60%",
       "--destructive-foreground": "0 0% 100%",
-      "--border": "0 0% 15%",
-      "--input": "0 0% 15%",
-      "--ring": "213 94% 68%",
-      "--radius": "0.375rem"
+      "--ring": "37 42% 64%",
+      "--radius": "0.125rem",
+      "--glass-bg": "rgba(255, 255, 255, 0.85)",
+      "--glass-border": "rgba(200, 169, 126, 0.2)"
     }
   },
-  "visual_enhancers": {
-    "glassmorphism": "bg-black/40 backdrop-blur-xl border border-white/10",
-    "shadows": "shadow-[0_8px_32px_rgba(0,0,0,0.5)]",
-    "borders": "border border-border",
-    "border_radius": "rounded-md",
-    "textures": "Subtle CAD-style technical lines, measurement indicators (+ crosshairs at corners of sections), and faint coordinate grids. Use SVG backgrounds or repeating linear gradients for grids (opacity-5)."
+  "typography": {
+    "google_fonts": ["Outfit", "Manrope", "JetBrains Mono"],
+    "roles": {
+      "display_headline": "font-sans font-light tracking-tighter text-6xl md:text-7xl",
+      "section_heading": "font-sans font-light tracking-tight text-4xl md:text-5xl",
+      "body": "font-body text-base leading-relaxed tracking-normal text-muted-foreground",
+      "technical_label": "font-mono text-xs uppercase tracking-[0.2em] text-accent font-medium"
+    }
+  },
+  "spacing_rhythm": {
+    "section": "py-24 md:py-32 lg:py-40",
+    "container": "max-w-7xl mx-auto px-6 md:px-12",
+    "gap_standard": "gap-8 md:gap-12",
+    "gap_dense": "gap-4 md:gap-6"
+  },
+  "shadow_ladder": {
+    "sm": "shadow-[0_2px_8px_rgba(0,0,0,0.04)]",
+    "md": "shadow-[0_8px_24px_rgba(0,0,0,0.06)]",
+    "lg": "shadow-[0_16px_48px_rgba(0,0,0,0.08)]",
+    "glass": "shadow-[0_4px_32px_rgba(0,0,0,0.04)]"
+  },
+  "component_specs": {
+    "navbar": "fixed top-0 w-full z-50 backdrop-blur-xl bg-white/85 border-b border-[#EBECEE] transition-all duration-300. Active tab: text-foreground font-medium relative after:absolute after:bottom-[-20px] after:left-0 after:w-full after:h-0.5 after:bg-accent",
+    "primary_button": "bg-primary text-primary-foreground hover:bg-accent hover:text-white transition-colors duration-300 px-8 py-4 text-sm font-medium tracking-wide rounded-none",
+    "secondary_button": "bg-transparent border border-border text-foreground hover:border-accent hover:text-accent transition-colors duration-300 px-8 py-4 text-sm font-medium tracking-wide rounded-none",
+    "core_value_card": "p-8 border border-border bg-card hover:shadow-md transition-shadow duration-500 flex flex-col gap-4 rounded-none",
+    "service_card": "group relative flex flex-col bg-card border border-border overflow-hidden rounded-none. Image wrapper: aspect-[4/3] overflow-hidden bg-muted. Image: transition-transform duration-700 ease-[0.16,1,0.3,1] group-hover:scale-105. CTA: mt-auto pt-6 text-sm font-medium text-accent flex items-center gap-2 group/btn cursor-pointer",
+    "certificate_placeholder_frame": "aspect-[3/4] border border-dashed border-border flex items-center justify-center bg-muted/30 relative",
+    "placeholder_tag": "inline-flex items-center gap-1.5 px-2 py-1 bg-accent/10 border border-accent/30 text-accent text-[10px] font-mono uppercase tracking-wider rounded-none absolute top-4 right-4 z-10",
+    "form_elements": {
+      "input": "bg-muted/30 border-border focus:border-accent focus:ring-1 focus:ring-accent rounded-none h-12",
+      "select": "bg-muted/30 border-border focus:border-accent focus:ring-1 focus:ring-accent rounded-none h-12",
+      "checkbox": "border-border text-accent focus:ring-accent rounded-none",
+      "file_dropzone": "border-2 border-dashed border-border hover:border-accent/50 bg-muted/10 transition-colors p-8 flex flex-col items-center justify-center gap-4 cursor-pointer",
+      "success_panel": "bg-[#F9FAF7] border border-[#E2E8D5] p-8 flex flex-col items-center justify-center text-center gap-4 text-[#4A5D23]"
+    }
+  },
+  "motion_specs": {
+    "easing": "cubic-bezier(0.16, 1, 0.3, 1)",
+    "duration_fast": "0.3s",
+    "duration_medium": "0.5s",
+    "duration_slow": "0.7s",
+    "scroll_reveal": "initial opacity-0 translate-y-8; whileInView opacity-100 translate-y-0 duration-700 ease-out viewport-once"
   },
   "layouts": {
-    "container": "max-w-7xl mx-auto px-6 md:px-12 w-full",
-    "section_padding": "py-24 md:py-32",
-    "hero": "min-h-[100svh] flex flex-col justify-center relative overflow-hidden",
-    "bento_grid": "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6",
-    "products_grid": "grid grid-cols-1 md:grid-cols-2 gap-8"
+    "section_1_company": "Grid 1x2 for intro, flowing into a 3-column grid for values. Timeline highlight placed symmetrically.",
+    "section_2_capabilities": "Bento/Tetris grid (md:grid-cols-12). Hero span-8, tall span-4, squares span-4. Generous gap-8.",
+    "section_3_service": "2x2 grid (md:grid-cols-2). Very clean, image led.",
+    "section_4_standards": "Split layout. Left: Certificate placeholder display (sticky). Right: Three vertically stacked quality strength cards.",
+    "section_5_contact": "Scroll triggered slide-up panel. 10-field grid. 2-column layout for form fields on md screens."
   },
-  "components": {
-    "navbar": "fixed top-4 left-1/2 -translate-x-1/2 w-[calc(100%-2rem)] max-w-7xl z-50 glassmorphism rounded-full px-6 py-4 flex justify-between items-center transition-all duration-300",
-    "button_primary": "bg-primary text-primary-foreground hover:bg-primary/90 px-6 py-3 rounded-md font-medium transition-colors duration-300 flex items-center gap-2 group",
-    "button_secondary": "bg-transparent border border-white/20 text-white hover:bg-white/5 px-6 py-3 rounded-md font-medium transition-colors duration-300 flex items-center gap-2 group",
-    "card_capabilities": "bg-card border border-border p-8 rounded-md relative overflow-hidden group transition-all duration-500 hover:-translate-y-2 hover:border-primary/50 hover:shadow-[0_8px_30px_rgba(92,156,230,0.15)]",
-    "process_timeline": "relative flex flex-col md:flex-row justify-between items-start md:items-center gap-12 md:gap-4 before:absolute before:content-[''] before:bg-border before:w-px md:before:w-full before:h-full md:before:h-px before:left-[15px] md:before:left-0 before:top-0 md:before:top-[15px]",
-    "process_node": "relative z-10 w-8 h-8 rounded-full bg-background border-2 border-primary flex items-center justify-center font-mono text-xs text-primary shadow-[0_0_15px_rgba(92,156,230,0.3)]",
-    "form_input": "flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 transition-colors"
-  },
-  "motion": {
-    "entrance": "initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '-100px' }} transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}",
-    "stagger": "transition={{ staggerChildren: 0.15 }}",
-    "hover_button_arrow": "group-hover:translate-x-1 transition-transform duration-300",
-    "hover_card_image": "group-hover:scale-105 transition-transform duration-700 ease-out"
-  },
-  "images": {
-    "hero_bg": {
-      "url": "https://images.unsplash.com/photo-1740209475472-aa7d280f7452?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjAzMzJ8MHwxfHNlYXJjaHwyfHxtZXRhbCUyMG1hbnVmYWN0dXJpbmclMjBwcmVjaXNpb258ZW58MHx8fHwxNzkxNDYwMDExfDA&ixlib=rb-4.1.0&q=85",
-      "description": "High-quality precision metal cutting machine for hero background"
-    },
-    "products": [
-      {
-        "url": "https://images.unsplash.com/photo-1666634157070-6fd830fb5672?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NTYxOTB8MHwxfHNlYXJjaHwyfHxDTkMlMjBtYWNoaW5pbmd8ZW58MHx8fHwxNzkxNDYwMDEwfDA&ixlib=rb-4.1.0&q=85",
-        "description": "Metal rod being machined in lathe"
-      },
-      {
-        "url": "https://images.unsplash.com/photo-1593106410288-caf65eca7c9d?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjAzMzJ8MHwxfHNlYXJjaHwzfHxtZXRhbCUyMG1hbnVmYWN0dXJpbmclMjBwcmVjaXNpb258ZW58MHx8fHwxNzkxNDYwMDExfDA&ixlib=rb-4.1.0&q=85",
-        "description": "Laser cutting machine with orange sparks"
-      }
-    ],
-    "quality_bg": {
-      "url": "https://images.unsplash.com/photo-1496247749665-49cf5b1022e9?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjAzMjV8MHwxfHNlYXJjaHwxfHxpbmR1c3RyaWFsJTIwZmFjdG9yeSUyMGVuZ2luZWVyaW5nfGVufDB8fHx8MTc5MTQ2MDAxMXww&ixlib=rb-4.1.0&q=85",
-      "description": "Clean interior of a large industrial factory"
-    }
+  "image_urls": {
+    "hero_background": "https://images.unsplash.com/photo-1589793463357-5fb813435467?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDQ2NDJ8MHwxfHNlYXJjaHw0fHxmYWN0b3J5JTIwcHJvZHVjdGlvbiUyMGxpbmV8ZW58MHx8fHwxNzkxNTQxNjY0fDA&ixlib=rb-4.1.0&q=85",
+    "cnc_machining": "https://images.unsplash.com/photo-1666634157070-6fd830fb5672?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDQ2Mzl8MHwxfHNlYXJjaHwyfHxjbmMlMjBtYWNoaW5pbmclMjBpbmR1c3RyaWFsfGVufDB8fHx8MTc5MTU0MTY2MHww&ixlib=rb-4.1.0&q=85",
+    "precision_stamping": "https://images.unsplash.com/photo-1769147339214-076740872485?crop=entropy&cs=srgb&fm=jpg&ixid=M3w8NjA1NTZ8MHwxfHNlYXJjaHwxfHxwcmVjaXNpb24lMjBlbmdpbmVlcmluZyUyMG1ldGFsfGVufDB8fHx8MTc5MTU0MTY2OHww&ixlib=rb-4.1.0&q=85",
+    "injection_moulding": "https://images.unsplash.com/photo-1666618090858-fbcee636bd3e?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDQ2Mzl8MHwxfHNlYXJjaHw0fHxjbmMlMjBtYWNoaW5pbmclMjBpbmR1c3RyaWFsfGVufDB8fHx8MTc5MTU0MTY2MHww&ixlib=rb-4.1.0&q=85",
+    "engineering_general": "https://images.unsplash.com/photo-1711418235334-8895331a6cf9?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDQ2Mzl8MHwxfHNlYXJjaHwzfHxjbmMlMjBtYWNoaW5pbmclMjBpbmR1c3RyaWFsfGVufDB8fHx8MTc5MTU0MTY2MHww&ixlib=rb-4.1.0&q=85"
   },
   "instructions_to_main_agent": [
-    "Replace the existing gold/cyan color palette entirely with the dark/steel-blue variables provided in this blueprint.",
-    "Remove the existing 3D car showcase. Do NOT include any 3D rendering libraries like React Three Fiber or Spline.",
-    "Ensure the copy is English-only. Drop any bilingual Traditional Chinese text from the existing site.",
-    "Setup Lenis for smooth scrolling at the root layout level.",
-    "Implement the floating glassmorphic nav bar. It should sit over the hero image, shrink slightly or become more opaque on scroll, and feature a mobile hamburger with an elegant full-screen or dropdown menu.",
-    "HERO SECTION: Use `hero_bg` image with a dark overlay (`bg-black/60` or similar). Include eyebrow text 'PRECISION MANUFACTURING', heading 'Built to Perform.', and heritage blocks ('EST. 1984 / HONG KONG' and 'MANUFACTURING / DONGGUAN, CHINA') using the `metadata` typography scale. Add subtle CAD-style measurement markings (like crosshairs or coordinate labels) with slight parallax.",
-    "CAPABILITIES SECTION: Build a 4-card grid ('Metal Products', 'Plastic Products', 'Custom Manufacturing', 'Quality Assurance'). Use Lucide icons. On hover: card translateY, border brightens, icon scales, and the arrow shifts right.",
-    "PROCESS SECTION: 5 stages (01 Inquiry to 05 Delivery). Layout must be horizontal on desktop (with nodes connected by a line) and vertical on mobile.",
-    "PRODUCTS SECTION: Large image cards, not small grids. On hover: the wrapper scales up the image slightly, overlay darkens.",
-    "QUALITY SECTION: A premium dark section with technical diagrams/lines. Include editable placeholder text for certifications (e.g., 'ISO 9001:2015 [Placeholder]'). Do NOT fabricate fake numbers or awards.",
-    "QUOTE FORM: Use Shadcn UI forms. Include standard fields, a drag-and-drop file upload zone (accepting PDF/DWG/DXF/STEP/STL/ZIP), validation errors, and a success confirmation state.",
-    "ADMIN DASHBOARD: Build a simple protected route (e.g., /admin) that lists submitted quote requests in a Shadcn Table. Include a detail view modal or side panel. Mock the Google Sign-in if necessary.",
-    "FOOTER: Include the brand, slogan 'Precision Engineering Aligned with Excellent Standards', and standard copyright info.",
-    "Add `data-testid` attributes to all buttons, links, and form inputs for testing."
+    "WIPE ANY EXISTING DARK THEME TOKENS. This is a light 'premium industrial' site. Background is white/porcelain (#FDFDFD), text is graphite (#181A1C), accent is muted champagne gold (#CBA365).",
+    "Use Outfit for Headings and Manrope for Body. Use JetBrains Mono for small technical labels (like 'EST. 1984' or placeholder tags).",
+    "Navbar MUST use translucent white glassmorphism: backdrop-blur-xl with a bg-white/85 and subtle border-b. Ensure mobile menu collapses elegantly.",
+    "Add 'data-testid' to ALL interactive elements (buttons, links, inputs).",
+    "Use Framer Motion for scroll reveals (y:40 to y:0, ease: [0.16, 1, 0.3, 1]). DO NOT over-animate. Keep it composed and restrained.",
+    "Unconfirmed content (like missing photos, fake certificates, or filler text) MUST include the `[PLACEHOLDER — FOR OWNER REVIEW]` tag visually overlaid.",
+    "The inquiry form should have 10 fields. Use shadcn forms, inputs, selects, checkboxes.",
+    "Ensure 'Make an Inquiry' on Service cards prefills the form's service select dropdown via state.",
+    "Use rounded-none or rounded-sm for a precise, machined engineering feel, rather than soft SaaS bubbles. NO extreme border-radius.",
+    "Do NOT use transparent navigation backgrounds that make text unreadable. Use solid or highly opaque blurred backgrounds."
   ],
-  "universal_guidelines": [
-    "Create depth through layered design elements with z-index hierarchy, avoiding flat or monotonous looks.",
-    "Use glass-morphism effects with backdrop filters (12-24px blur) for floating elements like nav and modals.",
-    "Do NOT apply universal transitions (e.g., `transition: all`). Target specific properties like `transition-transform` or `transition-colors` to prevent breaking complex animations.",
-    "Avoid centering layouts by default. Left-aligned typography and structured grids feel more professional and readable for B2B technical audiences.",
-    "Incorporate micro-animations on all interactive elements (hover states, focus rings, active clicks).",
-    "Utilize generous whitespace. Use `py-24` or `py-32` spacing between major sections to let the technical elements breathe.",
-    "Never use AI assistant emoji characters. Rely exclusively on clean SVGs (e.g., Lucide React).",
-    "Ensure all text against dark backgrounds meets APCA or WCAG AA contrast standards.",
-    "Make sure form inputs have highly visible focus states with the primary blue ring."
+  "UNIVERSAL_GUIDELINES_FOR_MAIN_AGENT": [
+    "You tend to converge toward generic outputs. Avoid this: make creative, distinctive frontends that surprise and delight.",
+    "Create depth through layered design elements with z-index hierarchy, especially with glassmorphism.",
+    "You MUST NOT apply universal transition (e.g., transition: all). Always add transitions for specific properties.",
+    "You MUST NOT center align the app container. Keep text flow natural.",
+    "Use 2-3x more spacing than feels comfortable. Cramped designs look cheap.",
+    "Main agent relies on provided image URLs. Missing categories = main agent will use placeholder text which is FORBIDDEN."
   ]
 }

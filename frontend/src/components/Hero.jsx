@@ -1,121 +1,117 @@
-import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { ArrowRight, ArrowDown } from "lucide-react";
 import { COMPANY, IMAGES, scrollToId } from "@/lib/site";
 
-const HeritageBlock = ({ label, value, testid }) => (
-  <div className="border-l border-white/15 pl-4" data-testid={testid}>
-    <p className="label-tech">{label}</p>
-    <p className="mt-1.5 font-display text-sm font-medium uppercase tracking-[0.14em] text-zinc-100">{value}</p>
-  </div>
-);
+const fade = (delay, reduce) => ({
+  initial: reduce ? false : { opacity: 0, y: 22 },
+  animate: { opacity: 1, y: 0 },
+  transition: { duration: 0.8, delay, ease: [0.16, 1, 0.3, 1] },
+});
 
 export default function Hero() {
   const reduce = useReducedMotion();
-  const { scrollY } = useScroll();
-  const gridY = useTransform(scrollY, [0, 800], [0, reduce ? 0 : 120]);
-  const imgY = useTransform(scrollY, [0, 800], [0, reduce ? 0 : 80]);
 
   return (
-    <section
-      id="top"
-      className="relative isolate flex min-h-[100svh] flex-col justify-end overflow-hidden pb-14 pt-32 sm:pb-20"
-      data-testid="hero-section"
-    >
-      <motion.div className="absolute inset-0 -z-20" style={{ y: imgY }}>
-        <img
-          src={IMAGES.hero}
-          alt="Precision machining of a metal component on a CNC machine"
-          className="h-[115%] w-full object-cover"
-          loading="eager"
-          fetchPriority="high"
-        />
-      </motion.div>
-      <div className="absolute inset-0 -z-10 bg-[linear-gradient(to_right,rgba(6,8,10,0.94),rgba(6,8,10,0.78)_55%,rgba(6,8,10,0.55))]" />
-      <div className="absolute inset-0 -z-10 bg-[linear-gradient(to_top,#08090a_6%,transparent_55%)]" />
-      <motion.div
-        className="tech-grid pointer-events-none absolute inset-0 -z-10 opacity-[0.55]"
-        style={{ y: gridY }}
+    <section id="top" className="relative overflow-hidden pb-20 pt-36 md:pb-28 md:pt-44" data-testid="hero-section">
+      <div className="tech-grid pointer-events-none absolute inset-0 opacity-70" aria-hidden="true" />
+      <div
+        className="pointer-events-none absolute inset-x-0 top-0 h-[60%] bg-[linear-gradient(to_bottom,#faf8f4,rgba(253,253,252,0))]"
         aria-hidden="true"
       />
 
-      {/* CAD-style measurement markings */}
-      <div className="pointer-events-none absolute inset-0 -z-10 hidden lg:block" aria-hidden="true">
-        <div className="absolute left-0 top-1/2 h-px w-20 bg-white/20" />
-        <div className="absolute right-0 top-[38%] h-px w-20 bg-white/20" />
-        <div className="rule-ticks absolute bottom-0 left-0 h-3 w-full opacity-20" />
-        <span className="absolute left-24 top-[calc(50%-18px)] font-tech text-[9px] tracking-[0.2em] text-white/35">
-          X 0.000
-        </span>
-        <span className="absolute right-24 top-[calc(38%-18px)] font-tech text-[9px] tracking-[0.2em] text-white/35">
-          Y 0.000
-        </span>
+      <div className="relative mx-auto grid max-w-[1340px] items-center gap-14 px-5 sm:px-8 lg:grid-cols-[1.05fr_0.95fr] lg:gap-16">
+        <div>
+          <motion.div {...fade(0, reduce)} className="flex items-center gap-4">
+            <span className="h-px w-12 rule-gold" />
+            <span className="label-tech" data-testid="hero-eyebrow">
+              Established in {COMPANY.establishedPlace}, {COMPANY.established}
+            </span>
+          </motion.div>
+
+          <motion.h1
+            {...fade(0.08, reduce)}
+            className="mt-8 max-w-2xl font-display text-4xl font-light leading-[1.08] tracking-tight text-[color:var(--graphite)] sm:text-5xl lg:text-[3.6rem]"
+            data-testid="hero-heading"
+          >
+            Precision Engineering Aligned with{" "}
+            <span className="text-[color:var(--gold-deep)]">Excellent Standards</span>
+          </motion.h1>
+
+          <motion.p
+            {...fade(0.16, reduce)}
+            className="mt-8 max-w-lg text-sm leading-relaxed text-[color:var(--slate)] md:text-base"
+            data-testid="hero-subtext"
+          >
+            {COMPANY.name} manufactures metal and plastic components to customer drawings and
+            specifications. Established in Hong Kong in 1984, with manufacturing in Dongguan,
+            GuangDong.
+          </motion.p>
+
+          <motion.div {...fade(0.24, reduce)} className="mt-11 flex flex-col gap-3 sm:flex-row sm:items-center">
+            <button
+              onClick={() => scrollToId("#contact")}
+              data-testid="hero-inquiry-btn"
+              className="group flex items-center justify-center gap-2.5 rounded-sm bg-[color:var(--graphite)] px-7 py-4 font-tech text-[11px] uppercase tracking-[0.18em] text-white transition-colors duration-300 hover:bg-[color:var(--gold-deep)]"
+            >
+              Make an Inquiry
+              <ArrowRight size={14} className="transition-transform duration-300 group-hover:translate-x-1" />
+            </button>
+            <button
+              onClick={() => scrollToId("#capabilities")}
+              data-testid="hero-capabilities-btn"
+              className="group flex items-center justify-center gap-2.5 rounded-sm border border-[color:var(--hairline-strong)] bg-white/60 px-7 py-4 font-tech text-[11px] uppercase tracking-[0.18em] text-[color:var(--graphite)] transition-colors duration-300 hover:border-[color:var(--gold)] hover:text-[color:var(--gold-deep)]"
+            >
+              Explore Capabilities
+              <ArrowDown size={14} className="transition-transform duration-300 group-hover:translate-y-1" />
+            </button>
+          </motion.div>
+        </div>
+
+        <motion.div
+          initial={reduce ? false : { opacity: 0, y: 28 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.9, delay: 0.18, ease: [0.16, 1, 0.3, 1] }}
+          className="relative"
+        >
+          <div className="relative overflow-hidden rounded-sm border border-[color:var(--hairline)] bg-white shadow-card">
+            <img
+              src={IMAGES.hero}
+              alt={IMAGES.heroAlt}
+              width="1600"
+              height="1067"
+              loading="eager"
+              fetchPriority="high"
+              className="h-[300px] w-full object-cover sm:h-[400px] lg:h-[480px]"
+            />
+            <div className="flex items-center justify-between gap-4 border-t border-[color:var(--hairline)] bg-white px-5 py-4">
+              <span className="label-tech">Manufactured to customer drawing</span>
+              <span className="font-tech text-[10px] tracking-[0.18em] text-[color:var(--gold-deep)]">
+                MET · PLA
+              </span>
+            </div>
+          </div>
+          <span
+            className="pointer-events-none absolute -bottom-4 -left-4 hidden h-24 w-24 border-b border-l border-[color:var(--gold)]/50 lg:block"
+            aria-hidden="true"
+          />
+        </motion.div>
       </div>
 
-      <div className="mx-auto w-full max-w-[1400px] px-5 sm:px-8">
-        <motion.p
-          initial={reduce ? false : { opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-          className="label-tech !text-[color:var(--steel)]"
-          data-testid="hero-eyebrow"
-        >
-          Precision Manufacturing
-        </motion.p>
-
-        <motion.h1
-          initial={reduce ? false : { opacity: 0, y: 24 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.08, ease: [0.16, 1, 0.3, 1] }}
-          className="mt-5 max-w-4xl font-display text-5xl font-semibold uppercase leading-[0.92] tracking-tight text-white sm:text-6xl lg:text-7xl"
-          data-testid="hero-heading"
-        >
-          Built to Perform.
-        </motion.h1>
-
-        <motion.p
-          initial={reduce ? false : { opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.16, ease: [0.16, 1, 0.3, 1] }}
-          className="mt-6 max-w-xl text-sm leading-relaxed text-zinc-300 sm:text-base"
-          data-testid="hero-subtext"
-        >
-          Precision-engineered metal and plastic products manufactured to demanding standards.
-        </motion.p>
-
-        <motion.div
-          initial={reduce ? false : { opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.24, ease: [0.16, 1, 0.3, 1] }}
-          className="mt-10 flex flex-col gap-3 sm:flex-row sm:items-center"
-        >
-          <button
-            onClick={() => scrollToId("#quote")}
-            data-testid="hero-request-quote-btn"
-            className="group flex items-center justify-center gap-2.5 rounded-md bg-[color:var(--steel)] px-7 py-4 font-tech text-[11px] uppercase tracking-[0.2em] text-[#06080a] transition-colors duration-300 hover:bg-[#6aa4e6] active:scale-[0.99]"
-          >
-            Request a Quote
-            <ArrowRight size={14} className="transition-transform duration-300 group-hover:translate-x-1" />
-          </button>
-          <button
-            onClick={() => scrollToId("#capabilities")}
-            data-testid="hero-explore-btn"
-            className="group flex items-center justify-center gap-2.5 rounded-md border border-white/15 bg-white/[0.02] px-7 py-4 font-tech text-[11px] uppercase tracking-[0.2em] text-zinc-200 transition-colors duration-300 hover:border-white/30 hover:bg-white/[0.06]"
-          >
-            Explore Capabilities
-            <ArrowDown size={14} className="transition-transform duration-300 group-hover:translate-y-1" />
-          </button>
-        </motion.div>
-
-        <motion.div
-          initial={reduce ? false : { opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.34, ease: [0.16, 1, 0.3, 1] }}
-          className="mt-14 grid max-w-xl grid-cols-2 gap-6 border-t border-white/10 pt-8 sm:mt-20"
-          data-testid="hero-heritage"
-        >
-          <HeritageBlock label={`Est. ${COMPANY.established}`} value="Hong Kong" testid="hero-heritage-est" />
-          <HeritageBlock label="Manufacturing" value="Dongguan, China" testid="hero-heritage-mfg" />
-        </motion.div>
+      <div className="relative mx-auto mt-16 max-w-[1340px] px-5 sm:px-8 md:mt-24">
+        <dl className="grid gap-px border border-[color:var(--hairline)] bg-[color:var(--hairline)] sm:grid-cols-3">
+          {[
+            ["Established", `${COMPANY.establishedPlace} · ${COMPANY.established}`],
+            ["Manufacturing", "Dongguan, GuangDong, China"],
+            ["Focus", "Metal & plastic components"],
+          ].map(([k, v]) => (
+            <div key={k} className="bg-[color:var(--porcelain)] px-6 py-7">
+              <dt className="label-tech">{k}</dt>
+              <dd className="mt-2 font-display text-base font-light tracking-tight text-[color:var(--graphite)]">
+                {v}
+              </dd>
+            </div>
+          ))}
+        </dl>
       </div>
     </section>
   );

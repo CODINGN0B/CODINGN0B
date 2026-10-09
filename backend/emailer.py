@@ -158,9 +158,9 @@ def _row(label: str, value: str) -> str:
     )
 
 
-def internal_quote_email(quote: dict) -> tuple[str, str]:
+def internal_inquiry_email(inquiry: dict) -> tuple[str, str]:
     """Internal notification for the company inbox. Server-side template only."""
-    files = quote.get("files") or []
+    files = inquiry.get("files") or []
     file_list = (
         "".join(
             f'<li style="margin-bottom:4px">{escape(f.get("filename", ""))} '
@@ -170,57 +170,58 @@ def internal_quote_email(quote: dict) -> tuple[str, str]:
         or '<li style="color:#79828d">No files attached</li>'
     )
     rows = "".join([
-        _row("Reference ID", quote.get("id", "")),
-        _row("Received", quote.get("created_at", "")),
-        _row("Company", quote.get("company", "")),
-        _row("Contact", quote.get("contact_name", "")),
-        _row("Email", quote.get("email", "")),
-        _row("Phone", quote.get("phone", "")),
-        _row("Project", quote.get("project", "")),
-        _row("Quantity", quote.get("quantity", "")),
-        _row("Material", quote.get("material", "")),
-        _row("Requirements", quote.get("requirements", "")),
+        _row("Reference ID", inquiry.get("id", "")),
+        _row("Received", inquiry.get("created_at", "")),
+        _row("Company", inquiry.get("company", "")),
+        _row("Contact", inquiry.get("contact_name", "")),
+        _row("Email", inquiry.get("email", "")),
+        _row("Phone", inquiry.get("phone", "")),
+        _row("Interested service", inquiry.get("service_label", "")),
+        _row("Approximate quantity", inquiry.get("quantity", "")),
+        _row("Target timeline", inquiry.get("timeline", "")),
+        _row("Consent to processing", "Given" if inquiry.get("consent") else "Not given"),
     ])
     html = (
         _WRAP_OPEN
-        + '<div style="font-size:12px;letter-spacing:2px;color:#2f6fb3;font-weight:bold">'
-        'NEW QUOTE REQUEST</div>'
+        + '<div style="font-size:12px;letter-spacing:2px;color:#a9854f;font-weight:bold">'
+        'NEW PROJECT INQUIRY</div>'
         '<h1 style="font-size:20px;margin:8px 0 18px">Reference '
-        f'{escape(quote.get("id", ""))}</h1>'
+        f'{escape(inquiry.get("id", ""))}</h1>'
         '<table role="presentation" width="100%" cellpadding="0" cellspacing="0" '
         f'style="font-size:14px">{rows}</table>'
         '<p style="font-size:11px;letter-spacing:1px;color:#79828d;text-transform:uppercase;'
-        'margin:22px 0 6px">Additional requirements</p>'
-        f'<div style="white-space:pre-wrap">{escape(quote.get("message") or "—")}</div>'
+        'margin:22px 0 6px">Project description and requirements</p>'
+        f'<div style="white-space:pre-wrap">{escape(inquiry.get("description") or "—")}</div>'
         '<p style="font-size:11px;letter-spacing:1px;color:#79828d;text-transform:uppercase;'
         'margin:22px 0 6px">Attachments</p>'
         f'<ul style="margin:0;padding-left:18px">{file_list}</ul>'
         '<p style="color:#79828d;font-size:12px;margin-top:22px">Attachments are stored with this '
-        'request and can be downloaded from the internal quote requests dashboard.</p>'
+        'inquiry and can be downloaded from the internal inquiries dashboard.</p>'
         + _WRAP_CLOSE
     )
-    subject = f"NEW QUOTE REQUEST — YUE FUNG — {quote.get('id', '')}"
+    subject = f"NEW PROJECT INQUIRY \u2014 YUE FUNG \u2014 {inquiry.get('id', '')}"
     return subject, html
 
 
-def customer_quote_email(quote: dict) -> tuple[str, str]:
-    """Confirmation for the person who submitted the request."""
+def customer_inquiry_email(inquiry: dict) -> tuple[str, str]:
+    """Acknowledgement for the person who submitted the inquiry."""
     html = (
         _WRAP_OPEN
         + '<h1 style="font-size:19px;margin:0 0 14px">Thank you for contacting Yue Fung Metal '
         'Plastic Products Co. Ltd.</h1>'
-        '<p>Your quotation request has been received successfully.</p>'
+        '<p>Your project inquiry has been received successfully.</p>'
         '<p>Our team will review your requirements and contact you shortly.</p>'
         '<table role="presentation" width="100%" cellpadding="0" cellspacing="0" '
         'style="font-size:14px;margin-top:18px">'
-        + _row("Reference ID", quote.get("id", ""))
-        + _row("Received", quote.get("created_at", ""))
-        + _row("Project", quote.get("project", ""))
-        + _row("Quantity", quote.get("quantity", ""))
+        + _row("Reference ID", inquiry.get("id", ""))
+        + _row("Received", inquiry.get("created_at", ""))
+        + _row("Interested service", inquiry.get("service_label", ""))
+        + _row("Approximate quantity", inquiry.get("quantity", ""))
+        + _row("Target timeline", inquiry.get("timeline", ""))
         + '</table>'
         '<p style="color:#79828d;font-size:12px;margin-top:20px">Please keep this reference ID for '
         'future correspondence.</p>'
         + _WRAP_CLOSE
     )
-    subject = f"Quote request received — reference {quote.get('id', '')}"
+    subject = f"Project inquiry received \u2014 reference {inquiry.get('id', '')}"
     return subject, html

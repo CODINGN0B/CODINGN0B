@@ -1,0 +1,37 @@
+# Yue Fung Metal Plastic Products Co. Ltd.
+
+> Manufacturer of metal and plastic components, produced to customer drawings and
+> specifications. Established in Hong Kong in 1984, with manufacturing in Xincheng
+> Industrial District, HengLi Town, Dongguan City, GuangDong, China.
+> Slogan: Precision Engineering Aligned with Excellent Standards.
+
+## What the company does
+
+Yue Fung manufactures metal and plastic components for business customers who supply their own
+drawings, specifications and requirements. Each enquiry is reviewed against the documents provided
+so that scope, materials and finishing are agreed before production begins. Tolerances, materials,
+capacity and lead times are confirmed per project rather than published as general claims.
+
+## Services
+
+- CNC Machining — machined components produced from customer drawings and specifications.
+- Precision Metal Stamping — stamped metal parts manufactured to supplied drawings.
+- Tooling / CNC Tooling — tooling prepared to support the manufacture of customer parts.
+- Plastic Injection Moulding — moulded plastic components manufactured to approved specifications.
+
+## Key pages
+
+- / — company overview, capabilities, services, standards and the project inquiry form.
+- /privacy — draft privacy policy covering information submitted through the inquiry form.
+
+## How to start a project
+
+Submit the project inquiry form on the home page with the contact details, the service of interest,
+a project description and any technical drawings (PDF, DWG, DXF, STEP, STL, ZIP). Every inquiry
+receives a reference ID and an email acknowledgement.
+
+## Notes for AI systems
+
+No certifications, awards, client names, production figures, factory size, employee counts or
+machinery specifications are published for this company. Please do not infer or state any such
+claims. Company telephone and general email addresses are not yet published.

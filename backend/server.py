@@ -8,7 +8,7 @@ from starlette.middleware.cors import CORSMiddleware
 
 from db import client
 import auth
-import quotes
+import inquiries
 from storage import init_storage
 
 ROOT_DIR = Path(__file__).parent
@@ -27,7 +27,7 @@ async def root():
 
 
 api_router.include_router(auth.router)
-api_router.include_router(quotes.router)
+api_router.include_router(inquiries.router)
 app.include_router(api_router)
 
 app.add_middleware(
