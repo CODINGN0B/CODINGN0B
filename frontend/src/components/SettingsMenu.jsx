@@ -79,7 +79,10 @@ export default function SettingsMenu() {
               {LOCALES.map((l) => (
                 <button
                   key={l.code}
-                  onClick={() => setLocale(l.code)}
+                  onClick={() => {
+                    setLocale(l.code);
+                    setOpen(false);
+                  }}
                   data-testid={`locale-${l.code}-btn`}
                   className={itemCls(locale === l.code)}
                   role="menuitemradio"

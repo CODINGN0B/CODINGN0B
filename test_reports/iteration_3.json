@@ -1,0 +1,23 @@
+{
+  "summary": "Full regression of the Phase-1 refinement (logo + settings menu/theme/locale + scroll canvas sequence + copy edits + footer restructure + resend-notification). Backend pytest 12/12 pass. Frontend desktop + mobile verified end-to-end: nav-logo present beside YUE FUNG wordmark, exactly 1 H1, 0 'Sign in', 0 placeholder-tag elements. Copy edits live ('40 Years Manufacturing Pedigree since 1984', 'Heritage' / 'Consistently provides you with long-term operational security.', 'Your Specifications. Our Expertise.', 'A Standard That Lasts'). Settings menu opens, theme-dark sets documentElement.dataset.theme='dark' and persists across reload; theme-light reverts. All 5 locales (en/zh/zh-TW/cs/es) switch nav + hero H1 + section headings + inquiry form labels, set documentElement.lang to en/zh-Hans/zh-Hant/cs/es correctly, persist across reload. CS long heading renders with 0 horizontal overflow. ScrollSequence: scroll-sequence + sequence-canvas render, pixel data differs between two scroll positions (8,7,1,255 -> 45,45,45,255) proving frame advance; page scroll is NOT hijacked (capabilities section remains reachable); no console errors. prefers-reduced-motion:reduce switches to sequence-poster (canvas disappears). Footer: 5 category footer-link-* in a row, 'Company address' label present, year 2026 shown, privacy link navigates to /privacy and translates on locale change. Service prefill still works (tooling button -> select-service='tooling'). Validation: empty submit shows inline errors in English and in zh (first error '请填写联系人姓名'). Happy path submission with delivered@resend.dev + unique timestamped description + test.pdf -> success panel with reference YF-2610-3C7AF (saved despite notification email being 'partial' / 502 as expected). Mobile 390x844: hamburger + mobile-menu open and navigate, settings-btn reachable and functional, scroll-sequence canvas renders, 0 horizontal overflow. Admin dashboard: inquiries-table lists rows, detail panel shows 'Notification email: partial' + 'Delivery error: company notification: 502: Failed to send email', resend-notification-btn calls API 200 and shows 'Delivery partial' toast. Auth gating verified via direct API: POST /api/inquiries/{id}/resend-notification -> 401 (no auth), 403 (visitor), 200 (admin).",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": []
+  },
+  "test_report_links": ["/app/backend/tests/test_inquiries_api.py", "/app/test_reports/pytest/pytest_results.xml"],
+  "action_items": [],
+  "critical_code_review_comments": [
+    "SettingsMenu does not auto-close after selecting a locale/theme. Not a bug, but makes automation harder — pattern of 'click settings-btn then click locale-x-btn' fails on the 2nd iteration because the menu is still open and settings-btn toggles it closed. Consider calling setOpen(false) inside setLocale/setTheme handlers.",
+    "form.reset() cannot be relied on to clear a controlled React <select>; after service prefill the select-service value remains, so a subsequent empty submit shows 5 inline errors instead of 6. This is an automation nuance, not a functional bug."
+  ],
+  "updated_files": [],
+  "success_rate": {"backend": "100% (12/12 pytest)", "frontend": "100% of flows tested"},
+  "test_credentials": "Used seeded sessions: test_session_admin_yuefung and test_session_visitor_yuefung from /app/memory/test_credentials.md as Bearer tokens and session_token cookie.",
+  "seed_data_creation": "Submitted 1 TEST inquiry via UI happy path (ref YF-2610-3C7AF). Admin table now has ~2 rows (older TEST data was cleaned between iterations). No duplicate-guard or rate-limit hits during this run.",
+  "retest_needed": false,
+  "main_agent_can_self_test": true,
+  "context_for_next_testing_agent": "All Phase-1 refinement items pass. New data-testids all present: nav-logo, settings-btn, settings-menu, theme-light-btn, theme-dark-btn, locale-en/zh/zh-TW/cs/es-btn, scroll-sequence, sequence-canvas, sequence-poster, resend-notification-btn. Email provider still rejects yfhk@yuefung.com (email_status='partial', delivery error 502 'Failed to send email') — this is expected per request and does NOT block saving the inquiry nor the success panel. IP rate limit (6/hr) was not hit. If re-running happy-path tests, keep real submissions minimal.",
+  "rca of the issue": "N/A — no issues found."
+}

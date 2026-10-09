@@ -100,8 +100,46 @@ rejection and DB-save-before-email; `/privacy` draft page + footer link + dynami
 `.env.example`. Verified: pytest 11/11, testing agent iteration_2 with zero issues (desktop +
 mobile, prefill flow, validation, consent, uploads, dashboard, access control, SEO assets).
 
+### Phase 1 follow-up (2026-10-09, second pass)
+- **Brand**: supplied Yue Fung logo in the navbar beside the wordmark and in the footer, with a
+  dark-theme variant (`public/brand/yuefung-logo{,-dark}.png`). Supplied injection-moulding photo
+  used for the Company section and the Plastic Injection Moulding service card.
+- **Settings menu** (`SettingsMenu.jsx` + `context/SettingsContext.jsx`): light/dark theme and five
+  locales — English, 简体中文, 繁體中文, Čeština, Español — persisted in localStorage, applied to all
+  site copy (`lib/i18n.js`) and to `<html lang>`. Dark palette lives in the `[data-theme="dark"]`
+  token block in `index.css`.
+- **Scroll-driven cinematic sequence** (`ScrollSequence.jsx`) between Company and Capabilities:
+  36 WebP frames (desktop 1200×675 ≈1.7 MB, mobile 600×338 ≈0.4 MB every second frame) rendered on
+  canvas from scroll position only — no scroll hijacking, first four frames eager then progressive,
+  static poster under `prefers-reduced-motion` or decode failure. Replace
+  `public/sequence/{desktop,mobile}/fNN.webp` + `poster.webp` with real production footage frames —
+  no code change required.
+- **Copy**: Company heading "40 Years Manufacturing Pedigree since 1984"; first core value
+  "Heritage — Consistently provides you with long-term operational security."; Capabilities
+  "Your Specifications. Our Expertise."; Standards "A Standard That Lasts".
+- **Placeholder tags removed** site-wide (owner request); unconfirmed items remain as neutral
+  reserved areas (certificate frames, quality wording, privacy draft).
+- **Footer** restructured: the five category links now run across the top of the footer; address
+  block carries a "Company address" label plus the logo.
+- **Buttons**: shared `.btn-press` utility (active scale, no tap highlight, `touch-action`) and
+  full-width primary CTAs on small screens.
+- **Backend**: inquiries store `email_status` + `email_error`; `POST /api/inquiries/{id}/resend-notification`
+  (admin) retries both emails; delivery failure never blocks the saved inquiry.
+- Verified: pytest 12/12; testing agent iteration_3 — zero issues (theme, all five locales, sequence
+  frame advance + no scroll lock + reduced-motion poster, footer, prefill, validation in two
+  languages, happy path, mobile, dashboard resend, auth gating).
+
+### ⚠ Known issue — company inbox undeliverable (2026-10-09)
+The email provider rejects `yfhk@yuefung.com` as an unverifiable recipient, so the internal
+notification currently records `email_status: partial` with the error stored on the inquiry. The
+inquiry itself is always saved and the customer acknowledgement sends normally. Owner action:
+confirm a deliverable notification inbox (update `COMPANY_NOTIFICATION_EMAIL`), then use
+"Resend notification" in the dashboard for any inquiries received in the meantime.
+
 ## Outstanding configuration / owner actions
-- Replace placeholder photography with authentic factory, team and production images.
+- Confirm a deliverable inquiry inbox (see the known issue above) — highest priority.
+- Replace the remaining stock photography (capabilities grid, CNC/stamping/tooling service cards)
+  and the scroll-sequence frames with authentic Yue Fung photography.
 - Confirm or replace the three core values and the three quality strengths.
 - Supply certificates (IATF/ISO or other) for the reserved certification frames.
 - Supply telephone / general email for the contact block and footer.
@@ -115,4 +153,6 @@ mobile, prefill flow, validation, consent, uploads, dashboard, access control, S
 - **P2 (Phase 2 — do not build yet):** customer login and portal, inquiry/order tracking, document
   access, staff dashboard, AI-assisted inquiry handling. Invoices and auto-invoicing explicitly
   deferred to the portal phase.
-- **P2:** bilingual (EN / 繁體) toggle if required for the HK market.
+- **P2:** review the professional accuracy of the zh / zh-TW / cs / es translations with native
+  speakers before launch; extend the frame-by-frame sequence technique elsewhere only after
+  evaluating its real-device performance.
