@@ -73,6 +73,7 @@ export default function Navbar() {
               href={l.href}
               onClick={(e) => go(e, l.href)}
               aria-current={active === l.id ? "true" : undefined}
+              data-active={active === l.id ? "true" : "false"}
               data-testid={`nav-link-${l.id}`}
               className={`relative py-1 font-tech text-[11px] uppercase tracking-[0.18em] transition-colors duration-300 ${
                 active === l.id

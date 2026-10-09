@@ -31,7 +31,7 @@ print('User ID: ' + userId);
 
 ```
 curl -X GET "https://your-app.com/api/auth/me" -H "Authorization: Bearer YOUR_SESSION_TOKEN"
-curl -X GET "https://your-app.com/api/quote-requests" -H "Authorization: Bearer YOUR_SESSION_TOKEN"
+curl -X GET "https://your-app.com/api/inquiries" -H "Authorization: Bearer YOUR_SESSION_TOKEN"
 ```
 
 ## Step 3: Browser Testing
@@ -66,6 +66,6 @@ mongosh --eval "use('test_database'); db.users.deleteMany({email: /test\.user\./
 
 ## App specifics (Yue Fung)
 - Admin access is granted by email allowlist: `ADMIN_EMAILS` in `/app/backend/.env` (currently `yfhk@yuefung.com`).
-- Admin-only endpoints: `GET /api/quote-requests`, `PATCH /api/quote-requests/{id}`, `GET /api/quote-requests/files/{file_id}`.
-- Signed-in non-admin endpoint: `GET /api/quote-requests/mine` (matches the signed-in user's email).
+- Admin-only endpoints: `GET /api/inquiries`, `PATCH /api/inquiries/{id}`, `GET /api/inquiries/files/{file_id}`.
+- Signed-in non-admin endpoint: `GET /api/inquiries/mine` (matches the signed-in user's email).
 - To test the admin view, insert the test user with email `yfhk@yuefung.com`.

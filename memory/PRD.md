@@ -1,100 +1,118 @@
 # PRD — Yue Fung Metal Plastic Products Co. Ltd.
 
-## Company
+## Verified company information (use exactly; do not extend)
 - **Name:** Yue Fung Metal Plastic Products Co. Ltd.
 - **Slogan:** Precision Engineering Aligned with Excellent Standards
 - **Established:** Hong Kong, 1984
-- **Manufacturing:** Xincheng Industrial District, HengLi Town, Dongguan City, Guangdong, China
-- **Business inbox:** yfhk@yuefung.com (quote notifications + admin allowlist)
+- **Manufacturing:** Xincheng Industrial District, HengLi Town, Dongguan City, GuangDong, China
+- **Inquiry inbox:** yfhk@yuefung.com (env var `COMPANY_NOTIFICATION_EMAIL`; also the admin allowlist)
+- Nothing else is confirmed. No certifications, awards, clients, production figures, factory size,
+  export markets, employee counts, machinery specs, tolerances or materials may be published.
 
-## Original Problem Statement (current direction, 2026-10-08)
-Refine the site into a complete, production-ready premium B2B precision-manufacturing website that
-reads like a serious international manufacturer — not a template or a flashy startup page. Visual
-direction: premium industrial + engineering/CAD aesthetics, dark charcoal/near-black, metallic
-neutral surfaces, restrained steel-blue accent, glassmorphic nav bar, large manufacturing imagery,
-thin technical grid/measurement details, generous whitespace, smooth but restrained animation.
-No fabricated certifications, awards, client logos, production numbers, tolerances or claims —
-unknown details stay as clean editable placeholders. Real quote workflow with file upload, backend
-persistence and email notification. Full responsive, accessible, SEO/OG metadata,
-prefers-reduced-motion support.
+## Phase 1 objective (current, 2026-10-09)
+An intuitive, modern, responsive corporate website that communicates precision engineering,
+manufacturing expertise, professional reliability and premium industrial quality — custom-designed,
+not a template. Phase 1 delivers the public portfolio plus a reliable customer inquiry system, with
+the architecture left open for a future customer portal (login, order tracking, invoices, documents,
+staff dashboard, AI-assisted inquiry handling). **Invoices / auto-invoicing are explicitly out of
+scope for Phase 1** (user instruction, 2026-10-09).
 
-### User decisions (2026-10-08)
-- Business notification email: **yfhk@yuefung.com** (env var, not hardcoded in frontend).
-- **Removed** the previous 3D BMW car showcase entirely (and three.js / @react-three deps).
-- Stock manufacturing photography used as editable placeholders.
-- Google sign-in: **admin dashboard for quote requests + public sign-in for visitors**.
-- English-only copy (previous bilingual Traditional Chinese text dropped).
+### Design direction (Phase 1)
+Premium industrial, inspired by white gold and precision instruments. Royal white / porcelain /
+ivory backgrounds, graphite text, pale grey secondary surfaces, muted champagne gold used only on
+CTAs, active nav states, hairlines and small details. Translucent white glass navbar with backdrop
+blur. Fonts: Outfit (display), Manrope (body), JetBrains Mono (technical labels). Restrained motion
+only; `prefers-reduced-motion` honoured.
+
+### User decisions
+- 2026-10-08: notification inbox yfhk@yuefung.com; 3D car showcase removed; stock photography as
+  editable placeholders; Google sign-in for an internal inquiry dashboard; English-only copy.
+- 2026-10-09: public nav **must not** show a Sign in button (funnel attention to the inquiry CTA) —
+  `/dashboard` stays reachable by direct URL; unconfirmed content carries visible gold
+  "[PLACEHOLDER — FOR OWNER REVIEW]" tags; `/privacy` stub page created; no invoicing in Phase 1.
 
 ## Architecture
 **Frontend** — React 19, Tailwind, shadcn/ui, framer-motion, lenis, react-router-dom.
-- `src/App.js` — AuthProvider + router; detects `session_id` in `useLocation().hash` → `AuthCallback`.
-- `src/pages/` — `Home.jsx` (lenis + section composition), `Dashboard.jsx`, `AuthCallback.jsx`.
-- `src/components/` — `Navbar`, `Hero`, `About`, `Capabilities`, `Process`, `Products`, `Quality`,
-  `QuoteForm`, `Contact`, `Footer`, `QuoteDetail`, `Reveal` (motion + SectionLabel).
-- `src/context/AuthContext.jsx`, `src/lib/site.js` (company copy, nav, images, API base, scroll helper).
-- Design tokens in `src/index.css`: `--ink #08090a`, `--surface #101214`, `--steel #4f8fd9`,
-  `--hairline`; utilities `glass`, `glass-solid`, `tech-grid`, `tech-grid-fine`, `rule-ticks`,
-  `surface-card`, `label-tech`. Fonts: Barlow (display), Archivo (body), JetBrains Mono (metadata).
+- `src/App.js` — AuthProvider + routes `/`, `/dashboard`, `/privacy`; `session_id` in
+  `useLocation().hash` → `AuthCallback`.
+- `src/pages/` — `Home.jsx` (lenis, section composition, `prefillService` state), `Dashboard.jsx`,
+  `Privacy.jsx`, `AuthCallback.jsx`.
+- `src/components/` — `Navbar` (5 tabs, IntersectionObserver active state, no sign-in),
+  `Hero`, `Company`, `Capabilities`, `Service`, `Standards`, `Contact`, `InquiryForm`,
+  `InquiryDetail`, `PlaceholderTag`, `Footer`, `Reveal` (+`SectionLabel`).
+- `src/lib/site.js` — company facts, nav links, the four SERVICES, image URLs, `scrollToId` (-104px
+  offset so headings clear the floating navbar).
+- Tokens in `src/index.css`: `--porcelain #fdfdfc`, `--ivory #faf8f4`, `--pale #f3f2ee`,
+  `--graphite #17191b`, `--slate #6b7075`, `--gold #c3a06a`, `--gold-deep #a9854f`,
+  `--hairline #e7e3db`; utilities `glass-nav`, `glass-nav-solid`, `surface-card`, `rule-gold`,
+  `tech-grid`, `tech-grid-fine`, `rule-ticks`, `label-tech`, `shadow-card(-hover)`.
+- SEO: `public/index.html` (title, 156-char description, OG/Twitter, Organization JSON-LD, real
+  `<noscript>` content, favicon + apple-touch-icon), `public/robots.txt`, `public/llms.txt`.
 
 **Backend** — FastAPI, Motor/MongoDB, all routes under `/api`.
-- `server.py` (app wiring), `db.py` (client), `auth.py` (Emergent Google auth + admin allowlist),
-  `quotes.py` (quote workflow), `emailer.py` (Emergent-managed Resend + guardrail gate),
-  `storage.py` (Emergent object storage).
-- Tests: `backend/tests/test_quotes_api.py` (pytest, 8 tests).
+- `server.py` (wiring), `db.py`, `auth.py` (Emergent Google auth + `ADMIN_EMAILS` allowlist),
+  `inquiries.py` (inquiry workflow, honeypot, IP rate limit 6/hour, duplicate fingerprint guard,
+  save-before-email), `emailer.py` (Emergent-managed Resend + guardrail gate), `storage.py`
+  (Emergent object storage).
+- Tests: `backend/tests/test_inquiries_api.py` — 11 pytest tests.
 
 ### API
 | Method | Route | Access |
 |---|---|---|
-| POST | `/api/quote-requests/uploads` | public (ext + 25 MB validation) |
-| POST | `/api/quote-requests` | public (creates `YF-YYMM-XXXXX`, sends both emails) |
-| GET | `/api/quote-requests` | admin |
-| GET | `/api/quote-requests/mine` | signed-in user (own email) |
-| GET | `/api/quote-requests/files/{file_id}` | admin |
-| PATCH | `/api/quote-requests/{id}` | admin (new/reviewing/quoted/closed) |
+| POST | `/api/inquiries/uploads` | public (extension + 25 MB validation, rate limited) |
+| POST | `/api/inquiries` | public (honeypot, consent required, duplicate + rate guard) |
+| GET | `/api/inquiries` | admin |
+| GET | `/api/inquiries/mine` | signed-in user (own email) |
+| GET | `/api/inquiries/files/{file_id}` | admin |
+| PATCH | `/api/inquiries/{id}` | admin (new/reviewing/quoted/closed) |
 | POST | `/api/auth/session` · GET `/api/auth/me` · POST `/api/auth/logout` | auth |
 
 ### Collections
-- `quote_requests`: id, company, contact_name, email, phone, project, quantity, material,
-  requirements, message, files[{file_id, filename, size, content_type}], status, created_at,
-  email_status.
-- `quote_files`: file_id, filename, size, content_type, storage_path, quote_id, is_deleted, created_at.
-- `users`: user_id, email, name, picture, created_at, last_login. `user_sessions`: user_id,
-  session_token, expires_at.
+- `inquiries`: id (`YF-YYMM-XXXXX`), contact_name, company, email, phone, service, service_label,
+  description, quantity, timeline, consent, files[], status, created_at, email_status.
+- `inquiry_files`: file_id, filename, size, content_type, storage_path, inquiry_id, is_deleted.
+- `users`, `user_sessions` (Google auth).
 
-### Environment (backend/.env)
-`MONGO_URL`, `DB_NAME`, `CORS_ORIGINS`, `EMERGENT_EMAIL_KEY`, `EMAIL_FROM_NAME`, `EMAIL_REPLY_TO`,
-`COMPANY_NOTIFICATION_EMAIL`, `ADMIN_EMAILS`, `EMERGENT_LLM_KEY` (object storage), `MAX_UPLOAD_MB`.
+### Environment
+`backend/.env`: `MONGO_URL`, `DB_NAME`, `CORS_ORIGINS`, `EMERGENT_EMAIL_KEY`, `EMAIL_FROM_NAME`,
+`EMAIL_REPLY_TO`, `COMPANY_NOTIFICATION_EMAIL`, `ADMIN_EMAILS`, `EMERGENT_LLM_KEY`, `MAX_UPLOAD_MB`.
+Placeholder template at `/app/.env.example`.
 
 ## Third-party integrations
-- **Emergent-managed Resend** — internal quote notification + customer confirmation (no links in
-  email bodies; guardrail gate `_assert_safe_email` on every send).
-- **Emergent-managed Google Auth** — public sign-in + admin allowlist.
-- **Emergent object storage** — quote attachments under `yuefung/quote-uploads/`.
+- **Emergent-managed Resend** — internal inquiry notification + customer acknowledgement.
+- **Emergent-managed Google Auth** — internal dashboard only (no public sign-in).
+- **Emergent object storage** — attachments under `yuefung/inquiry-uploads/`.
 
-## Implemented (2026-10-08)
-- Full rebuild of the site in the steel-blue industrial direction; old gold/cyan theme, bilingual
-  copy, 3D car showcase, bento stats, marquee, manifesto sections and `POST /api/rfq` all removed.
-- Sections: hero (image + CAD markings + parallax), About + 1984→Dongguan timeline, 4 capability
-  cards, 5-stage process (horizontal desktop / vertical mobile), 4 large product cards, Quality with
-  three principles + editable certifications placeholder, quote form, contact CTA, footer.
-- Quote workflow end-to-end: client + server validation, drag-drop upload with per-file progress,
-  object storage, MongoDB persistence, reference ID, both emails (verified `email_status: sent`),
-  success confirmation state.
-- Dashboard: admin table + detail side panel + status updates + attachment download; signed-in
-  visitors see only their own requests; signed-out users see the Google sign-in prompt.
-- SEO title/description/OG/Twitter metadata; accessibility (semantic sections, labelled fields,
-  focus-visible rings, aria-invalid); `prefers-reduced-motion` honoured (CSS + framer-motion + lenis).
+## Implemented
+**2026-10-08** — Rebuilt the site (dark steel-blue phase), quote workflow with attachments + emails,
+admin dashboard, SEO metadata, accessibility, reduced-motion. Verified: pytest 8/8, testing agent
+iteration_1 with zero issues.
 
-## Verification status (2026-10-08)
-- pytest 8/8 pass (`python -m pytest backend/tests -q`).
-- Testing agent iteration_1: **no backend or frontend issues**; desktop 1920 + mobile 390 flows,
-  validation, upload rejection, happy-path submission (ref YF-2610-45F05), admin dashboard, visitor
-  access control and signed-out state all verified. Test quotes cleaned from the DB afterwards.
+**2026-10-09 (Phase 1 refinement)** — Re-themed to the light porcelain/champagne-gold system;
+five-tab navigation with active-section highlighting and heading-safe scroll offsets; new sections
+Company / Capabilities / Service / Standards / Contact; four service cards whose "Make an Inquiry"
+prefills the inquiry form; certification + quality placeholders; visible placeholder tags across all
+unconfirmed content; inquiry form extended to contact person, company, business email, phone,
+interested service, project description, approximate quantity, target timeline, drawing upload and a
+consent checkbox; backend renamed to `/api/inquiries` with honeypot, IP rate limiting, duplicate
+rejection and DB-save-before-email; `/privacy` draft page + footer link + dynamic year;
+`robots.txt`, `llms.txt`, Organization JSON-LD, `<noscript>` fallback, favicon/apple-touch-icon;
+`.env.example`. Verified: pytest 11/11, testing agent iteration_2 with zero issues (desktop +
+mobile, prefill flow, validation, consent, uploads, dashboard, access control, SEO assets).
+
+## Outstanding configuration / owner actions
+- Replace placeholder photography with authentic factory, team and production images.
+- Confirm or replace the three core values and the three quality strengths.
+- Supply certificates (IATF/ISO or other) for the reserved certification frames.
+- Supply telephone / general email for the contact block and footer.
+- Approve the `/privacy` policy wording.
+- Attach a production domain, then add canonical / `og:url` / `og:image` / `sitemap.xml` (currently
+  omitted on purpose) and enable the deployment crawling toggle.
 
 ## Backlog
-- **P1:** replace stock photography with the company's own factory/product photos; publish real
-  certifications and inspection standards in the reserved Quality block; add real contact phone /
-  general enquiry email once supplied.
-- **P2:** admin CSV export of quote requests; status-change notification email to the customer;
-  simple CMS/editable content layer; bilingual (EN/繁體) toggle if required for the HK market;
-  sitemap.xml + robots.txt.
+- **P1:** admin CSV export of inquiries; status-change notification to the customer; content layer
+  so the owner can edit copy/photos without a redeploy.
+- **P2 (Phase 2 — do not build yet):** customer login and portal, inquiry/order tracking, document
+  access, staff dashboard, AI-assisted inquiry handling. Invoices and auto-invoicing explicitly
+  deferred to the portal phase.
+- **P2:** bilingual (EN / 繁體) toggle if required for the HK market.
