@@ -17,7 +17,7 @@ export default function Capabilities() {
               <SectionLabel index="02">{t.capabilities.label}</SectionLabel>
             </Reveal>
             <Reveal delay={0.05}>
-              <h2 className="mt-7 max-w-2xl font-display text-3xl font-light leading-[1.18] tracking-tight text-[color:var(--graphite)] md:text-4xl lg:text-[2.9rem]">
+              <h2 className="mt-7 max-w-2xl font-display text-3xl font-medium leading-[1.18] tracking-tight text-[color:var(--gold-deep)] md:text-4xl lg:text-[2.9rem]">
                 {t.capabilities.h2}
               </h2>
             </Reveal>
@@ -40,7 +40,7 @@ export default function Capabilities() {
                   src={c.image}
                   alt={c.alt}
                   loading="lazy"
-                  className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
+                  className="absolute inset-0 h-full w-full transform-gpu object-cover transition-transform duration-[650ms] ease-[cubic-bezier(0.22,1,0.36,1)] will-change-transform group-hover:scale-[1.07]"
                 />
                 <div className="image-ink absolute inset-0" aria-hidden="true" />
                 <div className="absolute inset-x-0 bottom-0 p-7">

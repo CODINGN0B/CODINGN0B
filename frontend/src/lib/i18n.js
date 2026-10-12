@@ -52,7 +52,7 @@ const en = {
   capabilities: {
     label: "Capabilities",
     h2: "Your Specifications. Our Expertise.",
-    note: "Send the drawing and we will tell you plainly. Tolerances, materials, capacity and lead times are confirmed per project — we do not publish figures we cannot stand behind.",
+    note: "Send the drawing and we will arrange precisely. Tolerances, materials, capacity and lead times are confirmed per project — we do not publish figures we cannot stand behind.",
     cards: [
       { title: "Manufacturing to Drawing", body: "Parts produced against the drawings, dimensions and finishing notes you supply." },
       { title: "Metal & Plastic in One Place", body: "Metal and plastic parts handled by the same team, which keeps project communication simple." },

@@ -129,11 +129,27 @@ export const IMAGES = {
 export const scrollToId = (hash) => {
   const el = document.querySelector(hash);
   if (!el) return;
-  if (window.__lenis)
+
+  const reduce =
+    typeof window !== "undefined" &&
+    window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  if (reduce) {
+    el.scrollIntoView({ behavior: "auto", block: "start" });
+    return;
+  }
+
+  if (window.__lenis) {
+    // distance-based duration — short hops feel snappy, long jumps stay fluid
+    const target = el.getBoundingClientRect().top + window.scrollY - 104;
+    const distance = Math.abs(target - window.scrollY);
+    const duration = Math.min(1.5, Math.max(0.7, distance / 1400));
     window.__lenis.scrollTo(el, {
       offset: -104,
-      duration: 1.25,
+      duration,
       easing: (x) => (x === 1 ? 1 : 1 - Math.pow(2, -10 * x)),
     });
-  else el.scrollIntoView({ behavior: "smooth", block: "start" });
+  } else {
+    el.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
 };

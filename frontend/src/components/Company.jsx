@@ -81,7 +81,7 @@ export default function Company() {
         <div className="mt-20 md:mt-28">
           <Reveal>
             <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
-              <h3 className="font-display text-2xl font-light tracking-tight text-[color:var(--graphite)]">
+              <h3 className="font-display text-2xl font-semibold tracking-tight text-[color:var(--graphite)]">
                 {t.company.valuesTitle}
               </h3>
               <p className="max-w-sm text-sm text-[color:var(--slate)]">{t.company.valuesNote}</p>

@@ -202,3 +202,11 @@ omitted on purpose) and enable the deployment crawling toggle.
 - **P2:** review the professional accuracy of the zh / zh-TW / cs / es translations with native
   speakers before launch; extend the frame-by-frame sequence technique elsewhere only after
   evaluating its real-device performance.
+
+## Changelog — 2026-07 (motion & copy polish, fork)
+- Capabilities: heading "Your Specifications. Our Expertise." now champagne-gold + font-medium; note copy "we will tell you plainly" → "we will arrange precisely" (en locale).
+- Company: "Core values" title (valuesTitle h3) now font-semibold.
+- Navbar: removed scroll-based glass style swap — now a single consistent `glass-nav-solid` that stays intact on scroll up/down (still fixed/floating).
+- Hero: mockup entrance changed to a gentle ease-DOWN settle (y:-26→0, cubic-bezier(0.22,1,0.36,1)); "Explore Capabilities" button arrow now animates downward (y 0→14→0, opacity dip) on click, coordinated with the scroll.
+- Capabilities & Service cards: GPU-friendly hover zoom (transform-gpu + will-change), refined easing (~450–650ms), no layout shift.
+- Smooth scroll: scrollToId now distance-based duration (0.7–1.5s) via Lenis with -104 offset; falls back to instant jump under prefers-reduced-motion. Verified nav-link scroll works (0→4468px).

@@ -8,15 +8,7 @@ import SettingsMenu from "@/components/SettingsMenu";
 export default function Navbar() {
   const { t, theme } = useSettings();
   const [open, setOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
   const [active, setActive] = useState("");
-
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 24);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
 
   useEffect(() => {
     const sections = NAV_LINKS.map((l) => document.getElementById(l.id)).filter(Boolean);
@@ -50,9 +42,7 @@ export default function Navbar() {
   return (
     <header className="fixed inset-x-0 top-0 z-[100] px-3 pt-3 sm:px-6 sm:pt-5" data-testid="site-header">
       <div
-        className={`mx-auto flex h-[60px] max-w-[1340px] items-center justify-between gap-4 rounded-xl px-2.5 sm:px-4 ${
-          scrolled ? "glass-nav-solid" : "glass-nav"
-        }`}
+        className="mx-auto flex h-[60px] max-w-[1340px] items-center justify-between gap-4 rounded-xl px-2.5 sm:px-4 glass-nav-solid"
       >
         <a
           href="#top"

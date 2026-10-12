@@ -1,4 +1,4 @@
-import { motion, useReducedMotion } from "framer-motion";
+import { motion, useReducedMotion, useAnimation } from "framer-motion";
 import { ArrowRight, ArrowDown } from "lucide-react";
 import { COMPANY, IMAGES, scrollToId } from "@/lib/site";
 import { useT } from "@/context/SettingsContext";
@@ -12,6 +12,18 @@ const fade = (delay, reduce) => ({
 export default function Hero() {
   const t = useT();
   const reduce = useReducedMotion();
+  const arrowControls = useAnimation();
+
+  const exploreCapabilities = () => {
+    if (!reduce) {
+      arrowControls.start({
+        y: [0, 14, 0],
+        opacity: [1, 0.5, 1],
+        transition: { duration: 0.75, ease: [0.22, 1, 0.36, 1] },
+      });
+    }
+    scrollToId("#capabilities");
+  };
 
   return (
     <section id="top" className="relative overflow-hidden pb-20 pt-36 md:pb-28 md:pt-44" data-testid="hero-section">
@@ -57,20 +69,22 @@ export default function Hero() {
               <ArrowRight size={14} className="transition-transform duration-300 group-hover:translate-x-1" />
             </button>
             <button
-              onClick={() => scrollToId("#capabilities")}
+              onClick={exploreCapabilities}
               data-testid="hero-capabilities-btn"
               className="btn-press group flex w-full items-center justify-center gap-2.5 rounded-sm border border-[color:var(--hairline-strong)] surface-glass px-7 py-4 font-tech text-[11px] uppercase tracking-[0.18em] text-[color:var(--graphite)] hover:border-[color:var(--gold)] hover:text-[color:var(--gold-deep)] sm:w-auto"
             >
               {t.hero.cta2}
-              <ArrowDown size={14} className="transition-transform duration-300 group-hover:translate-y-1" />
+              <motion.span animate={arrowControls} className="inline-flex">
+                <ArrowDown size={14} className="transition-transform duration-300 group-hover:translate-y-1" />
+              </motion.span>
             </button>
           </motion.div>
         </div>
 
         <motion.div
-          initial={reduce ? false : { opacity: 0, y: 28 }}
+          initial={reduce ? false : { opacity: 0, y: -26 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.9, delay: 0.18, ease: [0.16, 1, 0.3, 1] }}
+          transition={{ duration: 1.1, delay: 0.18, ease: [0.22, 1, 0.36, 1] }}
           className="relative"
         >
           <div className="relative overflow-hidden rounded-sm border border-[color:var(--hairline)] bg-[color:var(--surface)] shadow-card">

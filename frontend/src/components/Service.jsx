@@ -42,7 +42,7 @@ export default function Service({ onInquire }) {
                     src={s.image}
                     alt={s.alt}
                     loading="lazy"
-                    className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
+                    className="h-full w-full transform-gpu object-cover transition-transform duration-[450ms] ease-[cubic-bezier(0.4,0,0.2,1)] will-change-transform group-hover:scale-[1.06]"
                   />
                   <span
                     className="absolute left-0 top-0 surface-soft px-3 py-2 font-tech text-[9px] uppercase tracking-[0.18em] text-[color:var(--graphite)] backdrop-blur-sm"
