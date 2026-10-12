@@ -24,7 +24,7 @@ logger = logging.getLogger(__name__)
 
 router = APIRouter(tags=["inquiries"])
 
-COMPANY_EMAIL = os.environ["COMPANY_NOTIFICATION_EMAIL"]
+COMPANY_EMAIL = os.environ["CONTACT_EMAIL"]
 MAX_UPLOAD_BYTES = int(os.environ.get("MAX_UPLOAD_MB", "25")) * 1024 * 1024
 ALLOWED_EXT = {"pdf", "dwg", "dxf", "step", "stp", "stl", "zip", "igs", "iges", "png", "jpg", "jpeg"}
 MIME_BY_EXT = {
