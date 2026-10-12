@@ -61,7 +61,10 @@ export default function SettingsMenu() {
               ].map(([value, Icon, label]) => (
                 <button
                   key={value}
-                  onClick={() => setTheme(value)}
+                  onClick={() => {
+                    setTheme(value);
+                    setOpen(false);
+                  }}
                   data-testid={`theme-${value}-btn`}
                   className={`flex items-center justify-center gap-2 rounded-sm border px-3 py-2.5 font-tech text-[10px] uppercase tracking-[0.14em] transition-colors duration-200 ${
                     theme === value

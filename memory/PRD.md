@@ -129,6 +129,39 @@ mobile, prefill flow, validation, consent, uploads, dashboard, access control, S
   frame advance + no scroll lock + reduced-motion poster, footer, prefill, validation in two
   languages, happy path, mobile, dashboard resend, auth gating).
 
+### Phase 1 follow-up (2026-10-12, owner visual edits + motion polish)
+- **Brand**: display name is now **Yue Fung Precision Product Co. Ltd.** with the wordmark sub-line
+  "PRECISION PRODUCT CO. LTD." (`COMPANY.display` / `COMPANY.sub`). The registered name
+  "Yue Fung Metal Plastic Products Co. Ltd." is retained only in the footer copyright, the privacy
+  draft and the email footer — confirm with the owner which name should appear on legal documents.
+- **Addresses (owner-supplied, verified)**: HK office — Unit 308, 3/F Fook Hong Industrial Building,
+  19 Sheung Yuet Road, Kowloon Bay, Kowloon, Hong Kong (`COMPANY.hkAddress`); China manufacturing —
+  No. 178 Xin Cheng Industrial District, Tian Keng, Heng Lik Zhen, Dongguan, China
+  (`COMPANY.address`). Both appear in the footer and the contact card, and in the JSON-LD, llms.txt,
+  `<noscript>` block and email footer.
+- **Copy**: Company core values are now Heritage / Identity / Brand (Identity carries the Tier-1
+  "Stability and Evolution" statement, owner-supplied), values note "Yue Fung Precision —
+  '40 years of Heritage'"; Standards right column is "Three Foundations of Trust" with
+  "25+ Years of Consistency", "Empowering Global Producers" and "The 'Zero Error' Backbone"
+  (owner-supplied claims incl. Tier 2 automotive partner and Ford/GM platforms); the reserved-areas
+  note was removed; hero gold accent set bolder. All five locales updated.
+- **Navbar**: single ultra-premium acrylic pane — translucent base, 5px dot-matrix silkscreen,
+  inset edge sheen, soft ambient shadow, champagne hairline — with a fixed 60px height and 40px
+  controls so the CTA always sits inside the pane. Settings button uses a classic gear icon and the
+  menu now closes after a theme or locale choice.
+- **Motion system**: Lenis tuned for silky scrolling (duration 1.15, lerp 0.085, exponential
+  ease-out) and anchor jumps use the same easing with a -104px offset; `.btn-press` gives a
+  1.03–1.04x hover scale and 0.975 press-down over 300ms `cubic-bezier(0.22,1,0.36,1)`, hover scale
+  limited to fine pointers, suppressed on `:focus-visible` and disabled under
+  `prefers-reduced-motion`. No layout shift, no scroll hijacking.
+- **Fix**: Tailwind cannot apply an `/opacity` modifier to `var()` colours, which made several
+  overlay captions transparent — replaced with `.surface-soft` / `.surface-glass` `color-mix()`
+  utilities (Company photo caption, service badge, certificate frames, contact teaser, hero
+  secondary button, sequence caption).
+- Verified: pytest 12/12; testing agent iteration_4 — zero issues (copy, navbar geometry measured at
+  1920/1280/768, dual addresses, caption legibility, motion, plus regression of theme, five locales,
+  scroll sequence, prefill, validation and the dashboard).
+
 ### ⚠ Known issue — company inbox undeliverable (2026-10-09)
 The email provider rejects `yfhk@yuefung.com` as an unverifiable recipient, so the internal
 notification currently records `email_status: partial` with the error stored on the inquiry. The
