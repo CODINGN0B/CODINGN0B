@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion, useInView, useReducedMotion } from "framer-motion";
-import { ArrowDown, MapPin } from "lucide-react";
+import { ArrowDown, Factory, MapPin } from "lucide-react";
 import { Reveal, SectionLabel } from "@/components/Reveal";
 import InquiryForm from "@/components/InquiryForm";
 import { COMPANY } from "@/lib/site";
@@ -44,15 +44,29 @@ export default function Contact({ prefillService, onPrefillConsumed }) {
             <Reveal delay={0.15}>
               <div className="mt-11 border border-[color:var(--hairline)] bg-[color:var(--surface)] p-7 shadow-card" data-testid="contact-details">
                 <p className="font-display text-base font-normal tracking-tight text-[color:var(--graphite)]">
-                  {COMPANY.name}
+                  {COMPANY.display}
                 </p>
                 <div className="mt-6 flex items-start gap-3">
                   <MapPin size={15} className="mt-0.5 shrink-0 text-[color:var(--gold-deep)]" />
-                  <address className="text-sm not-italic leading-relaxed text-[color:var(--slate)]">
-                    {COMPANY.address.map((line) => (
-                      <span key={line} className="block">{line}</span>
-                    ))}
-                  </address>
+                  <div>
+                    <p className="label-tech">{t.footer.addressLabel}</p>
+                    <address className="mt-1.5 text-sm not-italic leading-relaxed text-[color:var(--slate)]">
+                      {COMPANY.hkAddress.map((line) => (
+                        <span key={line} className="block">{line}</span>
+                      ))}
+                    </address>
+                  </div>
+                </div>
+                <div className="mt-5 flex items-start gap-3">
+                  <Factory size={15} className="mt-0.5 shrink-0 text-[color:var(--gold-deep)]" />
+                  <div>
+                    <p className="label-tech">{t.footer.mfgLabel}</p>
+                    <address className="mt-1.5 text-sm not-italic leading-relaxed text-[color:var(--slate)]">
+                      {COMPANY.address.map((line) => (
+                        <span key={line} className="block">{line}</span>
+                      ))}
+                    </address>
+                  </div>
                 </div>
                 <div className="mt-7 border-t border-[color:var(--hairline)] pt-5">
                   <p className="label-tech">{t.contact.established}</p>
@@ -86,7 +100,7 @@ export default function Contact({ prefillService, onPrefillConsumed }) {
                   exit={{ opacity: 0 }}
                   transition={{ duration: 0.3 }}
                   data-testid="open-inquiry-form-btn"
-                  className="btn-press flex w-full flex-col items-start border border-dashed border-[color:var(--hairline-strong)] bg-[color:var(--surface)]/60 p-10 text-left"
+                  className="btn-press flex w-full flex-col items-start border border-dashed border-[color:var(--hairline-strong)] surface-glass p-10 text-left"
                 >
                   <span className="label-tech">{t.contact.openLabel}</span>
                   <span className="mt-4 font-display text-xl font-light tracking-tight text-[color:var(--graphite)]">

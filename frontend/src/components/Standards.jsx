@@ -22,12 +22,6 @@ export default function Standards() {
             {t.standards.h2}
           </h2>
         </Reveal>
-        <Reveal delay={0.1}>
-          <p className="mt-6 max-w-xl text-sm leading-relaxed text-[color:var(--slate)]">
-            {t.standards.note}
-          </p>
-        </Reveal>
-
         <div className="mt-14 grid gap-12 lg:grid-cols-[0.95fr_1.05fr] lg:gap-16">
           <div>
             <h3 className="flex items-center gap-3 font-display text-xl font-light tracking-tight text-[color:var(--graphite)]">
@@ -37,7 +31,7 @@ export default function Standards() {
               {t.standards.certs.map((c, i) => (
                 <Reveal key={c} delay={0.06 * i}>
                   <div
-                    className="relative flex aspect-[3/4] flex-col items-center justify-center border border-dashed border-[color:var(--hairline-strong)] bg-[color:var(--surface)]/70 p-5 text-center"
+                    className="relative flex aspect-[3/4] flex-col items-center justify-center border border-dashed border-[color:var(--hairline-strong)] surface-glass p-5 text-center"
                     data-testid={`certificate-placeholder-${i}`}
                   >
                     <FileCheck2 size={20} className="mb-5 text-[color:var(--slate)]" />

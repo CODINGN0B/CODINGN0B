@@ -156,7 +156,7 @@ export default function ScrollSequence() {
             className="pointer-events-none absolute inset-x-0 bottom-0 h-32 bg-[linear-gradient(to_top,var(--porcelain),transparent)]"
           />
           <div className="pointer-events-none absolute inset-x-0 bottom-8 mx-auto max-w-[1340px] px-5 sm:px-8">
-            <div className="inline-block max-w-sm border border-[color:var(--hairline)] bg-[color:var(--surface)]/95 px-4 py-3 shadow-card backdrop-blur-md">
+            <div className="inline-block max-w-sm border border-[color:var(--hairline)] surface-soft px-4 py-3 shadow-card backdrop-blur-md">
               <p className="font-tech text-[10px] uppercase tracking-[0.22em] text-[color:var(--gold-deep)]">
                 {t.sequence.label}
               </p>

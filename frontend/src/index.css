@@ -42,6 +42,10 @@
         --hairline-strong: #d9d3c6;
         --glass: rgba(255, 255, 255, 0.62);
         --glass-strong: rgba(255, 255, 255, 0.86);
+        --silkscreen: rgba(23, 25, 27, 0.055);
+        --glass-edge: rgba(195, 160, 106, 0.26);
+        --glass-edge-strong: rgba(195, 160, 106, 0.34);
+        --glass-sheen: rgba(255, 255, 255, 0.72);
         --grid-line: rgba(23, 25, 27, 0.035);
         --grid-line-fine: rgba(23, 25, 27, 0.04);
         --tick-line: rgba(23, 25, 27, 0.18);
@@ -82,6 +86,10 @@
         --hairline-strong: #343a3e;
         --glass: rgba(16, 18, 20, 0.66);
         --glass-strong: rgba(10, 12, 13, 0.9);
+        --silkscreen: rgba(255, 255, 255, 0.05);
+        --glass-edge: rgba(201, 169, 120, 0.22);
+        --glass-edge-strong: rgba(201, 169, 120, 0.3);
+        --glass-sheen: rgba(255, 255, 255, 0.07);
         --grid-line: rgba(255, 255, 255, 0.04);
         --grid-line-fine: rgba(255, 255, 255, 0.045);
         --tick-line: rgba(255, 255, 255, 0.2);
@@ -155,18 +163,48 @@
         text-transform: uppercase;
         color: var(--slate);
     }
-    .glass-nav {
-        background: var(--glass);
-        backdrop-filter: blur(18px) saturate(150%);
-        -webkit-backdrop-filter: blur(18px) saturate(150%);
-        border: 1px solid rgba(195, 160, 106, 0.22);
+    /* frosted acrylic pane: translucent base + dot-matrix silkscreen + edge refraction */
+    .glass-nav,
+    .glass-nav-solid {
+        position: relative;
+        isolation: isolate;
+        background-color: var(--glass);
+        background-image: radial-gradient(var(--silkscreen) 0.5px, transparent 0.5px);
+        background-size: 5px 5px;
+        backdrop-filter: blur(20px) saturate(165%);
+        -webkit-backdrop-filter: blur(20px) saturate(165%);
+        border: 1px solid var(--glass-edge);
+        box-shadow:
+            inset 0 1px 0 var(--glass-sheen),
+            inset 0 -1px 0 rgba(0, 0, 0, 0.035),
+            0 1px 1px rgba(0, 0, 0, 0.02),
+            0 10px 30px -22px rgba(23, 25, 27, 0.22);
+        transition: background-color 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
+    }
+    /* delicate light refraction along the top edge */
+    .glass-nav::after,
+    .glass-nav-solid::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        z-index: -1;
+        border-radius: inherit;
+        background: linear-gradient(170deg, var(--glass-sheen) 0%, transparent 42%);
+        pointer-events: none;
     }
     .glass-nav-solid {
-        background: var(--glass-strong);
-        backdrop-filter: blur(22px) saturate(160%);
-        -webkit-backdrop-filter: blur(22px) saturate(160%);
-        border: 1px solid rgba(195, 160, 106, 0.3);
-        box-shadow: 0 12px 44px -24px rgba(0, 0, 0, 0.3);
+        background-color: var(--glass-strong);
+        border-color: var(--glass-edge-strong);
+        box-shadow:
+            inset 0 1px 0 var(--glass-sheen),
+            inset 0 -1px 0 rgba(0, 0, 0, 0.05),
+            0 14px 44px -26px rgba(23, 25, 27, 0.32);
+    }
+    .surface-soft {
+        background: color-mix(in srgb, var(--surface) 92%, transparent);
+    }
+    .surface-glass {
+        background: color-mix(in srgb, var(--surface) 66%, transparent);
     }
     .surface-card {
         background: var(--surface);
@@ -211,14 +249,46 @@ html.lenis, html.lenis body { height: auto; }
 /* shared helpers for press feedback on touch + pointer devices */
 @layer utilities {
     .btn-press {
-        transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
+        transform: translateZ(0);
+        transition:
+            transform 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+            background-color 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+            border-color 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+            color 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+            box-shadow 0.3s cubic-bezier(0.22, 1, 0.36, 1);
         -webkit-tap-highlight-color: transparent;
         touch-action: manipulation;
     }
+    @media (hover: hover) and (pointer: fine) {
+        .btn-press:hover {
+            transform: scale(1.04);
+        }
+        .btn-press-sm:hover {
+            transform: scale(1.03);
+        }
+    }
     .btn-press:active {
-        transform: scale(0.97);
+        transform: scale(0.975);
+        transition-duration: 0.12s;
+    }
+    .btn-press:focus-visible {
+        transform: none;
+    }
+    .link-underline {
+        position: relative;
     }
     .image-ink {
         background: linear-gradient(to top, rgba(var(--overlay-ink), 0.88), rgba(var(--overlay-ink), 0.3) 60%, rgba(var(--overlay-ink), 0.1));
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .btn-press,
+    .btn-press:hover,
+    .btn-press:active {
+        transform: none !important;
+    }
+    html {
+        scroll-behavior: auto !important;
     }
 }

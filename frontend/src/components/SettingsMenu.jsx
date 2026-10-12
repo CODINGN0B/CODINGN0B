@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { Check, Moon, Settings2, Sun } from "lucide-react";
+import { Check, Moon, Settings, Sun } from "lucide-react";
 import { LOCALES } from "@/lib/i18n";
 import { useSettings } from "@/context/SettingsContext";
 
@@ -37,9 +37,9 @@ export default function SettingsMenu() {
         aria-expanded={open}
         aria-haspopup="true"
         data-testid="settings-btn"
-        className="flex h-10 w-10 items-center justify-center rounded-sm border border-[color:var(--hairline-strong)] text-[color:var(--graphite)] transition-colors duration-300 hover:border-[color:var(--gold)] hover:text-[color:var(--gold-deep)]"
+        className="btn-press btn-press-sm flex h-10 w-10 shrink-0 items-center justify-center rounded-sm border border-[color:var(--hairline-strong)] text-[color:var(--graphite)] hover:border-[color:var(--gold)] hover:text-[color:var(--gold-deep)]"
       >
-        <Settings2 size={16} strokeWidth={1.7} />
+        <Settings size={16} strokeWidth={1.7} />
       </button>
 
       <AnimatePresence>

@@ -50,7 +50,7 @@ export default function Navbar() {
   return (
     <header className="fixed inset-x-0 top-0 z-[100] px-3 pt-3 sm:px-6 sm:pt-5" data-testid="site-header">
       <div
-        className={`mx-auto flex max-w-[1340px] items-center justify-between gap-4 rounded-xl px-3 py-2.5 transition-[background-color,box-shadow,border-color] duration-500 sm:px-5 sm:py-3 ${
+        className={`mx-auto flex h-[60px] max-w-[1340px] items-center justify-between gap-4 rounded-xl px-2.5 sm:px-4 ${
           scrolled ? "glass-nav-solid" : "glass-nav"
         }`}
       >
@@ -66,7 +66,7 @@ export default function Navbar() {
             alt={`${COMPANY.name} logo`}
             width="321"
             height="162"
-            className="h-8 w-auto sm:h-9"
+            className="h-7 w-auto sm:h-8"
             data-testid="nav-logo"
           />
           <span className="flex flex-col leading-none">
@@ -88,7 +88,7 @@ export default function Navbar() {
               aria-current={active === l.id ? "true" : undefined}
               data-active={active === l.id ? "true" : "false"}
               data-testid={`nav-link-${l.id}`}
-              className={`relative py-1 font-tech text-[11px] uppercase tracking-[0.18em] transition-colors duration-300 ${
+              className={`relative py-1 font-tech text-[11px] uppercase tracking-[0.18em] transition-colors duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] ${
                 active === l.id
                   ? "text-[color:var(--graphite)]"
                   : "text-[color:var(--slate)] hover:text-[color:var(--graphite)]"
@@ -110,13 +110,13 @@ export default function Navbar() {
             href="#contact"
             onClick={(e) => go(e, "#contact")}
             data-testid="nav-inquiry-btn"
-            className="btn-press group hidden items-center gap-2.5 rounded-sm bg-[color:var(--graphite)] px-5 py-3 font-tech text-[10px] uppercase tracking-[0.18em] text-[color:var(--porcelain)] hover:bg-[color:var(--gold-deep)] md:flex"
+            className="btn-press btn-press-sm group hidden h-10 items-center gap-2.5 rounded-sm bg-[color:var(--graphite)] px-5 font-tech text-[10px] uppercase tracking-[0.18em] leading-none text-[color:var(--porcelain)] hover:bg-[color:var(--gold-deep)] md:flex"
           >
             {t.nav.cta}
             <ArrowRight size={13} className="transition-transform duration-300 group-hover:translate-x-1" />
           </a>
           <button
-            className="btn-press flex h-10 w-10 items-center justify-center rounded-sm border border-[color:var(--hairline-strong)] text-[color:var(--graphite)] hover:border-[color:var(--gold)] hover:text-[color:var(--gold-deep)] lg:hidden"
+            className="btn-press btn-press-sm flex h-10 w-10 shrink-0 items-center justify-center rounded-sm border border-[color:var(--hairline-strong)] text-[color:var(--graphite)] hover:border-[color:var(--gold)] hover:text-[color:var(--gold-deep)] lg:hidden"
             onClick={() => setOpen(!open)}
             data-testid="mobile-menu-btn"
             aria-label={open ? "Close menu" : t.nav.menu}

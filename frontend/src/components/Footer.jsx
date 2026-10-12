@@ -30,7 +30,7 @@ export default function Footer() {
           ))}
         </nav>
 
-        <div className="mt-10 grid gap-10 lg:grid-cols-[1.2fr_0.8fr]">
+        <div className="mt-10 grid gap-10 lg:grid-cols-[0.9fr_1.1fr]">
           <div className="flex items-start gap-5">
             <img
               src={theme === "dark" ? "/brand/yuefung-logo-dark.png" : "/brand/yuefung-logo.png"}
@@ -53,17 +53,26 @@ export default function Footer() {
             </div>
           </div>
 
-          <div>
-            <p className="label-tech">{t.footer.addressLabel}</p>
-            <address className="mt-3 text-sm not-italic leading-relaxed text-[color:var(--slate)]">
-              <span className="block text-[color:var(--graphite-soft)]">{COMPANY.name}</span>
-              {COMPANY.address.map((line) => (
-                <span key={line} className="block">{line}</span>
-              ))}
-            </address>
-            <p className="mt-4 font-tech text-[10px] uppercase tracking-[0.18em] text-[color:var(--slate)]">
-              {t.footer.established} — {COMPANY.established}
-            </p>
+          <div className="grid gap-8 sm:grid-cols-2">
+            <div>
+              <p className="label-tech">{t.footer.addressLabel}</p>
+              <address className="mt-3 text-sm not-italic leading-relaxed text-[color:var(--slate)]">
+                {COMPANY.hkAddress.map((line) => (
+                  <span key={line} className="block">{line}</span>
+                ))}
+              </address>
+              <p className="mt-4 font-tech text-[10px] uppercase tracking-[0.18em] text-[color:var(--slate)]">
+                {t.footer.established} — {COMPANY.established}
+              </p>
+            </div>
+            <div>
+              <p className="label-tech">{t.footer.mfgLabel}</p>
+              <address className="mt-3 text-sm not-italic leading-relaxed text-[color:var(--slate)]">
+                {COMPANY.address.map((line) => (
+                  <span key={line} className="block">{line}</span>
+                ))}
+              </address>
+            </div>
           </div>
         </div>
 

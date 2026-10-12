@@ -16,7 +16,15 @@ export default function Home() {
 
   useEffect(() => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    const lenis = new Lenis({ duration: 1.05, smoothWheel: true });
+    const lenis = new Lenis({
+      duration: 1.15,
+      // long, natural ease-out — no abrupt stops, no scroll hijacking
+      easing: (x) => (x === 1 ? 1 : 1 - Math.pow(2, -10 * x)),
+      smoothWheel: true,
+      wheelMultiplier: 0.95,
+      touchMultiplier: 1.6,
+      lerp: 0.085,
+    });
     window.__lenis = lenis;
     let rafId;
     const raf = (time) => {

@@ -70,7 +70,7 @@ export default function Company() {
                 loading="lazy"
                 className="h-full w-full object-cover"
               />
-              <figcaption className="absolute inset-x-0 bottom-0 border-t border-[color:var(--hairline)] bg-[color:var(--surface)]/92 px-6 py-4 backdrop-blur-sm">
+              <figcaption className="absolute inset-x-0 bottom-0 border-t border-[color:var(--hairline)] surface-soft px-6 py-4 backdrop-blur-sm">
                 <p className="label-tech">{t.company.photoLabel}</p>
                 <p className="mt-1.5 text-xs text-[color:var(--slate)]">{t.company.photoNote}</p>
               </figcaption>
@@ -103,7 +103,7 @@ export default function Company() {
                     <h4 className="mt-7 font-display text-lg font-normal tracking-tight text-[color:var(--graphite)]">
                       {v.title}
                     </h4>
-                    <p className="mt-3 text-sm leading-relaxed text-[color:var(--slate)]">{v.body}</p>
+                    <p className="mt-3 text-[13px] leading-relaxed text-[color:var(--slate)]">{v.body}</p>
                   </article>
                 </Reveal>
               );

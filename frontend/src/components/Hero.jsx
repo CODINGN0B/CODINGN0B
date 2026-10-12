@@ -36,7 +36,7 @@ export default function Hero() {
             data-testid="hero-heading"
           >
             {t.hero.h1a}{" "}
-            <span className="text-[color:var(--gold-deep)]">{t.hero.h1b}</span>
+            <span className="font-medium text-[color:var(--gold-deep)]">{t.hero.h1b}</span>
           </motion.h1>
 
           <motion.p
@@ -59,7 +59,7 @@ export default function Hero() {
             <button
               onClick={() => scrollToId("#capabilities")}
               data-testid="hero-capabilities-btn"
-              className="btn-press group flex w-full items-center justify-center gap-2.5 rounded-sm border border-[color:var(--hairline-strong)] bg-[color:var(--surface)]/60 px-7 py-4 font-tech text-[11px] uppercase tracking-[0.18em] text-[color:var(--graphite)] hover:border-[color:var(--gold)] hover:text-[color:var(--gold-deep)] sm:w-auto"
+              className="btn-press group flex w-full items-center justify-center gap-2.5 rounded-sm border border-[color:var(--hairline-strong)] surface-glass px-7 py-4 font-tech text-[11px] uppercase tracking-[0.18em] text-[color:var(--graphite)] hover:border-[color:var(--gold)] hover:text-[color:var(--gold-deep)] sm:w-auto"
             >
               {t.hero.cta2}
               <ArrowDown size={14} className="transition-transform duration-300 group-hover:translate-y-1" />

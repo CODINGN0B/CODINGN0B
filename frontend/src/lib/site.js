@@ -1,13 +1,25 @@
 export const API = `${process.env.REACT_APP_BACKEND_URL}/api`;
 
 export const COMPANY = {
+  /** Registered name — kept for legal contexts (copyright, privacy draft, email footer). */
   name: "Yue Fung Metal Plastic Products Co. Ltd.",
+  /** Brand name used across the site UI. */
+  display: "Yue Fung Precision Product Co. Ltd.",
   short: "YUE FUNG",
-  sub: "METAL PLASTIC PRODUCTS CO. LTD.",
+  sub: "PRECISION PRODUCT CO. LTD.",
   slogan: "Precision Engineering Aligned with Excellent Standards",
   established: "1984",
   establishedPlace: "Hong Kong",
-  address: ["Xincheng Industrial District", "HengLi Town, Dongguan City", "GuangDong, China"],
+  hkAddress: [
+    "Unit 308, 3/F Fook Hong Industrial Building",
+    "19 Sheung Yuet Road, Kowloon Bay",
+    "Kowloon, Hong Kong",
+  ],
+  address: [
+    "No. 178 Xin Cheng Industrial District",
+    "Tian Keng, Heng Lik Zhen",
+    "Dongguan, China",
+  ],
 };
 
 export const NAV_LINKS = [
@@ -117,6 +129,11 @@ export const IMAGES = {
 export const scrollToId = (hash) => {
   const el = document.querySelector(hash);
   if (!el) return;
-  if (window.__lenis) window.__lenis.scrollTo(el, { offset: -104 });
+  if (window.__lenis)
+    window.__lenis.scrollTo(el, {
+      offset: -104,
+      duration: 1.25,
+      easing: (x) => (x === 1 ? 1 : 1 - Math.pow(2, -10 * x)),
+    });
   else el.scrollIntoView({ behavior: "smooth", block: "start" });
 };

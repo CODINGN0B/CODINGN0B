@@ -134,15 +134,17 @@ _WRAP_OPEN = (
     '<div style="font-family:Arial,Helvetica,sans-serif;font-size:17px;letter-spacing:3px;'
     'color:#ffffff;font-weight:bold">YUE FUNG</div>'
     '<div style="font-family:Arial,Helvetica,sans-serif;font-size:10px;letter-spacing:2px;'
-    'color:#8d99a6;margin-top:5px">METAL PLASTIC PRODUCTS CO. LTD.</div>'
+    'color:#8d99a6;margin-top:5px">PRECISION PRODUCT CO. LTD.</div>'
     '</td></tr><tr><td style="padding:28px;font-family:Arial,Helvetica,sans-serif;'
     'font-size:14px;line-height:1.65;color:#20242a">'
 )
 _WRAP_CLOSE = (
     '</td></tr><tr><td style="padding:18px 28px;background:#f8f9fa;border-top:1px solid #e3e5e8;'
     'font-family:Arial,Helvetica,sans-serif;font-size:11px;color:#79828d">'
-    'Sent by Yue Fung Metal Plastic Products Co. Ltd. &middot; Xincheng Industrial District, '
-    'HengLi Town, Dongguan City, Guangdong, China &middot; Established in Hong Kong, 1984.<br>'
+    'Sent by Yue Fung Precision Product Co. Ltd. &middot; Hong Kong office: Unit 308, 3/F Fook Hong '
+    'Industrial Building, 19 Sheung Yuet Road, Kowloon Bay, Kowloon, Hong Kong &middot; Manufacturing: '
+    'No. 178 Xin Cheng Industrial District, Tian Keng, Heng Lik Zhen, Dongguan, China &middot; '
+    'Established in Hong Kong, 1984.<br>'
     'We never ask for passwords or payment details by email.'
     '</td></tr></table></td></tr></table>'
 )
