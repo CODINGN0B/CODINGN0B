@@ -136,6 +136,19 @@ inquiry itself is always saved and the customer acknowledgement sends normally. 
 confirm a deliverable notification inbox (update `COMPANY_NOTIFICATION_EMAIL`), then use
 "Resend notification" in the dashboard for any inquiries received in the meantime.
 
+### Deployment readiness check (2026-10-09)
+Deployment agent static scan: **PASS, no blockers.** Verified: no hardcoded secrets or URLs
+(frontend uses `REACT_APP_BACKEND_URL` only, backend reads every value from the environment with no
+baked-in defaults), auth redirect uses `window.location.origin`, CORS deployment-safe, supervisor
+config and ports untouched (backend 0.0.0.0:8001, frontend 3000), all routes under `/api`, no
+compilation blockers or references to removed modules, no destructive startup DB operations, uploads
+go to Emergent object storage (nothing written to ephemeral disk).
+Secrets that must exist in the production environment at deploy time: `MONGO_URL`, `DB_NAME`,
+`CORS_ORIGINS`, `EMERGENT_EMAIL_KEY`, `EMAIL_FROM_NAME`, `EMAIL_REPLY_TO`,
+`COMPANY_NOTIFICATION_EMAIL`, `ADMIN_EMAILS`, `EMERGENT_LLM_KEY`, `MAX_UPLOAD_MB`.
+After a production domain exists, add canonical / `og:url` / `og:image` / `sitemap.xml` (currently
+omitted on purpose) and enable the deployment crawling toggle.
+
 ## Outstanding configuration / owner actions
 - Confirm a deliverable inquiry inbox (see the known issue above) — highest priority.
 - Replace the remaining stock photography (capabilities grid, CNC/stamping/tooling service cards)
