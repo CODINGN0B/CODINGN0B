@@ -210,3 +210,14 @@ omitted on purpose) and enable the deployment crawling toggle.
 - Hero: mockup entrance changed to a gentle ease-DOWN settle (y:-26→0, cubic-bezier(0.22,1,0.36,1)); "Explore Capabilities" button arrow now animates downward (y 0→14→0, opacity dip) on click, coordinated with the scroll.
 - Capabilities & Service cards: GPU-friendly hover zoom (transform-gpu + will-change), refined easing (~450–650ms), no layout shift.
 - Smooth scroll: scrollToId now distance-based duration (0.7–1.5s) via Lenis with -104 offset; falls back to instant jump under prefers-reduced-motion. Verified nav-link scroll works (0→4468px).
+
+## Changelog — 2026-07 (real product imagery + CONTACT_EMAIL)
+- Inquiry notification recipient now driven by `CONTACT_EMAIL` env var (=yfhk@yuefung.com); inquiries.py reads os.environ["CONTACT_EMAIL"].
+- Replaced stock images with real product photos (downloaded to /frontend/public/photos for production reliability):
+  - CNC Machining service card -> cnc-brackets.jpg (black anodised aluminium CNC brackets).
+  - Capabilities "Manufacturing to Drawing" -> cnc-copper-shaft.jpg (copper precision turned shaft) — second CNC image.
+  - Precision Metal Stamping service card -> stamping-die.jpg (progressive stamping die in operation).
+  - Tooling / CNC Tooling service card -> stamping-die.jpg (die = tooling).
+  - Plastic Injection Moulding service card -> injection-connector.jpg (moulded connector housing w/ gold-plated stamped brass terminals).
+  - Standards section -> added responsive CMM inspection figure (cmm-inspection.jpg, TESASTAR-m) with "CMM · In-process inspection" badge.
+- All images object-cover + responsive heights; descriptive alt text added.

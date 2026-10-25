@@ -38,35 +38,32 @@ export const SERVICES = [
     name: "CNC Machining",
     blurb:
       "Machined components produced from customer drawings and specifications, with scope confirmed per project.",
-    image:
-      "https://images.unsplash.com/photo-1780034766288-9b436534d428?crop=entropy&cs=srgb&fm=jpg&q=85&w=1200",
-    alt: "Machined metal components, a measuring rule and technical drawings on a workbench",
+    image: "/photos/cnc-brackets.jpg",
+    alt: "Black anodised aluminium CNC machined brackets",
   },
   {
     key: "precision-metal-stamping",
     name: "Precision Metal Stamping",
     blurb:
       "Stamped metal parts manufactured to supplied drawings, with finishing requirements agreed before production.",
-    image:
-      "https://images.unsplash.com/photo-1770048427702-6b42cdf78b22?crop=entropy&cs=srgb&fm=jpg&q=85&w=1200",
-    alt: "Close-up of a formed metal bracket with a precision-finished bore",
+    image: "/photos/stamping-die.jpg",
+    alt: "Progressive stamping die in operation forming precision metal parts",
   },
   {
     key: "tooling",
     name: "Tooling / CNC Tooling",
     blurb:
       "Tooling prepared to support the manufacture of your parts, reviewed against the drawings you provide.",
-    image:
-      "https://images.unsplash.com/photo-1676646606766-f8325cac7faf?crop=entropy&cs=srgb&fm=jpg&q=85&w=1200",
-    alt: "Multi-cavity production tool assembly on a dark background",
+    image: "/photos/stamping-die.jpg",
+    alt: "Progressive stamping die in operation showing tooling plate, punches and pilots",
   },
   {
     key: "plastic-injection-moulding",
     name: "Plastic Injection Moulding",
     blurb:
       "Moulded plastic components manufactured against approved specifications and agreed production requirements.",
-    image: "/photos/injection-moulding.jpg",
-    alt: "Injection moulding machine on the Yue Fung production floor",
+    image: "/photos/injection-connector.jpg",
+    alt: "Injection moulded black connector housing with gold-plated stamped brass terminal inserts",
   },
 ];
 
@@ -80,9 +77,8 @@ export const IMAGES = {
     {
       title: "Manufacturing to Drawing",
       body: "Parts produced against the drawings, dimensions and finishing notes you supply.",
-      image:
-        "https://images.unsplash.com/photo-1780034766288-9b436534d428?crop=entropy&cs=srgb&fm=jpg&q=85&w=1400",
-      alt: "Machined components with measuring equipment and engineering drawings",
+      image: "/photos/cnc-copper-shaft.jpg",
+      alt: "Copper precision turned shaft and spindle assembly produced by CNC machining",
       span: "lg:col-span-8",
       height: "h-[300px] md:h-[420px]",
     },

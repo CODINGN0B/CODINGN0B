@@ -22,6 +22,22 @@ export default function Standards() {
             {t.standards.h2}
           </h2>
         </Reveal>
+        <Reveal delay={0.1} className="mt-12">
+          <figure
+            className="relative overflow-hidden border border-[color:var(--hairline)] bg-[color:var(--pale)]"
+            data-testid="inspection-photo"
+          >
+            <img
+              src="/photos/cmm-inspection.jpg"
+              alt="TESASTAR-m coordinate measuring machine inspecting a precision machined component"
+              loading="lazy"
+              className="h-[340px] w-full object-cover object-center sm:h-[440px] md:h-[500px]"
+            />
+            <figcaption className="absolute left-0 top-0 surface-soft px-4 py-2.5 font-tech text-[9px] uppercase tracking-[0.2em] text-[color:var(--graphite)] backdrop-blur-sm">
+              CMM &middot; In-process inspection
+            </figcaption>
+          </figure>
+        </Reveal>
         <div className="mt-14 grid gap-12 lg:grid-cols-[0.95fr_1.05fr] lg:gap-16">
           <div>
             <h3 className="flex items-center gap-3 font-display text-xl font-light tracking-tight text-[color:var(--graphite)]">
