@@ -231,3 +231,12 @@ omitted on purpose) and enable the deployment crawling toggle.
   - factory-floor.jpg -> Company photo slot (replaces injection-moulding.jpg); caption note updated across all 5 locales to "Stamping presses on the production floor." (no size/headcount/model claims).
 - Service grid now has 4 unique images (prior stamping-die duplicate removed; tooling card keeps stamping-die).
 - No machine model names/specs/capacities added to copy; all images object-cover + responsive, descriptive alt text.
+
+## Changelog — 2026-07 (watermark cleanup, assets only)
+- Removed the bottom-right "豆包 AI生成" watermark from 4 photos (no copy/layout changes):
+  - cnc-brackets.jpg -> bottom-strip crop (2048x1599 -> 2048x1395); brackets intact.
+  - injection-connector.jpg -> bottom-strip crop (1536x2048 -> 1536x1867); connector intact.
+  - stamping-die.jpg -> bottom-strip crop (1536x2048 -> 1536x1935).
+  - terminal-contacts.jpg -> clone-fill of corner over plain background (size unchanged).
+- Audited all other site photos (cnc-copper-shaft, cmm-inspection, stamped-bracket, cnc-tapping-centre, factory-floor, hero) — no watermark present; left untouched.
+- All cleaned via crop/mask only; verified seam-free at full res and in-context on preview. Originals backed up at /tmp/orig_photos.
