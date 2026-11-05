@@ -221,3 +221,13 @@ omitted on purpose) and enable the deployment crawling toggle.
   - Plastic Injection Moulding service card -> injection-connector.jpg (moulded connector housing w/ gold-plated stamped brass terminals).
   - Standards section -> added responsive CMM inspection figure (cmm-inspection.jpg, TESASTAR-m) with "CMM · In-process inspection" badge.
 - All images object-cover + responsive heights; descriptive alt text added.
+
+## Changelog — 2026-07 (4 more real photos + dedupe)
+- Verified prior 5 photos all present (incl. Capabilities "Manufacturing to Drawing" copper shaft — the earlier failed edit had in fact landed).
+- Added 4 new photos to /frontend/public/photos:
+  - stamped-bracket.jpg -> Precision Metal Stamping SERVICE card (replaces duplicate stamping-die) + Capabilities "Component Finishing".
+  - terminal-contacts.jpg -> Capabilities "Metal & Plastic in One Place" (formed metal contacts on carrier strip; not described as moulded).
+  - cnc-tapping-centre.jpg -> Capabilities "Tooling Support" (equipment photo, tool turret).
+  - factory-floor.jpg -> Company photo slot (replaces injection-moulding.jpg); caption note updated across all 5 locales to "Stamping presses on the production floor." (no size/headcount/model claims).
+- Service grid now has 4 unique images (prior stamping-die duplicate removed; tooling card keeps stamping-die).
+- No machine model names/specs/capacities added to copy; all images object-cover + responsive, descriptive alt text.

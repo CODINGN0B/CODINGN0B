@@ -39,7 +39,7 @@ const en = {
     dongguan: "Dongguan, GuangDong",
     facility: "Manufacturing facility",
     photoLabel: "Production environment",
-    photoNote: "Injection moulding equipment on the production floor.",
+    photoNote: "Stamping presses on the production floor.",
     valuesTitle: "Core values",
     valuesNote: "Yue Fung Precision — \u201c40 years of Heritage\u201d.",
     values: [
@@ -186,7 +186,7 @@ const zh = {
     dongguan: "广东东莞",
     facility: "生产厂房",
     photoLabel: "生产现场",
-    photoNote: "生产车间内的注塑设备。",
+    photoNote: "生产车间内的冲压设备。",
     valuesTitle: "核心价值",
     valuesNote: "裕丰精密 —— 「四十年传承」。",
     values: [
@@ -333,7 +333,7 @@ const zhTW = {
     dongguan: "廣東東莞",
     facility: "生產廠房",
     photoLabel: "生產現場",
-    photoNote: "生產車間內的射出成型設備。",
+    photoNote: "生產車間內的沖壓設備。",
     valuesTitle: "核心價值",
     valuesNote: "裕豐精密 —— 「四十年傳承」。",
     values: [
@@ -480,7 +480,7 @@ const cs = {
     dongguan: "Dongguan, GuangDong",
     facility: "Výrobní provoz",
     photoLabel: "Výrobní prostředí",
-    photoNote: "Vstřikovací zařízení ve výrobní hale.",
+    photoNote: "Lisovací stroje ve výrobní hale.",
     valuesTitle: "Hodnoty",
     valuesNote: "Yue Fung Precision — \u201e40 let dědictví\u201c.",
     values: [
@@ -627,7 +627,7 @@ const es = {
     dongguan: "Dongguan, GuangDong",
     facility: "Planta de producción",
     photoLabel: "Entorno de producción",
-    photoNote: "Equipo de inyección en la planta de producción.",
+    photoNote: "Prensas de estampación en la planta de producción.",
     valuesTitle: "Valores",
     valuesNote: "Yue Fung Precision — «40 años de trayectoria».",
     values: [

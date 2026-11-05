@@ -46,8 +46,8 @@ export const SERVICES = [
     name: "Precision Metal Stamping",
     blurb:
       "Stamped metal parts manufactured to supplied drawings, with finishing requirements agreed before production.",
-    image: "/photos/stamping-die.jpg",
-    alt: "Progressive stamping die in operation forming precision metal parts",
+    image: "/photos/stamped-bracket.jpg",
+    alt: "Stamped sheet metal bracket with formed bends, slots and holes",
   },
   {
     key: "tooling",
@@ -71,8 +71,8 @@ export const IMAGES = {
   hero:
     "https://images.unsplash.com/photo-1769147339214-076740872485?crop=entropy&cs=srgb&fm=jpg&q=85&w=1600",
   heroAlt: "Two precision metal components resting on engineering blueprints",
-  company: "/photos/injection-moulding.jpg",
-  companyAlt: "Injection moulding machine on the Yue Fung production floor",
+  company: "/photos/factory-floor.jpg",
+  companyAlt: "Factory floor with stamping presses and operators at work",
   capabilities: [
     {
       title: "Manufacturing to Drawing",
@@ -85,27 +85,24 @@ export const IMAGES = {
     {
       title: "Metal & Plastic in One Place",
       body: "Metal and plastic parts handled by the same team, which keeps project communication simple.",
-      image:
-        "https://images.unsplash.com/photo-1581093803931-46e730e7622e?crop=entropy&cs=srgb&fm=jpg&q=85&w=1200",
-      alt: "Industrial production machine in operation",
+      image: "/photos/terminal-contacts.jpg",
+      alt: "Formed metal terminal contacts held on a black carrier strip",
       span: "lg:col-span-4",
       height: "h-[300px] md:h-[420px]",
     },
     {
       title: "Tooling Support",
       body: "Tooling reviewed and prepared alongside the part it produces.",
-      image:
-        "https://images.unsplash.com/photo-1676646606766-f8325cac7faf?crop=entropy&cs=srgb&fm=jpg&q=85&w=1200",
-      alt: "Production tool assembly ready for installation",
+      image: "/photos/cnc-tapping-centre.jpg",
+      alt: "CNC tapping centre with a multi-position tool turret",
       span: "lg:col-span-4",
       height: "h-[280px] md:h-[360px]",
     },
     {
       title: "Component Finishing",
       body: "Surface and finishing requirements confirmed with you before production begins.",
-      image:
-        "https://images.unsplash.com/photo-1775726377818-88afc832c078?crop=entropy&cs=srgb&fm=jpg&q=85&w=1200",
-      alt: "Finished threaded metal component on a plain background",
+      image: "/photos/stamped-bracket.jpg",
+      alt: "Finished stamped sheet metal bracket with bends, slots and holes",
       span: "lg:col-span-4",
       height: "h-[280px] md:h-[360px]",
     },
