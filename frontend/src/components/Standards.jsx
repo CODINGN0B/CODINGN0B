@@ -4,6 +4,19 @@ import { useT } from "@/context/SettingsContext";
 
 const ICONS = [Microscope, Repeat2, Gauge];
 
+const CERTS = [
+  {
+    img: "/photos/iatf-16949-2016-en.jpg",
+    pdf: "/iatf-16949-2016-en.pdf",
+    alt: "IATF 16949:2016 certificate (English)",
+  },
+  {
+    img: "/photos/iatf-16949-2016-zh.jpg",
+    pdf: "/iatf-16949-2016-zh.pdf",
+    alt: "IATF 16949:2016 certificate (Chinese)",
+  },
+];
+
 export default function Standards() {
   const t = useT();
 
@@ -44,20 +57,33 @@ export default function Standards() {
               <FileCheck2 size={17} className="text-[color:var(--gold-deep)]" /> {t.standards.certsTitle}
             </h3>
             <div className="mt-7 grid grid-cols-2 gap-5">
-              {t.standards.certs.map((c, i) => (
-                <Reveal key={c} delay={0.06 * i}>
-                  <div
-                    className="relative flex aspect-[3/4] flex-col items-center justify-center border border-dashed border-[color:var(--hairline-strong)] surface-glass p-5 text-center"
-                    data-testid={`certificate-placeholder-${i}`}
+              {t.standards.certs.map((label, i) => (
+                <Reveal key={label} delay={0.06 * i}>
+                  <a
+                    href={CERTS[i].pdf}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="group relative flex flex-col overflow-hidden border border-[color:var(--hairline)] bg-[color:var(--surface)] transition-[box-shadow,border-color] duration-500 hover:border-[color:var(--gold)]/50 hover:shadow-card-hover"
+                    data-testid={`certificate-card-${i}`}
                   >
-                    <FileCheck2 size={20} className="mb-5 text-[color:var(--slate)]" />
-                    <p className="font-display text-sm font-light tracking-tight text-[color:var(--graphite)]">
-                      {c}
-                    </p>
-                    <p className="mt-2 text-xs leading-relaxed text-[color:var(--slate)]">
-                      {t.standards.certHint}
-                    </p>
-                  </div>
+                    <div className="aspect-[297/210] w-full overflow-hidden bg-[color:var(--pale)]">
+                      <img
+                        src={CERTS[i].img}
+                        alt={CERTS[i].alt}
+                        loading="lazy"
+                        className="h-full w-full transform-gpu object-cover object-top transition-transform duration-[650ms] ease-[cubic-bezier(0.22,1,0.36,1)] will-change-transform group-hover:scale-[1.04]"
+                      />
+                    </div>
+                    <div className="flex items-center gap-2.5 border-t border-[color:var(--hairline)] px-4 py-3">
+                      <FileCheck2
+                        size={15}
+                        className="shrink-0 text-[color:var(--gold-deep)]"
+                      />
+                      <span className="font-tech text-[10px] uppercase tracking-[0.12em] text-[color:var(--graphite)] sm:text-[11px]">
+                        {label}
+                      </span>
+                    </div>
+                  </a>
                 </Reveal>
               ))}
             </div>
