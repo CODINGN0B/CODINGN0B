@@ -46,7 +46,10 @@ export default function Standards() {
             <div className="mt-7 grid grid-cols-2 gap-5">
               {t.standards.certs.map((c, i) => (
                 <Reveal key={c} delay={0.06 * i}>
-                  <div
+                  <a
+                    href={i === 0 ? "/iatf-16949-2016-en.pdf" : "/iatf-16949-2016-zh.pdf"}
+                    target="_blank"
+                    rel="noreferrer"
                     className="relative flex aspect-[3/4] flex-col items-center justify-center border border-dashed border-[color:var(--hairline-strong)] surface-glass p-5 text-center"
                     data-testid={`certificate-placeholder-${i}`}
                   >
@@ -57,7 +60,7 @@ export default function Standards() {
                     <p className="mt-2 text-xs leading-relaxed text-[color:var(--slate)]">
                       {t.standards.certHint}
                     </p>
-                  </div>
+                  </a>
                 </Reveal>
               ))}
             </div>
