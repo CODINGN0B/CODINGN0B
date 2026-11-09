@@ -4,6 +4,20 @@ import { useT } from "@/context/SettingsContext";
 
 const ICONS = [Microscope, Repeat2, Gauge];
 
+// Card 1 = English certificate, card 2 = Chinese certificate
+const CERT_FILES = [
+  {
+    pdf: "/iatf-16949-2016-en.pdf",
+    img: "/photos/iatf-16949-2016-en.jpg",
+    alt: "IATF 16949:2016 certificate (English) for Dongguan Yuefung Metal & Plastic Products Co., Ltd.",
+  },
+  {
+    pdf: "/iatf-16949-2016-zh.pdf",
+    img: "/photos/iatf-16949-2016-zh.jpg",
+    alt: "IATF 16949:2016 certificate (Chinese) for Dongguan Yuefung Metal & Plastic Products Co., Ltd.",
+  },
+];
+
 export default function Standards() {
   const t = useT();
 
@@ -47,19 +61,24 @@ export default function Standards() {
               {t.standards.certs.map((c, i) => (
                 <Reveal key={c} delay={0.06 * i}>
                   <a
-                    href={i === 0 ? "/iatf-16949-2016-en.pdf" : "/iatf-16949-2016-zh.pdf"}
+                    href={CERT_FILES[i]?.pdf ?? CERT_FILES[1].pdf}
                     target="_blank"
                     rel="noreferrer"
-                    className="relative flex aspect-[3/4] flex-col items-center justify-center border border-dashed border-[color:var(--hairline-strong)] surface-glass p-5 text-center"
+                    className="group relative block overflow-hidden border border-[color:var(--hairline)] bg-[color:var(--surface)] transition-[box-shadow,border-color] duration-500 hover:border-[color:var(--gold)]/50 hover:shadow-card-hover"
                     data-testid={`certificate-placeholder-${i}`}
                   >
-                    <FileCheck2 size={20} className="mb-5 text-[color:var(--slate)]" />
-                    <p className="font-display text-sm font-light tracking-tight text-[color:var(--graphite)]">
-                      {c}
-                    </p>
-                    <p className="mt-2 text-xs leading-relaxed text-[color:var(--slate)]">
-                      {t.standards.certHint}
-                    </p>
+                    <img
+                      src={CERT_FILES[i]?.img ?? CERT_FILES[1].img}
+                      alt={CERT_FILES[i]?.alt ?? CERT_FILES[1].alt}
+                      loading="lazy"
+                      className="aspect-[1.414/1] w-full object-cover object-top"
+                    />
+                    <div className="flex items-center gap-2.5 border-t border-[color:var(--hairline)] px-4 py-3">
+                      <FileCheck2 size={15} className="shrink-0 text-[color:var(--gold-deep)]" />
+                      <span className="font-display text-sm font-light tracking-tight text-[color:var(--graphite)]">
+                        {c}
+                      </span>
+                    </div>
                   </a>
                 </Reveal>
               ))}
