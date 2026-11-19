@@ -240,3 +240,9 @@ omitted on purpose) and enable the deployment crawling toggle.
   - terminal-contacts.jpg -> clone-fill of corner over plain background (size unchanged).
 - Audited all other site photos (cnc-copper-shaft, cmm-inspection, stamped-bracket, cnc-tapping-centre, factory-floor, hero) — no watermark present; left untouched.
 - All cleaned via crop/mask only; verified seam-free at full res and in-context on preview. Originals backed up at /tmp/orig_photos.
+
+## Changelog — 2026-07 (real IATF 16949:2016 certificates)
+- Replaced the two dashed certificate placeholders in Standards with real certificate cards (card1=English, card2=Chinese).
+- Downloaded assets (not hotlinked): public/iatf-16949-2016-en.pdf, public/iatf-16949-2016-zh.pdf; previews converted to optimised JPG at public/photos/iatf-16949-2016-en.jpg & -zh.jpg.
+- Each card: preview image (A4 landscape aspect-[297/210], object-cover object-top, lazy), footer row with FileCheck2 icon + label, whole card links to its PDF (target=_blank rel=noreferrer); existing hairline/gold-hover/card-hover styles retained. Alt text: "IATF 16949:2016 certificate (English/Chinese)".
+- certNote updated across all 5 locales to the verified facts only: issued by Quality Austria, valid until 4 July 2027, scope "Manufacturing of Stamping Metal Parts and Molding Injection Plastic Parts" (excluding product design). No reg numbers added as text; company not renamed anywhere.
